@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HubMat.UFGD | IA na Prática Docente</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#070b14',
+                            darker: '#04070c',
+                            purple: '#a855f7',
+                            pink: '#ec4899',
+                            blue: '#3b82f6',
+                            surface: 'rgba(255, 255, 255, 0.03)',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'neon-gradient': 'linear-gradient(to right, #a855f7, #ec4899)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos Base e Reset */
+        body {
+            background-color: #070b14;
+            color: #f3f4f6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(168, 85, 247, 0.15), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.15), transparent 25%);
+            background-attachment: fixed;
+        }
+
+        /* Glassmorphism Classes */
+        .glass {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border-radius: 1rem;
+        }
+
+        .glass-input {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .glass-input:focus {
+            outline: none;
+            border-color: #a855f7;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Texto Gradiente */
+        .text-gradient {
+            background: linear-gradient(to right, #a855f7, #ec4899, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .text-gradient-purple-pink {
+            background: linear-gradient(to right, #d8b4fe, #f9a8d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Scrollbar Personalizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(168, 85, 247, 0.5);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(168, 85, 247, 0.8);
+        }
+
+        /* Animações e Transições */
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Esconder abas inativas */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-out; }
+
+        /* Sidebar direita do Bloco de Notas */
+        #notepad-sidebar {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .notepad-open #notepad-sidebar {
+            transform: translateX(0);
+        }
+        .notepad-closed #notepad-sidebar {
+            transform: translateX(100%);
+        }
+        
+        /* Loading Spinner */
+        .loader {
+            border: 3px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            border-top: 3px solid #a855f7;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-sans selection:bg-brand-purple selection:text-white relative">
+
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2"></div>
+
+    <div id="auth-view" class="min-h-screen flex items-center justify-center p-4 relative z-10">
+        <!-- Glow effects de fundo -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-purple rounded-full mix-blend-screen filter blur-[128px] opacity-20 pointer-events-none"></div>
+        
+        <div class="glass-card w-full max-w-md p-8 relative overflow-hidden fade-in">
+            <!-- Header do Auth -->
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-extrabold tracking-tight mb-2">
+                    <span class="text-white">HubMat</span><span class="text-brand-pink">.UFGD</span>
+                </h1>
+                <p class="text-sm text-gray-400 font-light">Acesso para participantes do projeto de extensão</p>
+            </div>
+
+            <!-- Form Container -->
+            <div id="auth-forms-container" class="relative space-y-5">
+                <button id="google-login-btn" type="button" class="w-full bg-white text-gray-800 font-semibold py-3 px-4 rounded-xl shadow-lg hover:bg-gray-100 transform hover:-translate-y-0.5 transition-all flex justify-center items-center gap-3">
+                    <i class="fab fa-google text-lg text-brand-blue"></i>
+                    <span>Entrar com Google</span>
+                </button>
+                <p class="text-center text-xs text-gray-400 leading-relaxed">
+                    Use qualquer conta Google para acessar.<br>Suas anotações ficam salvas na sua conta e disponíveis em qualquer dispositivo.
+                </p>
+                <p id="config-warning" class="hidden text-center text-xs text-yellow-300 bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3">
+                    Login ainda não configurado: preencha os dados do Firebase no início do script deste arquivo.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-view" class="hidden flex h-screen w-full overflow-hidden relative">
+        
+        <aside id="main-sidebar" class="w-72 glass flex flex-col h-full absolute md:relative z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out border-r border-brand-border">
+            <!-- Logotipo App -->
+            <div class="p-6 border-b border-brand-border flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold tracking-tight">
+                        <span class="text-white">HubMat</span><span class="text-brand-pink">.UFGD</span>
+                    </h2>
+                    <div class="flex items-center gap-2 mt-1">
+                        <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                        <span class="text-xs text-gray-400 font-medium tracking-wide uppercase">Ambiente Seguro</span>
+                    </div>
+                </div>
+                <button id="close-sidebar-btn" class="md:hidden text-gray-400 hover:text-white">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Menu Links -->
+            <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1 custom-scrollbar">
+                <a href="#" data-target="tab-inicio" class="nav-btn active flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-300 hover:bg-brand-surface hover:text-white group">
+                    <div class="w-8 h-8 rounded-lg bg-brand-surface flex items-center justify-center group-hover:bg-brand-purple/20 group-hover:text-brand-purple transition-colors">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    Início / Visão Geral
+                </a>
+                
+                <a href="#" data-target="tab-seguranca" class="nav-btn flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-300 hover:bg-brand-surface hover:text-white group">
+                    <div class="w-8 h-8 rounded-lg bg-brand-surface flex items-center justify-center group-hover:bg-brand-pink/20 group-hover:text-brand-pink transition-colors">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    Segurança de Dados
+                </a>
+
+                <a href="#" data-target="tab-acesso" class="nav-btn flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-300 hover:bg-brand-surface hover:text-white group">
+                    <div class="w-8 h-8 rounded-lg bg-brand-surface flex items-center justify-center group-hover:bg-brand-blue/20 group-hover:text-brand-blue transition-colors">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    Acesso Gratuito
+                </a>
+
+                <div class="pt-4 pb-2 px-4">
+                    <p class="text-xs font-bold text-gray-500 uppercase tracking-wider">Prática Docente</p>
+                </div>
+
+                <a href="#" data-target="tab-engenharia" class="nav-btn flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-300 hover:bg-brand-surface hover:text-white group">
+                    <div class="w-8 h-8 rounded-lg bg-brand-surface flex items-center justify-center group-hover:bg-brand-purple/20 group-hover:text-brand-purple transition-colors">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    Engenharia de Prompt
+                </a>
+
+                <a href="#" data-target="tab-biblioteca" class="nav-btn flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-300 hover:bg-brand-surface hover:text-white group">
+                    <div class="w-8 h-8 rounded-lg bg-brand-surface flex items-center justify-center group-hover:bg-brand-pink/20 group-hover:text-brand-pink transition-colors">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    Biblioteca de Prompts
+                </a>
+
+                <a href="#" data-target="tab-oficina" class="nav-btn flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-300 hover:bg-brand-surface hover:text-white group">
+                    <div class="w-8 h-8 rounded-lg bg-brand-surface flex items-center justify-center group-hover:bg-brand-blue/20 group-hover:text-brand-blue transition-colors">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    Oficina & Manuais
+                </a>
+            </nav>
+
+            <!-- User Status & Logout -->
+            <div class="p-4 border-t border-brand-border bg-black/20">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-purple to-brand-pink flex items-center justify-center text-white font-bold shadow-lg" id="user-avatar-initial">
+                        --
+                    </div>
+                    <div class="overflow-hidden">
+                        <div class="flex items-center gap-2">
+                            <p class="text-sm font-semibold text-white truncate" id="sidebar-user-name">Usuário</p>
+                            <span id="admin-badge" class="hidden px-2 py-0.5 rounded text-[10px] font-bold bg-brand-pink/20 text-brand-pink border border-brand-pink/30">ADMIN</span>
+                        </div>
+                        <p class="text-xs text-gray-400 truncate" id="sidebar-user-email">email@gmail.com</p>
+                    </div>
+                </div>
+                <button id="logout-btn" class="w-full py-2 px-4 rounded-lg border border-brand-border text-gray-300 hover:text-white hover:bg-red-500/20 hover:border-red-500/50 transition-all text-sm flex justify-center items-center gap-2">
+                    <i class="fas fa-sign-out-alt"></i> Encerrar Sessão
+                </button>
+            </div>
+        </aside>
+
+        <main class="flex-1 flex flex-col h-full overflow-hidden relative">
+            
+            <!-- Header Superior -->
+            <header class="glass z-30 px-6 py-4 flex items-center justify-between sticky top-0 border-b border-brand-border">
+                <div class="flex items-center gap-4">
+                    <button id="open-sidebar-btn" class="md:hidden text-gray-300 hover:text-white p-2 rounded-lg bg-brand-surface">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <div>
+                        <h1 class="hidden md:block text-xl font-bold text-white tracking-tight">Projeto de Extensão</h1>
+                        <p class="text-xs md:text-sm text-brand-purple font-medium hidden md:block">
+                            Inteligência Artificial na Prática Docente: Ferramentas para Professores de Matemática
+                        </p>
+                        <!-- Mobile title -->
+                        <h1 class="md:hidden text-lg font-bold"><span class="text-white">HubMat</span><span class="text-brand-pink">.UFGD</span></h1>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button id="toggle-notepad-btn" class="bg-brand-surface border border-brand-border hover:bg-white/10 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 shadow-lg group relative">
+                        <i class="fas fa-edit text-brand-pink group-hover:animate-bounce"></i>
+                        <span class="hidden sm:inline">Bloco de Notas</span>
+                        <!-- Notification dot for unsaved/saved states could go here -->
+                    </button>
+                </div>
+            </header>
+
+            <!-- Conteúdo Dinâmico (Abas) -->
+            <div class="flex-1 overflow-y-auto p-4 md:p-8 relative scroll-smooth" id="main-scroll-area">
+                
+                <!-- Background decoration in main area -->
+                <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-blue rounded-full mix-blend-screen filter blur-[150px] opacity-10 pointer-events-none"></div>
+
+                <!-- ABA: INÍCIO -->
+                <div id="tab-inicio" class="tab-content active max-w-5xl mx-auto">
+                    <!-- Hero Section -->
+                    <div class="glass-card p-8 md:p-12 mb-8 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-brand-purple/20 to-brand-pink/20 rounded-bl-full blur-3xl transition-transform group-hover:scale-110 duration-700"></div>
+                        
+                        <div class="relative z-10">
+                            <span class="inline-block py-1 px-3 rounded-full bg-brand-purple/20 text-brand-purple border border-brand-purple/30 text-xs font-bold tracking-wider mb-4">PLATAFORMA OFICIAL</span>
+                            <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
+                                Bem-vindo ao <br />
+                                <span class="text-gradient">HubMat.UFGD</span>
+                            </h2>
+                            <p class="text-gray-300 max-w-2xl text-lg leading-relaxed mb-6">
+                                Ferramentas para Professores de Matemática no Planejamento, Execução e Avaliação utilizando Inteligência Artificial.
+                            </p>
+                            
+                            <div class="flex items-center gap-4 bg-black/30 w-fit px-4 py-2 rounded-lg border border-brand-border backdrop-blur-md">
+                                <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center border-2 border-brand-purple overflow-hidden">
+                                    <i class="fas fa-user-graduate text-gray-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-400 font-medium">Coordenação do Projeto</p>
+                                    <p class="text-sm font-bold text-white">Profa. Dra. Ana Cláudia Machado Mendonça</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Stats -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="glass-card p-6 flex items-center gap-5 border-t-brand-purple">
+                            <div class="w-14 h-14 rounded-2xl bg-brand-purple/20 flex items-center justify-center text-brand-purple text-2xl shadow-[0_0_15px_rgba(168,85,247,0.3)]">
+                                <i class="fas fa-th-large"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-400 text-sm font-medium">Módulos Disponíveis</p>
+                                <h3 class="text-3xl font-bold text-white" id="dashboard-module-count">0</h3>
+                                <p class="text-xs text-gray-500">Na navegação lateral</p>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-card p-6 flex items-center gap-5 border-t-brand-pink">
+                            <div class="w-14 h-14 rounded-2xl bg-brand-pink/20 flex items-center justify-center text-brand-pink text-2xl shadow-[0_0_15px_rgba(236,72,153,0.3)]">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-400 text-sm font-medium">Modelos de IA</p>
+                                <h3 class="text-3xl font-bold text-white">4+</h3>
+                                <p class="text-xs text-gray-500">Mapeados para uso</p>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-6 flex items-center gap-5 border-t-brand-blue">
+                            <div class="w-14 h-14 rounded-2xl bg-brand-blue/20 flex items-center justify-center text-brand-blue text-2xl shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-400 text-sm font-medium">Prompts na Biblioteca</p>
+                                <h3 class="text-3xl font-bold text-white" id="dashboard-prompt-count">0</h3>
+                                <p class="text-xs text-gray-500">Prontos para adaptar</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Intro Content -->
+                    <div class="glass-card p-8">
+                        <h3 class="text-xl font-bold text-white mb-4 border-b border-brand-border pb-2 inline-block">Sobre o Hub</h3>
+                        <p class="text-gray-300 leading-relaxed mb-4">
+                            Este ambiente virtual foi desenvolvido exclusivamente para os participantes do projeto de extensão. Nosso objetivo principal é capacitar professores de matemática a integrar ferramentas de Inteligência Artificial Generativa em suas práticas pedagógicas diárias de forma ética, segura e produtiva.
+                        </p>
+                        <p class="text-gray-300 leading-relaxed">
+                            Utilize o menu lateral para navegar pelos módulos. Não esqueça de utilizar seu <strong>Bloco de Notas Pessoal</strong> (canto superior direito) para salvar reflexões, prompts adaptados e ideias para suas aulas. Suas anotações ficam salvas na sua conta e podem ser acessadas em qualquer dispositivo.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ABA: SEGURANÇA -->
+                <div id="tab-seguranca" class="tab-content max-w-4xl mx-auto">
+                    <div class="conteudo-protegido text-center text-gray-400 py-16"><div class="loader mx-auto mb-3"></div>Carregando conteúdo...</div>
+                </div>
+
+                <!-- ABA: ACESSO ACADÊMICO -->
+                <div id="tab-acesso" class="tab-content max-w-4xl mx-auto">
+                    <div class="conteudo-protegido text-center text-gray-400 py-16"><div class="loader mx-auto mb-3"></div>Carregando conteúdo...</div>
+                </div>
+
+                 <!-- ABA: ENGENHARIA DE PROMPT -->
+                 <div id="tab-engenharia" class="tab-content max-w-4xl mx-auto">
+                    <div class="conteudo-protegido text-center text-gray-400 py-16"><div class="loader mx-auto mb-3"></div>Carregando conteúdo...</div>
+                </div>
+
+                <!-- ABA: BIBLIOTECA -->
+                <div id="tab-biblioteca" class="tab-content max-w-5xl mx-auto">
+                    <div class="conteudo-protegido text-center text-gray-400 py-16"><div class="loader mx-auto mb-3"></div>Carregando conteúdo...</div>
+                </div>
+
+                <!-- ABA: OFICINA -->
+                <div id="tab-oficina" class="tab-content max-w-4xl mx-auto text-center py-20">
+                    <div class="conteudo-protegido text-center text-gray-400 py-16"><div class="loader mx-auto mb-3"></div>Carregando conteúdo...</div>
+                </div>
+
+                <!-- Spacer for scroll -->
+                <div class="h-24"></div>
+            </div>
+        </main>
+
+        <!-- Overlay para mobile quando bloco abrir -->
+        <div id="notepad-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden md:hidden"></div>
+
+        <aside id="notepad-sidebar" class="w-full sm:w-96 glass fixed right-0 top-0 h-full z-50 border-l border-brand-border flex flex-col shadow-[-10px_0_30px_rgba(0,0,0,0.5)] transform translate-x-full notepad-closed">
+            
+            <div class="p-4 border-b border-brand-border bg-black/20 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-brand-pink/20 rounded-lg text-brand-pink">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-bold">Bloco de Notas Pessoal</h3>
+                        <p class="text-xs text-gray-400 flex items-center gap-1">
+                            <i class="fas fa-cloud text-[10px]"></i> Salvo na sua conta
+                        </p>
+                    </div>
+                </div>
+                <button id="close-notepad-btn" class="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-brand-surface transition-colors">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+
+            <div class="flex-1 p-0 relative bg-brand-dark/50">
+                <textarea id="personal-notes" class="w-full h-full p-6 bg-transparent text-gray-300 resize-none focus:outline-none custom-scrollbar text-sm leading-relaxed" placeholder="Cole seus prompts favoritos, ideias de aulas ou observações aqui...&#10;&#10;Tudo é salvo automaticamente na sua conta."></textarea>
+                
+                <!-- Indicador de salvamento -->
+                <div id="save-indicator" class="absolute bottom-4 right-4 text-xs font-medium text-gray-400 bg-brand-surface px-3 py-1 rounded-full border border-brand-border opacity-0 transition-opacity duration-300 flex items-center gap-2">
+                    <i class="fas fa-check text-green-400"></i> Salvo
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <script type="module">
+        // =====================================================================
+        // CONFIGURAÇÃO (preencha com os dados do seu projeto Firebase)
+        // Console do Firebase > Configurações do projeto > Seus apps > Web
+        // =====================================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyDld_6HCQkC3iO4R_WY0pDpZWUsngLWmG4",
+            authDomain: "hubmat-ufgd-extensao.firebaseapp.com",
+            projectId: "hubmat-ufgd-extensao",
+            storageBucket: "hubmat-ufgd-extensao.firebasestorage.app",
+            messagingSenderId: "94154681717",
+            appId: "1:94154681717:web:6ee91b8adb9a2ba59c373c"
+        };
+
+        // E-mails Google que recebem o selo de administradora
+        const ADMIN_EMAILS = ['anamendoncaufgd@gmail.com'];
+        // =====================================================================
+
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+        import { getFirestore, doc, getDoc, setDoc, getDocs, collection, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+        const configurado = !firebaseConfig.apiKey.startsWith('COLE_AQUI');
+
+        // === ESTADO DA APLICAÇÃO ===
+        const state = { currentUser: null };
+
+        // === ELEMENTOS DO DOM ===
+        const authView = document.getElementById('auth-view');
+        const appView = document.getElementById('app-view');
+        const googleLoginBtn = document.getElementById('google-login-btn');
+        const configWarning = document.getElementById('config-warning');
+
+        const mainSidebar = document.getElementById('main-sidebar');
+        const openSidebarBtn = document.getElementById('open-sidebar-btn');
+        const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+        const navBtns = document.querySelectorAll('.nav-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const logoutBtn = document.getElementById('logout-btn');
+        const dashboardModuleCount = document.getElementById('dashboard-module-count');
+        const dashboardPromptCount = document.getElementById('dashboard-prompt-count');
+
+        const sidebarUserName = document.getElementById('sidebar-user-name');
+        const sidebarUserEmail = document.getElementById('sidebar-user-email');
+        const userAvatarInitial = document.getElementById('user-avatar-initial');
+        const adminBadge = document.getElementById('admin-badge');
+
+        const notepadSidebar = document.getElementById('notepad-sidebar');
+        const toggleNotepadBtn = document.getElementById('toggle-notepad-btn');
+        const closeNotepadBtn = document.getElementById('close-notepad-btn');
+        const notepadOverlay = document.getElementById('notepad-overlay');
+        const personalNotesArea = document.getElementById('personal-notes');
+        const saveIndicator = document.getElementById('save-indicator');
+        let noteSaveTimeout;
+
+        // === SISTEMA DE NOTIFICAÇÃO (TOAST) ===
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const estilos = {
+                error:   ['bg-red-500/10 border-red-500/50 text-red-100', 'fas fa-exclamation-circle text-red-500'],
+                success: ['bg-green-500/10 border-green-500/50 text-green-100', 'fas fa-check-circle text-green-500'],
+                info:    ['bg-brand-blue/10 border-brand-blue/50 text-blue-100', 'fas fa-info-circle text-brand-blue']
+            };
+            const [bgClass, iconClass] = estilos[type] || estilos.info;
+
+            toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl border backdrop-blur-md shadow-lg transform transition-all duration-300 translate-x-full opacity-0 ${bgClass}`;
+            const icon = document.createElement('i');
+            icon.className = iconClass;
+            const span = document.createElement('span');
+            span.className = 'text-sm font-medium';
+            span.textContent = message; // textContent evita injeção de HTML
+            toast.append(icon, span);
+            container.appendChild(toast);
+
+            setTimeout(() => toast.classList.remove('translate-x-full', 'opacity-0'), 10);
+            setTimeout(() => {
+                toast.classList.add('translate-x-full', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // === AUTENTICAÇÃO COM GOOGLE ===
+        let auth = null, db = null;
+
+        if (configurado) {
+            const app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            onAuthStateChanged(auth, (user) => user ? loginSuccess(user) : showAuthView());
+        } else {
+            configWarning.classList.remove('hidden');
+            googleLoginBtn.disabled = true;
+            googleLoginBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+
+        googleLoginBtn.addEventListener('click', async () => {
+            if (!auth) return;
+            const provider = new GoogleAuthProvider();
+            provider.setCustomParameters({ prompt: 'select_account' });
+            try {
+                await signInWithPopup(auth, provider);
+            } catch (err) {
+                if (err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request') return;
+                if (err.code === 'auth/popup-blocked') {
+                    showToast('O navegador bloqueou a janela de login. Permita pop-ups para este site.', 'error');
+                } else if (err.code === 'auth/unauthorized-domain') {
+                    showToast('Este endereço não está autorizado no Firebase (Authentication > Configurações > Domínios autorizados).', 'error');
+                } else {
+                    showToast('Não foi possível entrar com o Google. Tente novamente.', 'error');
+                }
+            }
+        });
+
+        logoutBtn.addEventListener('click', async () => {
+            if (auth) await signOut(auth);
+        });
+
+        function showAuthView() {
+            state.currentUser = null;
+            if (notepadSidebar.classList.contains('notepad-open')) toggleNotepad();
+            personalNotesArea.value = '';
+            limparConteudo();
+            appView.classList.add('hidden');
+            authView.classList.remove('hidden');
+            authView.classList.add('fade-in');
+        }
+
+        function loginSuccess(user) {
+            state.currentUser = user;
+            const nome = user.displayName || user.email;
+
+            sidebarUserName.textContent = nome;
+            sidebarUserEmail.textContent = user.email;
+            userAvatarInitial.textContent = nome.charAt(0).toUpperCase();
+
+            const isAdmin = ADMIN_EMAILS.map(e => e.toLowerCase()).includes((user.email || '').toLowerCase());
+            adminBadge.classList.toggle('hidden', !isAdmin);
+
+            // Contadores reais, calculados a partir do conteúdo da página
+            dashboardModuleCount.textContent = navBtns.length;
+            dashboardPromptCount.textContent = '…';
+
+            loadContent();
+            loadNotes();
+
+            authView.classList.add('hidden');
+            appView.classList.remove('hidden');
+            appView.classList.add('fade-in');
+
+            showToast(`Bem-vindo(a), ${nome.split(' ')[0]}!`, 'success');
+        }
+
+        // === NAVEGAÇÃO ENTRE ABAS ===
+        navBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                navBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-brand-surface', 'text-white');
+                    b.classList.add('text-gray-300');
+                });
+                tabContents.forEach(t => {
+                    t.classList.remove('active');
+                    t.style.display = 'none';
+                });
+
+                const targetTab = document.getElementById(btn.getAttribute('data-target'));
+                btn.classList.add('active', 'bg-brand-surface', 'text-white');
+                btn.classList.remove('text-gray-300');
+
+                targetTab.style.display = 'block';
+                void targetTab.offsetWidth;
+                targetTab.classList.add('active');
+
+                if (window.innerWidth < 768) closeMobileSidebar();
+                document.getElementById('main-scroll-area').scrollTop = 0;
+            });
+        });
+
+        function openMobileSidebar() { mainSidebar.classList.remove('-translate-x-full'); }
+        function closeMobileSidebar() { mainSidebar.classList.add('-translate-x-full'); }
+        openSidebarBtn.addEventListener('click', openMobileSidebar);
+        closeSidebarBtn.addEventListener('click', closeMobileSidebar);
+
+        // === BLOCO DE NOTAS (salvo na conta, coleção "notas") ===
+        function toggleNotepad() {
+            const isClosed = notepadSidebar.classList.contains('notepad-closed');
+            if (isClosed) {
+                notepadSidebar.classList.remove('notepad-closed', 'translate-x-full');
+                notepadSidebar.classList.add('notepad-open');
+                notepadOverlay.classList.remove('hidden');
+                setTimeout(() => personalNotesArea.focus(), 300);
+            } else {
+                notepadSidebar.classList.add('notepad-closed', 'translate-x-full');
+                notepadSidebar.classList.remove('notepad-open');
+                notepadOverlay.classList.add('hidden');
+            }
+        }
+        toggleNotepadBtn.addEventListener('click', toggleNotepad);
+        closeNotepadBtn.addEventListener('click', toggleNotepad);
+        notepadOverlay.addEventListener('click', toggleNotepad);
+
+        const chaveLocal = uid => `hubmat_notes_${uid}`;
+
+        function mostrarIndicador(html, esconderDepois) {
+            saveIndicator.innerHTML = html;
+            saveIndicator.classList.add('opacity-100');
+            if (esconderDepois) setTimeout(() => saveIndicator.classList.remove('opacity-100'), 2000);
+        }
+
+        personalNotesArea.addEventListener('input', () => {
+            clearTimeout(noteSaveTimeout);
+            mostrarIndicador('<i class="fas fa-spinner fa-spin"></i> Salvando...', false);
+
+            noteSaveTimeout = setTimeout(async () => {
+                const user = state.currentUser;
+                if (!user) return;
+                const texto = personalNotesArea.value;
+                try {
+                    await setDoc(doc(db, 'notas', user.uid), { texto, atualizadoEm: serverTimestamp() });
+                    mostrarIndicador('<i class="fas fa-check text-green-400"></i> Salvo na sua conta', true);
+                } catch (err) {
+                    try { localStorage.setItem(chaveLocal(user.uid), texto); } catch (e) {}
+                    mostrarIndicador('<i class="fas fa-exclamation-triangle text-yellow-400"></i> Sem conexão: salvo só neste dispositivo', true);
+                }
+            }, 800);
+        });
+
+        async function loadNotes() {
+            const user = state.currentUser;
+            if (!user) return;
+            personalNotesArea.disabled = true;
+            personalNotesArea.value = '';
+            try {
+                const snap = await getDoc(doc(db, 'notas', user.uid));
+                personalNotesArea.value = snap.exists() ? (snap.data().texto || '') : '';
+            } catch (err) {
+                try { personalNotesArea.value = localStorage.getItem(chaveLocal(user.uid)) || ''; } catch (e) {}
+                showToast('Não foi possível carregar suas anotações da nuvem.', 'error');
+            } finally {
+                personalNotesArea.disabled = false;
+            }
+        }
+
+        // === CONTEÚDO PROTEGIDO (coleção "conteudo", liberada só após login) ===
+        // Cada documento tem o id da aba sem o prefixo "tab-" e o campo "html".
+        const ABAS_PROTEGIDAS = ['seguranca', 'acesso', 'engenharia', 'biblioteca', 'oficina'];
+        const PLACEHOLDER = '<div class="conteudo-protegido text-center text-gray-400 py-16"><div class="loader mx-auto mb-3"></div>Carregando conteúdo...</div>';
+
+        function limparConteudo() {
+            ABAS_PROTEGIDAS.forEach(id => { document.getElementById('tab-' + id).innerHTML = PLACEHOLDER; });
+            dashboardPromptCount.textContent = '0';
+        }
+
+        async function loadContent() {
+            try {
+                const snap = await getDocs(collection(db, 'conteudo'));
+                const docs = {};
+                snap.forEach(d => { docs[d.id] = d.data().html || ''; });
+                ABAS_PROTEGIDAS.forEach(id => {
+                    document.getElementById('tab-' + id).innerHTML = docs[id] ||
+                        '<p class="text-center text-gray-400 py-16">Conteúdo ainda não disponível.</p>';
+                });
+            } catch (err) {
+                ABAS_PROTEGIDAS.forEach(id => {
+                    document.getElementById('tab-' + id).innerHTML =
+                        '<p class="text-center text-red-300 py-16">Não foi possível carregar o conteúdo. Verifique sua conexão e recarregue a página.</p>';
+                });
+            }
+            dashboardPromptCount.textContent = document.querySelectorAll('.prompt-card').length;
+        }
+
+        // === BUSCA NA BIBLIOTECA DE PROMPTS (título, categoria e texto; ignora acentos) ===
+        const normalizar = t => t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+        document.addEventListener('input', (e) => {
+            if (e.target.id !== 'prompt-search') return;
+            const termo = normalizar(e.target.value.trim());
+            let visiveis = 0;
+            document.querySelectorAll('.prompt-card').forEach(card => {
+                const ok = normalizar(card.innerText).includes(termo);
+                card.classList.toggle('hidden', !ok);
+                if (ok) visiveis++;
+            });
+            document.getElementById('prompt-empty').classList.toggle('hidden', visiveis > 0);
+        });
+
+        // === COPIAR PROMPT ===
+        window.copyToClipboard = function(btnElement, targetId) {
+            const text = document.getElementById(targetId).innerText.trim();
+            try {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+
+                const originalHtml = btnElement.innerHTML;
+                btnElement.innerHTML = '<i class="fas fa-check text-green-400"></i>';
+                showToast('Prompt copiado para a área de transferência!', 'success');
+                setTimeout(() => { btnElement.innerHTML = originalHtml; }, 2000);
+            } catch (err) {
+                showToast('Não foi possível copiar o texto.', 'error');
+            }
+        };
+    </script>
+</body>
+</html>
