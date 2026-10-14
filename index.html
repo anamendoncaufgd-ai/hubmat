@@ -247,6 +247,13 @@
                     </div>
                     Oficina & Manuais
                 </a>
+
+                <a href="#" id="nav-admin" data-target="tab-admin" class="nav-btn hidden flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-300 hover:bg-brand-surface hover:text-white group mt-4 border border-brand-pink/30">
+                    <div class="w-8 h-8 rounded-lg bg-brand-pink/20 text-brand-pink flex items-center justify-center">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    Painel da Coordenação
+                </a>
             </nav>
 
             <!-- User Status & Logout -->
@@ -395,12 +402,74 @@
 
                 <!-- ABA: BIBLIOTECA -->
                 <div id="tab-biblioteca" class="tab-content max-w-5xl mx-auto">
-                    <div class="conteudo-protegido text-center text-gray-400 py-16"><div class="loader mx-auto mb-3"></div>Carregando conteúdo...</div>
+                    <div class="flex flex-wrap justify-between items-end gap-4 mb-6">
+                        <div>
+                            <h2 class="text-3xl font-bold text-white">Biblioteca de Prompts</h2>
+                            <p class="text-gray-400">Modelos prontos para copiar, colar e adaptar.</p>
+                        </div>
+                        <div class="relative">
+                            <input type="search" id="prompt-search" placeholder="Buscar prompt..." aria-label="Buscar prompt" class="glass-input pl-10 pr-4 py-2 rounded-lg text-sm w-64">
+                            <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+                    <p id="prompt-empty" class="hidden text-center text-gray-400 py-10">Nenhum prompt encontrado para essa busca.</p>
+                    <div id="prompt-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
                 </div>
 
                 <!-- ABA: OFICINA -->
                 <div id="tab-oficina" class="tab-content max-w-4xl mx-auto text-center py-20">
                     <div class="conteudo-protegido text-center text-gray-400 py-16"><div class="loader mx-auto mb-3"></div>Carregando conteúdo...</div>
+                </div>
+
+                <!-- ABA: PAINEL DA COORDENAÇÃO (visível só para administradoras) -->
+                <div id="tab-admin" class="tab-content max-w-5xl mx-auto">
+                    <h2 class="text-3xl font-bold text-white mb-2">Painel da Coordenação</h2>
+                    <p class="text-gray-400 mb-8">As alterações ficam salvas no Firestore e aparecem para todos os participantes ao recarregar a página.</p>
+
+                    <!-- Prompts -->
+                    <div class="glass-card p-6 mb-8">
+                        <h3 class="text-xl font-bold text-white mb-4"><i class="fas fa-book-open text-brand-pink mr-2"></i>Prompts da Biblioteca</h3>
+                        <form id="prompt-form" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                            <input type="hidden" id="pf-id">
+                            <label class="md:col-span-1 text-sm text-gray-300">Categoria
+                                <input id="pf-categoria" list="pf-categorias" required maxlength="40" class="glass-input w-full mt-1 px-3 py-2 rounded-lg text-sm" placeholder="Ex.: Planejamento">
+                                <datalist id="pf-categorias"><option value="Planejamento"><option value="Avaliação"><option value="Execução"><option value="Inclusão"></datalist>
+                            </label>
+                            <label class="md:col-span-2 text-sm text-gray-300">Título
+                                <input id="pf-titulo" required maxlength="120" class="glass-input w-full mt-1 px-3 py-2 rounded-lg text-sm" placeholder="Ex.: Plano de Aula Dinâmico">
+                            </label>
+                            <label class="md:col-span-1 text-sm text-gray-300">Ordem
+                                <input id="pf-ordem" type="number" min="0" step="1" value="10" class="glass-input w-full mt-1 px-3 py-2 rounded-lg text-sm">
+                            </label>
+                            <label class="md:col-span-4 text-sm text-gray-300">Texto do prompt
+                                <textarea id="pf-texto" required rows="5" class="glass-input w-full mt-1 px-3 py-2 rounded-lg text-sm" placeholder="Use [COLCHETES] para os trechos que o professor deve adaptar."></textarea>
+                            </label>
+                            <div class="md:col-span-4 flex flex-wrap gap-3">
+                                <button type="submit" id="pf-salvar" class="bg-brand-purple hover:bg-brand-pink text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors"><i class="fas fa-save mr-2"></i>Salvar prompt</button>
+                                <button type="button" id="pf-limpar" class="border border-brand-border text-gray-300 hover:text-white text-sm px-5 py-2 rounded-lg">Novo / limpar</button>
+                                <span id="pf-modo" class="text-xs text-gray-400 self-center"></span>
+                            </div>
+                        </form>
+                        <div id="admin-prompt-list" class="divide-y divide-white/10 border border-brand-border rounded-xl"></div>
+                    </div>
+
+                    <!-- Textos dos modulos -->
+                    <div class="glass-card p-6">
+                        <h3 class="text-xl font-bold text-white mb-2"><i class="fas fa-file-code text-brand-blue mr-2"></i>Textos dos módulos</h3>
+                        <p class="text-xs text-gray-400 mb-4">Edição avançada em HTML. Use “Pré-visualizar” antes de salvar.</p>
+                        <div class="flex flex-wrap gap-3 mb-3">
+                            <select id="me-aba" class="glass-input px-3 py-2 rounded-lg text-sm">
+                                <option value="seguranca">Segurança de Dados</option>
+                                <option value="acesso">Acesso Gratuito</option>
+                                <option value="engenharia">Engenharia de Prompt</option>
+                                <option value="oficina">Oficina &amp; Manuais</option>
+                            </select>
+                            <button type="button" id="me-preview" class="border border-brand-border text-gray-300 hover:text-white text-sm px-4 py-2 rounded-lg"><i class="fas fa-eye mr-2"></i>Pré-visualizar</button>
+                            <button type="button" id="me-salvar" class="bg-brand-blue hover:bg-brand-purple text-white text-sm font-semibold px-4 py-2 rounded-lg"><i class="fas fa-save mr-2"></i>Salvar módulo</button>
+                        </div>
+                        <textarea id="me-html" rows="14" spellcheck="false" class="glass-input w-full px-3 py-2 rounded-lg text-xs font-mono mb-4"></textarea>
+                        <div id="me-preview-box" class="hidden border border-dashed border-brand-border rounded-xl p-4"></div>
+                    </div>
                 </div>
 
                 <!-- Spacer for scroll -->
@@ -462,12 +531,12 @@
 
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-        import { getFirestore, doc, getDoc, setDoc, getDocs, collection, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+        import { getFirestore, doc, getDoc, setDoc, getDocs, deleteDoc, collection, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
         const configurado = !firebaseConfig.apiKey.startsWith('COLE_AQUI');
 
         // === ESTADO DA APLICAÇÃO ===
-        const state = { currentUser: null };
+        const state = { currentUser: null, isAdmin: false, prompts: [], conteudo: {} };
 
         // === ELEMENTOS DO DOM ===
         const authView = document.getElementById('auth-view');
@@ -580,12 +649,16 @@
 
             const isAdmin = ADMIN_EMAILS.map(e => e.toLowerCase()).includes((user.email || '').toLowerCase());
             adminBadge.classList.toggle('hidden', !isAdmin);
+            state.isAdmin = isAdmin;
+            document.getElementById('nav-admin').classList.toggle('hidden', !isAdmin);
+            navBtns[0].click(); // sempre começa na aba Início
 
             // Contadores reais, calculados a partir do conteúdo da página
-            dashboardModuleCount.textContent = navBtns.length;
+            dashboardModuleCount.textContent = document.querySelectorAll('.nav-btn:not(#nav-admin)').length;
             dashboardPromptCount.textContent = '…';
 
             loadContent();
+            loadPrompts();
             loadNotes();
 
             authView.classList.add('hidden');
@@ -688,12 +761,16 @@
 
         // === CONTEÚDO PROTEGIDO (coleção "conteudo", liberada só após login) ===
         // Cada documento tem o id da aba sem o prefixo "tab-" e o campo "html".
-        const ABAS_PROTEGIDAS = ['seguranca', 'acesso', 'engenharia', 'biblioteca', 'oficina'];
+        const ABAS_PROTEGIDAS = ['seguranca', 'acesso', 'engenharia', 'oficina'];
         const PLACEHOLDER = '<div class="conteudo-protegido text-center text-gray-400 py-16"><div class="loader mx-auto mb-3"></div>Carregando conteúdo...</div>';
 
         function limparConteudo() {
             ABAS_PROTEGIDAS.forEach(id => { document.getElementById('tab-' + id).innerHTML = PLACEHOLDER; });
             dashboardPromptCount.textContent = '0';
+            state.prompts = []; state.conteudo = {}; state.isAdmin = false;
+            document.getElementById('prompt-grid').innerHTML = '';
+            document.getElementById('admin-prompt-list').innerHTML = '';
+            document.getElementById('nav-admin').classList.add('hidden');
         }
 
         async function loadContent() {
@@ -701,6 +778,8 @@
                 const snap = await getDocs(collection(db, 'conteudo'));
                 const docs = {};
                 snap.forEach(d => { docs[d.id] = d.data().html || ''; });
+                state.conteudo = docs;
+                carregarModuloNoEditor();
                 ABAS_PROTEGIDAS.forEach(id => {
                     document.getElementById('tab-' + id).innerHTML = docs[id] ||
                         '<p class="text-center text-gray-400 py-16">Conteúdo ainda não disponível.</p>';
@@ -711,8 +790,166 @@
                         '<p class="text-center text-red-300 py-16">Não foi possível carregar o conteúdo. Verifique sua conexão e recarregue a página.</p>';
                 });
             }
-            dashboardPromptCount.textContent = document.querySelectorAll('.prompt-card').length;
         }
+
+        // === BIBLIOTECA DE PROMPTS (coleção "prompts": categoria, titulo, texto, ordem) ===
+        const CORES_CATEGORIA = {
+            'planejamento': 'bg-brand-blue/20 text-brand-blue',
+            'avaliacao': 'bg-brand-pink/20 text-brand-pink',
+            'execucao': 'bg-green-500/20 text-green-300',
+            'inclusao': 'bg-yellow-500/20 text-yellow-300'
+        };
+        const corCategoria = c => CORES_CATEGORIA[normalizar(c || '')] || 'bg-brand-purple/20 text-brand-purple';
+
+        function el(tag, className, text) {
+            const e = document.createElement(tag);
+            if (className) e.className = className;
+            if (text !== undefined) e.textContent = text; // textContent: nunca interpreta HTML
+            return e;
+        }
+
+        async function copiarTexto(texto, botao) {
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(texto);
+                } else {
+                    const ta = el('textarea'); ta.value = texto; document.body.appendChild(ta);
+                    ta.select(); document.execCommand('copy'); ta.remove();
+                }
+                const original = botao.innerHTML;
+                botao.innerHTML = '<i class="fas fa-check text-green-400"></i>';
+                showToast('Prompt copiado para a área de transferência!', 'success');
+                setTimeout(() => { botao.innerHTML = original; }, 2000);
+            } catch (err) {
+                showToast('Não foi possível copiar o texto.', 'error');
+            }
+        }
+
+        async function loadPrompts() {
+            const grid = document.getElementById('prompt-grid');
+            grid.innerHTML = '<p class="text-gray-400 col-span-full text-center py-10">Carregando prompts...</p>';
+            try {
+                const snap = await getDocs(collection(db, 'prompts'));
+                state.prompts = snap.docs.map(d => ({ id: d.id, ...d.data() }))
+                    .sort((a, b) => (a.ordem ?? 999) - (b.ordem ?? 999) || String(a.titulo).localeCompare(String(b.titulo), 'pt-BR'));
+                renderPrompts();
+            } catch (err) {
+                grid.innerHTML = '<p class="text-red-300 col-span-full text-center py-10">Não foi possível carregar a biblioteca. Recarregue a página.</p>';
+            }
+        }
+
+        function renderPrompts() {
+            const grid = document.getElementById('prompt-grid');
+            grid.innerHTML = '';
+            if (!state.prompts.length) {
+                grid.appendChild(el('p', 'text-gray-400 col-span-full text-center py-10', 'Nenhum prompt cadastrado ainda.'));
+            }
+            state.prompts.forEach(pr => {
+                const card = el('div', 'glass-card p-5 group prompt-card');
+                const topo = el('div', 'flex justify-between items-start mb-3');
+                topo.appendChild(el('span', 'text-xs font-bold px-2 py-1 rounded ' + corCategoria(pr.categoria), pr.categoria));
+                const btn = el('button', 'text-gray-400 hover:text-white transition-colors');
+                btn.title = 'Copiar'; btn.innerHTML = '<i class="far fa-copy"></i>';
+                btn.addEventListener('click', () => copiarTexto(pr.texto || '', btn));
+                topo.appendChild(btn);
+                card.append(topo,
+                    el('h4', 'text-lg font-bold text-white mb-2', pr.titulo),
+                    el('p', 'text-sm text-gray-400 mb-4 line-clamp-3 whitespace-pre-line', pr.texto));
+                grid.appendChild(card);
+            });
+            dashboardPromptCount.textContent = state.prompts.length;
+            document.getElementById('prompt-search').value = '';
+            document.getElementById('prompt-empty').classList.add('hidden');
+            if (state.isAdmin) renderAdminList();
+        }
+
+        // === PAINEL DA COORDENAÇÃO ===
+        // A segurança real está nas regras do Firestore: só o e-mail autorizado consegue gravar.
+        const pf = id => document.getElementById('pf-' + id);
+
+        function limparFormulario() {
+            document.getElementById('prompt-form').reset();
+            pf('id').value = '';
+            pf('ordem').value = (state.prompts.length + 1) * 10;
+            pf('modo').textContent = 'Novo prompt';
+        }
+
+        function renderAdminList() {
+            const lista = document.getElementById('admin-prompt-list');
+            lista.innerHTML = '';
+            if (!state.prompts.length) lista.appendChild(el('p', 'text-sm text-gray-400 p-4', 'Nenhum prompt cadastrado.'));
+            state.prompts.forEach(pr => {
+                const linha = el('div', 'flex flex-wrap items-center gap-3 p-3');
+                const info = el('div', 'flex-1 min-w-0');
+                info.append(el('p', 'text-sm text-white font-medium truncate', pr.titulo),
+                            el('p', 'text-xs text-gray-400', `${pr.categoria} · ordem ${pr.ordem ?? '-'} · id ${pr.id}`));
+                const editar = el('button', 'text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg', 'Editar');
+                editar.addEventListener('click', () => {
+                    pf('id').value = pr.id; pf('categoria').value = pr.categoria || '';
+                    pf('titulo').value = pr.titulo || ''; pf('texto').value = pr.texto || '';
+                    pf('ordem').value = pr.ordem ?? 10;
+                    pf('modo').textContent = 'Editando: ' + pr.titulo;
+                    pf('titulo').focus();
+                });
+                const excluir = el('button', 'text-xs border border-red-500/40 text-red-300 hover:bg-red-500/20 px-3 py-1 rounded-lg', 'Excluir');
+                excluir.addEventListener('click', async () => {
+                    if (!confirm(`Excluir o prompt "${pr.titulo}"? Esta ação não pode ser desfeita.`)) return;
+                    try {
+                        await deleteDoc(doc(db, 'prompts', pr.id));
+                        showToast('Prompt excluído.', 'success');
+                        await loadPrompts();
+                    } catch (err) { showToast('Sem permissão ou sem conexão para excluir.', 'error'); }
+                });
+                linha.append(info, editar, excluir);
+                lista.appendChild(linha);
+            });
+            if (!pf('id').value) pf('ordem').value = (state.prompts.length + 1) * 10;
+            if (!pf('modo').textContent) pf('modo').textContent = 'Novo prompt';
+        }
+
+        document.getElementById('prompt-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const dados = {
+                categoria: pf('categoria').value.trim(),
+                titulo: pf('titulo').value.trim(),
+                texto: pf('texto').value.trim(),
+                ordem: Number(pf('ordem').value) || 0,
+                atualizadoEm: serverTimestamp()
+            };
+            if (!dados.categoria || !dados.titulo || !dados.texto) { showToast('Preencha categoria, título e texto.', 'error'); return; }
+            const ref = pf('id').value ? doc(db, 'prompts', pf('id').value) : doc(collection(db, 'prompts'));
+            try {
+                await setDoc(ref, dados);
+                showToast('Prompt salvo na Biblioteca.', 'success');
+                limparFormulario();
+                await loadPrompts();
+            } catch (err) { showToast('Sem permissão ou sem conexão para salvar.', 'error'); }
+        });
+        document.getElementById('pf-limpar').addEventListener('click', limparFormulario);
+
+        // Editor dos módulos (HTML)
+        const meAba = document.getElementById('me-aba');
+        const meHtml = document.getElementById('me-html');
+        const mePreviewBox = document.getElementById('me-preview-box');
+        function carregarModuloNoEditor() {
+            meHtml.value = (state.conteudo || {})[meAba.value] || '';
+            mePreviewBox.classList.add('hidden');
+        }
+        meAba.addEventListener('change', carregarModuloNoEditor);
+        document.getElementById('me-preview').addEventListener('click', () => {
+            mePreviewBox.innerHTML = meHtml.value;
+            mePreviewBox.classList.remove('hidden');
+        });
+        document.getElementById('me-salvar').addEventListener('click', async () => {
+            const aba = meAba.value, html = meHtml.value;
+            if (!confirm('Salvar as alterações deste módulo para todos os participantes?')) return;
+            try {
+                await setDoc(doc(db, 'conteudo', aba), { html, atualizadoEm: serverTimestamp() });
+                state.conteudo[aba] = html;
+                document.getElementById('tab-' + aba).innerHTML = html;
+                showToast('Módulo atualizado.', 'success');
+            } catch (err) { showToast('Sem permissão ou sem conexão para salvar.', 'error'); }
+        });
 
         // === BUSCA NA BIBLIOTECA DE PROMPTS (título, categoria e texto; ignora acentos) ===
         const normalizar = t => t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
