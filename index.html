@@ -84,6 +84,15 @@
             background: rgba(0, 0, 0, 0.4);
         }
 
+        /* Bloco de Notas: fundo sólido e texto de alto contraste */
+        #notepad-sidebar { background: #0d1322 !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-left: 1px solid rgba(255,255,255,0.25) !important; }
+        #notepad-sidebar > div:first-child { background: #111a2e !important; }
+        #personal-notes { background: #0d1322 !important; color: #f8fafc !important; font-size: 1rem !important; line-height: 1.7 !important; caret-color: #ec4899; }
+        #personal-notes::placeholder { color: #94a3b8; opacity: 1; }
+        #personal-notes:focus { background: #101830 !important; box-shadow: inset 0 0 0 2px rgba(168,85,247,0.55); }
+        #notepad-overlay { background: rgba(0,0,0,0.75) !important; }
+        #perfil-modal > div { background: #0d1322 !important; }
+
         /* Texto Gradiente */
         .text-gradient {
             background: linear-gradient(to right, #a855f7, #ec4899, #3b82f6);
@@ -631,7 +640,7 @@
                 </button>
             </div>
 
-            <div class="flex-1 p-0 relative bg-brand-dark/50">
+            <div class="flex-1 p-0 relative">
                 <textarea id="personal-notes" class="w-full h-full p-6 bg-transparent text-gray-300 resize-none focus:outline-none custom-scrollbar text-sm leading-relaxed" placeholder="Cole seus prompts favoritos, ideias de aulas ou observações aqui...&#10;&#10;Tudo é salvo automaticamente na sua conta."></textarea>
                 
                 <!-- Indicador de salvamento -->
