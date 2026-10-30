@@ -399,7 +399,8 @@
                  <div id="tab-engenharia" class="tab-content max-w-4xl mx-auto">
                     <div id="eng-subnav" class="flex flex-wrap gap-3 mb-6" role="tablist" aria-label="Etapas da Engenharia de Prompt">
                         <button type="button" id="eng-btn-1" role="tab" aria-selected="true" aria-controls="eng-etapa1" class="px-4 py-2 rounded-xl text-sm font-semibold transition-colors bg-brand-purple text-white"><i class="fas fa-compass mr-2"></i>Etapa 1 · Exploração</button>
-                        <button type="button" id="eng-btn-2" role="tab" aria-selected="false" aria-controls="eng-etapa2" class="px-4 py-2 rounded-xl text-sm font-semibold transition-colors bg-brand-surface border border-brand-border text-gray-300 hover:text-white"><i id="eng-lock-icon" class="fas fa-lock mr-2"></i>Etapas 2 e 3</button>
+                        <button type="button" id="eng-btn-2" role="tab" aria-selected="false" aria-controls="eng-etapa2" class="px-4 py-2 rounded-xl text-sm font-semibold transition-colors bg-brand-surface border border-brand-border text-gray-300 hover:text-white"><i id="eng-lock-icon" class="fas fa-lock mr-2"></i>Etapa 2 · Método</button>
+                        <button type="button" id="eng-btn-3" role="tab" aria-selected="false" aria-controls="eng-etapa3" class="px-4 py-2 rounded-xl text-sm font-semibold transition-colors bg-brand-surface border border-brand-border text-gray-300 hover:text-white"><i id="eng-lock-icon-3" class="fas fa-lock mr-2"></i>Etapa 3 · Prompt da professora</button>
                     </div>
                     <div id="eng-etapa1" role="tabpanel">
                         <div class="conteudo-protegido text-center text-gray-400 py-16"><div class="loader mx-auto mb-3"></div>Carregando conteúdo...</div>
@@ -407,7 +408,7 @@
                     <div id="eng-etapa2" role="tabpanel" class="hidden">
                         <div id="eng-etapa2-bloqueio" class="glass-card p-8 max-w-xl mx-auto text-center">
                             <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-purple/20 text-brand-purple mb-4"><i class="fas fa-lock text-2xl"></i></div>
-                            <h3 class="text-2xl font-bold text-white mb-2">Etapas 2 e 3</h3>
+                            <h3 class="text-2xl font-bold text-white mb-2">Etapa 2 · Método</h3>
                             <p class="text-gray-300 text-sm mb-6 leading-relaxed">Esta etapa é liberada pela professora depois da atividade de exploração. Quando ela informar a senha, digite-a abaixo.</p>
                             <form id="eng-senha-form" class="flex flex-col sm:flex-row gap-3">
                                 <label for="eng-senha" class="sr-only">Senha da etapa 2</label>
@@ -417,6 +418,20 @@
                             <p id="eng-senha-msg" role="status" class="text-sm mt-4 min-h-[1.25rem]"></p>
                         </div>
                         <div id="eng-etapa2-conteudo" class="hidden"></div>
+                    </div>
+                    <div id="eng-etapa3" role="tabpanel" class="hidden">
+                        <div id="eng-etapa3-bloqueio" class="glass-card p-8 max-w-xl mx-auto text-center">
+                            <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-purple/20 text-brand-purple mb-4"><i class="fas fa-lock text-2xl"></i></div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Etapa 3 · Prompt da professora</h3>
+                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Esta etapa é liberada pela professora depois que os resultados da etapa 2 forem compartilhados. Quando ela informar a senha, digite-a abaixo.</p>
+                            <form id="eng-senha3-form" class="flex flex-col sm:flex-row gap-3">
+                                <label for="eng-senha3" class="sr-only">Senha da etapa 3</label>
+                                <input id="eng-senha3" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="80" placeholder="Digite a senha" class="glass-input flex-1 px-4 py-3 rounded-xl text-sm">
+                                <button type="submit" class="bg-brand-purple hover:bg-brand-pink text-white text-sm font-semibold px-5 py-3 rounded-xl transition-colors"><i class="fas fa-unlock-alt mr-2"></i>Desbloquear</button>
+                            </form>
+                            <p id="eng-senha3-msg" role="status" class="text-sm mt-4 min-h-[1.25rem]"></p>
+                        </div>
+                        <div id="eng-etapa3-conteudo" class="hidden"></div>
                     </div>
                 </div>
 
@@ -507,6 +522,24 @@
                         <div id="e2-preview-box" class="hidden border border-dashed border-brand-border rounded-xl p-4 mb-4"></div>
                         <h4 class="text-sm font-bold text-white mb-2">Senhas ativas</h4>
                         <div id="e2-lista" class="divide-y divide-white/10 border border-brand-border rounded-xl"></div>
+                    </div>
+
+                    <!-- Etapa 3 da Engenharia de Prompt (protegida por senha) -->
+                    <div class="glass-card p-6 mt-8">
+                        <h3 class="text-xl font-bold text-white mb-2"><i class="fas fa-key text-yellow-400 mr-2"></i>Etapa 3 com senha (Engenharia de Prompt)</h3>
+                        <p class="text-xs text-gray-400 mb-4">A senha é o nome do documento no Firestore: só quem a conhece consegue abrir o conteúdo. Para trocar a senha, salve com a nova e exclua a antiga na lista abaixo. Use uma frase com pelo menos 3 palavras.</p>
+                        <label class="block text-sm text-gray-300 mb-3">Senha
+                            <input id="e3-senha" autocomplete="off" maxlength="80" class="glass-input w-full mt-1 px-3 py-2 rounded-lg text-sm" placeholder="Ex.: estrela azul de março">
+                        </label>
+                        <p class="text-xs text-gray-400 mb-3">Será gravada como: <code id="e3-id" class="text-yellow-300">(vazio)</code>. Maiúsculas, acentos e espaços não fazem diferença para quem digitar.</p>
+                        <div class="flex flex-wrap gap-3 mb-3">
+                            <button type="button" id="e3-preview" class="border border-brand-border text-gray-300 hover:text-white text-sm px-4 py-2 rounded-lg"><i class="fas fa-eye mr-2"></i>Pré-visualizar</button>
+                            <button type="button" id="e3-salvar" class="bg-brand-blue hover:bg-brand-purple text-white text-sm font-semibold px-4 py-2 rounded-lg"><i class="fas fa-save mr-2"></i>Salvar etapa 3</button>
+                        </div>
+                        <textarea id="e3-html" rows="12" spellcheck="false" class="glass-input w-full px-3 py-2 rounded-lg text-xs font-mono mb-4" aria-label="HTML da etapa 3"></textarea>
+                        <div id="e3-preview-box" class="hidden border border-dashed border-brand-border rounded-xl p-4 mb-4"></div>
+                        <h4 class="text-sm font-bold text-white mb-2">Senhas ativas</h4>
+                        <div id="e3-lista" class="divide-y divide-white/10 border border-brand-border rounded-xl"></div>
                     </div>
                 </div>
 
@@ -699,6 +732,7 @@
             loadPrompts();
             loadNotes();
             carregarEtapa2Admin();
+            carregarEtapa3Admin();
 
             authView.classList.add('hidden');
             appView.classList.remove('hidden');
@@ -809,6 +843,7 @@
         function limparConteudo() {
             ABAS_PROTEGIDAS.forEach(id => { alvoConteudo(id).innerHTML = PLACEHOLDER; });
             resetEtapa2();
+            resetEtapa3();
             dashboardPromptCount.textContent = '0';
             state.prompts = []; state.conteudo = {}; state.isAdmin = false;
             document.getElementById('prompt-grid').innerHTML = '';
@@ -849,26 +884,35 @@
         const engBloqueio = document.getElementById('eng-etapa2-bloqueio');
         const engConteudo2 = document.getElementById('eng-etapa2-conteudo');
         const engLockIcon = document.getElementById('eng-lock-icon');
+        const engBtn3 = document.getElementById('eng-btn-3');
+        const engPainel3 = document.getElementById('eng-etapa3');
+        const engBloqueio3 = document.getElementById('eng-etapa3-bloqueio');
+        const engConteudo3 = document.getElementById('eng-etapa3-conteudo');
+        const engLockIcon3 = document.getElementById('eng-lock-icon-3');
+        const engSenhaMsg3 = document.getElementById('eng-senha3-msg');
         const engSenhaMsg = document.getElementById('eng-senha-msg');
         const ATIVO = ['bg-brand-purple', 'text-white'];
         const INATIVO = ['bg-brand-surface', 'border', 'border-brand-border', 'text-gray-300'];
         let etapa2Aberta = false, engTentativas = 0, engBloqueadoAte = 0;
+        let etapa3Aberta = false, eng3Tentativas = 0, eng3BloqueadoAte = 0;
         const chaveEtapa2 = () => 'hubmat_etapa2_' + (state.currentUser ? state.currentUser.uid : '');
+        const chaveEtapa3 = () => 'hubmat_etapa3_' + (state.currentUser ? state.currentUser.uid : '');
 
         function mostrarEngEtapa(n) {
-            const e2 = n === 2;
-            engPainel1.classList.toggle('hidden', e2);
-            engPainel2.classList.toggle('hidden', !e2);
-            engBtn1.setAttribute('aria-selected', String(!e2));
-            engBtn2.setAttribute('aria-selected', String(e2));
-            [[engBtn1, !e2], [engBtn2, e2]].forEach(([b, on]) => {
+            const paineis = [engPainel1, engPainel2, engPainel3], botoes = [engBtn1, engBtn2, engBtn3];
+            paineis.forEach((p, i) => p.classList.toggle('hidden', i !== n - 1));
+            botoes.forEach((b, i) => {
+                const on = i === n - 1;
+                b.setAttribute('aria-selected', String(on));
                 b.classList.remove(...ATIVO, ...INATIVO);
                 b.classList.add(...(on ? ATIVO : INATIVO));
             });
-            if (e2 && !etapa2Aberta) tentarSenhaGuardada();
+            if (n === 2 && !etapa2Aberta) tentarSenhaGuardada();
+            if (n === 3 && !etapa3Aberta) tentarSenhaGuardada3();
         }
         engBtn1.addEventListener('click', () => mostrarEngEtapa(1));
         engBtn2.addEventListener('click', () => mostrarEngEtapa(2));
+        engBtn3.addEventListener('click', () => mostrarEngEtapa(3));
 
         function mostrarEtapa2(html) {
             engConteudo2.innerHTML = html;
@@ -934,6 +978,68 @@
                 }
             } catch (err) {
                 msgSenha('Não foi possível verificar a senha. Confira sua conexão e tente de novo.', 'text-red-300');
+            }
+        });
+
+        // --- Etapa 3 com senha própria (coleção "etapa3", mesma lógica da etapa 2) ---
+        function mostrarEtapa3(html) {
+            engConteudo3.innerHTML = html;
+            engConteudo3.classList.remove('hidden');
+            engBloqueio3.classList.add('hidden');
+            engLockIcon3.className = 'fas fa-lock-open mr-2';
+            etapa3Aberta = true;
+        }
+        function resetEtapa3() {
+            engConteudo3.innerHTML = '';
+            engConteudo3.classList.add('hidden');
+            engBloqueio3.classList.remove('hidden');
+            engLockIcon3.className = 'fas fa-lock mr-2';
+            engSenhaMsg3.textContent = '';
+            document.getElementById('eng-senha3').value = '';
+            etapa3Aberta = false; eng3Tentativas = 0; eng3BloqueadoAte = 0;
+            mostrarEngEtapa(1);
+        }
+        async function lerEtapa3(id) {
+            const snap = await getDoc(doc(db, 'etapa3', id));
+            return snap.exists() ? (snap.data().html || '') : null;
+        }
+        async function tentarSenhaGuardada3() {
+            try {
+                const id = localStorage.getItem(chaveEtapa3());
+                if (!id) return;
+                const html = await lerEtapa3(id);
+                if (html !== null) mostrarEtapa3(html); else localStorage.removeItem(chaveEtapa3());
+            } catch (e) { /* sem armazenamento local ou sem conexão: pede a senha normalmente */ }
+        }
+        function msgSenha3(texto, cor) {
+            engSenhaMsg3.textContent = texto;
+            engSenhaMsg3.className = 'text-sm mt-4 min-h-[1.25rem] ' + (cor || 'text-gray-300');
+        }
+        document.getElementById('eng-senha3-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (Date.now() < eng3BloqueadoAte) { msgSenha3('Aguarde alguns segundos antes de tentar de novo.', 'text-yellow-300'); return; }
+            const campo = document.getElementById('eng-senha3');
+            const id = normSenha(campo.value);
+            if (id.length < 8) { msgSenha3('Digite a senha completa informada pela professora.', 'text-yellow-300'); return; }
+            msgSenha3('Verificando...', 'text-gray-300');
+            try {
+                const html = await lerEtapa3(id);
+                if (html !== null) {
+                    try { localStorage.setItem(chaveEtapa3(), id); } catch (err) {}
+                    campo.value = ''; eng3Tentativas = 0;
+                    mostrarEtapa3(html);
+                    msgSenha3('', 'text-gray-300');
+                } else {
+                    eng3Tentativas++;
+                    if (eng3Tentativas >= 5) {
+                        eng3Tentativas = 0; eng3BloqueadoAte = Date.now() + 30000;
+                        msgSenha3('Muitas tentativas. Aguarde 30 segundos.', 'text-red-300');
+                    } else {
+                        msgSenha3('Senha incorreta. Confira com a professora.', 'text-red-300');
+                    }
+                }
+            } catch (err) {
+                msgSenha3('Não foi possível verificar a senha. Confira sua conexão e tente de novo.', 'text-red-300');
             }
         });
 
@@ -1140,6 +1246,52 @@
                 await setDoc(doc(db, 'etapa2', id), { html, atualizadoEm: serverTimestamp() });
                 showToast('Etapa 2 salva com a senha "' + id + '".', 'success');
                 await carregarEtapa2Admin();
+            } catch (err) { showToast('Sem permissão ou sem conexão para salvar.', 'error'); }
+        });
+
+        // Etapa 3 com senha (painel)
+        const e3 = id => document.getElementById('e3-' + id);
+        e3('senha').addEventListener('input', () => { e3('id').textContent = normSenha(e3('senha').value) || '(vazio)'; });
+        e3('preview').addEventListener('click', () => {
+            e3('preview-box').innerHTML = e3('html').value;
+            e3('preview-box').classList.remove('hidden');
+        });
+        async function carregarEtapa3Admin() {
+            const lista = e3('lista');
+            if (!state.isAdmin) { lista.innerHTML = ''; return; }
+            lista.innerHTML = '';
+            try {
+                const snap = await getDocs(collection(db, 'etapa3'));
+                const itens = snap.docs.map(d => ({ id: d.id, html: d.data().html || '' }));
+                if (!itens.length) lista.appendChild(el('p', 'text-sm text-gray-400 p-4', 'Nenhuma senha ativa. A etapa 3 está bloqueada para todos.'));
+                itens.forEach(it => {
+                    const linha = el('div', 'flex flex-wrap items-center gap-3 p-3');
+                    linha.appendChild(el('code', 'flex-1 min-w-0 text-sm text-yellow-300 break-all', it.id));
+                    const carregar = el('button', 'text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg', 'Carregar no editor');
+                    carregar.addEventListener('click', () => {
+                        e3('senha').value = it.id; e3('id').textContent = it.id; e3('html').value = it.html;
+                        e3('preview-box').classList.add('hidden'); e3('senha').focus();
+                    });
+                    const excluir = el('button', 'text-xs border border-red-500/40 text-red-300 hover:bg-red-500/20 px-3 py-1 rounded-lg', 'Excluir');
+                    excluir.addEventListener('click', async () => {
+                        if (!confirm('Excluir esta senha? Quem a conhece deixa de acessar a etapa 3.')) return;
+                        try { await deleteDoc(doc(db, 'etapa3', it.id)); showToast('Senha excluída.', 'success'); await carregarEtapa3Admin(); }
+                        catch (err) { showToast('Sem permissão ou sem conexão para excluir.', 'error'); }
+                    });
+                    linha.append(carregar, excluir);
+                    lista.appendChild(linha);
+                });
+            } catch (err) { lista.appendChild(el('p', 'text-sm text-red-300 p-4', 'Não foi possível listar as senhas. Confira se as regras do Firestore para "etapa3" foram publicadas.')); }
+        }
+        e3('salvar').addEventListener('click', async () => {
+            const id = normSenha(e3('senha').value), html = e3('html').value;
+            if (id.length < 12) { showToast('Use uma senha com pelo menos 12 caracteres, de preferência 3 palavras ou mais.', 'error'); return; }
+            if (!html.trim()) { showToast('O conteúdo da etapa 3 está vazio.', 'error'); return; }
+            if (!confirm('Salvar a etapa 3 com a senha "' + id + '"? Quem tiver essa senha poderá abri-la.')) return;
+            try {
+                await setDoc(doc(db, 'etapa3', id), { html, atualizadoEm: serverTimestamp() });
+                showToast('Etapa 3 salva com a senha "' + id + '".', 'success');
+                await carregarEtapa3Admin();
             } catch (err) { showToast('Sem permissão ou sem conexão para salvar.', 'error'); }
         });
 
