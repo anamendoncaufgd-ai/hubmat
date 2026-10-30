@@ -84,13 +84,22 @@
             background: rgba(0, 0, 0, 0.4);
         }
 
-        /* Bloco de Notas: fundo sólido e texto de alto contraste */
-        #notepad-sidebar { background: #0d1322 !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-left: 1px solid rgba(255,255,255,0.25) !important; }
+        /* Bloco de Notas: papel claro, totalmente opaco, texto escuro */
+        #notepad-sidebar { background: #f8fafc !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-left: 3px solid #a855f7 !important; box-shadow: -12px 0 40px rgba(0,0,0,0.7) !important; }
         #notepad-sidebar > div:first-child { background: #111a2e !important; }
-        #personal-notes { background: #0d1322 !important; color: #f8fafc !important; font-size: 1rem !important; line-height: 1.7 !important; caret-color: #ec4899; }
-        #personal-notes::placeholder { color: #94a3b8; opacity: 1; }
-        #personal-notes:focus { background: #101830 !important; box-shadow: inset 0 0 0 2px rgba(168,85,247,0.55); }
-        #notepad-overlay { background: rgba(0,0,0,0.75) !important; }
+        #notepad-sidebar .nota-barra { background: #e2e8f0; border-bottom: 1px solid #cbd5e1; }
+        #notepad-sidebar .nota-barra select, #notepad-sidebar .nota-barra input { background: #ffffff; color: #0f172a; border: 1px solid #94a3b8; border-radius: 0.5rem; padding: 0.45rem 0.6rem; font-size: 0.9rem; width: 100%; }
+        #notepad-sidebar .nota-barra select { flex: 1 1 0%; min-width: 0; width: auto; }
+        #notepad-sidebar .nota-barra select:focus, #notepad-sidebar .nota-barra input:focus { outline: 2px solid #a855f7; }
+        #notepad-sidebar .nota-btn { background: #ffffff; color: #1e293b; border: 1px solid #94a3b8; border-radius: 0.5rem; padding: 0.4rem 0.7rem; font-size: 0.8rem; font-weight: 600; white-space: nowrap; }
+        #notepad-sidebar .nota-btn:hover { background: #ede9fe; border-color: #7c3aed; }
+        #notepad-sidebar .nota-btn.perigo { color: #b91c1c; }
+        #notepad-sidebar .nota-btn.perigo:hover { background: #fee2e2; border-color: #b91c1c; }
+        #personal-notes { background: #ffffff !important; color: #0f172a !important; font-size: 1rem !important; line-height: 1.7 !important; caret-color: #7c3aed; }
+        #personal-notes::placeholder { color: #64748b; opacity: 1; }
+        #personal-notes:focus { box-shadow: inset 0 0 0 2px rgba(124,58,237,0.6); }
+        #save-indicator { background: #ffffff !important; color: #334155 !important; border-color: #94a3b8 !important; }
+        #notepad-overlay { background: rgba(0,0,0,0.82) !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
         #perfil-modal > div { background: #0d1322 !important; }
 
         /* Texto Gradiente */
@@ -619,7 +628,7 @@
         </main>
 
         <!-- Overlay para mobile quando bloco abrir -->
-        <div id="notepad-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden md:hidden"></div>
+        <div id="notepad-overlay" class="fixed inset-0 bg-black/80 z-40 hidden"></div>
 
         <aside id="notepad-sidebar" class="w-full sm:w-96 glass fixed right-0 top-0 h-full z-50 border-l border-brand-border flex flex-col shadow-[-10px_0_30px_rgba(0,0,0,0.5)] transform translate-x-full notepad-closed">
             
@@ -638,6 +647,17 @@
                 <button id="close-notepad-btn" class="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-brand-surface transition-colors">
                     <i class="fas fa-times text-lg"></i>
                 </button>
+            </div>
+
+            <div class="nota-barra p-3 space-y-2">
+                <div class="flex gap-2 items-center">
+                    <label for="nota-select" class="sr-only">Escolher anotação</label>
+                    <select id="nota-select" aria-label="Escolher anotação"></select>
+                    <button type="button" id="nota-nova" class="nota-btn"><i class="fas fa-plus mr-1"></i>Nova</button>
+                    <button type="button" id="nota-excluir" class="nota-btn perigo" aria-label="Excluir esta anotação"><i class="fas fa-trash"></i></button>
+                </div>
+                <label for="nota-titulo" class="sr-only">Nome da anotação</label>
+                <input id="nota-titulo" type="text" maxlength="80" placeholder="Nome da anotação (ex.: Aula 1)" autocomplete="off">
             </div>
 
             <div class="flex-1 p-0 relative">
@@ -885,6 +905,11 @@
         notepadOverlay.addEventListener('click', toggleNotepad);
 
         const chaveLocal = uid => `hubmat_notes_${uid}`;
+        const notaSel = document.getElementById('nota-select');
+        const notaTitulo = document.getElementById('nota-titulo');
+        const caderno = { itens: [], ativa: null };
+        const novaId = () => 'n' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+        const notaAtiva = () => caderno.itens.find(n => n.id === caderno.ativa) || null;
 
         function mostrarIndicador(html, esconderDepois) {
             saveIndicator.innerHTML = html;
@@ -892,38 +917,94 @@
             if (esconderDepois) setTimeout(() => saveIndicator.classList.remove('opacity-100'), 2000);
         }
 
-        personalNotesArea.addEventListener('input', () => {
+        function desenharCaderno() {
+            notaSel.innerHTML = '';
+            caderno.itens.forEach(n => {
+                const o = document.createElement('option');
+                o.value = n.id; o.textContent = n.titulo || 'Sem nome';
+                notaSel.appendChild(o);
+            });
+            const n = notaAtiva();
+            notaSel.value = n ? n.id : '';
+            notaTitulo.value = n ? n.titulo : '';
+            personalNotesArea.value = n ? n.texto : '';
+        }
+
+        function agendarSalvar(imediato) {
             clearTimeout(noteSaveTimeout);
             mostrarIndicador('<i class="fas fa-spinner fa-spin"></i> Salvando...', false);
-
             noteSaveTimeout = setTimeout(async () => {
                 const user = state.currentUser;
                 if (!user) return;
-                const texto = personalNotesArea.value;
+                const carga = { caderno: caderno.itens, ativa: caderno.ativa, atualizadoEm: serverTimestamp() };
                 try {
-                    await setDoc(doc(db, 'notas', user.uid), { texto, atualizadoEm: serverTimestamp() });
-                    mostrarIndicador('<i class="fas fa-check text-green-400"></i> Salvo na sua conta', true);
+                    await setDoc(doc(db, 'notas', user.uid), carga, { merge: true });
+                    mostrarIndicador('<i class="fas fa-check text-green-500"></i> Salvo na sua conta', true);
                 } catch (err) {
-                    try { localStorage.setItem(chaveLocal(user.uid), texto); } catch (e) {}
-                    mostrarIndicador('<i class="fas fa-exclamation-triangle text-yellow-400"></i> Sem conexão: salvo só neste dispositivo', true);
+                    try { localStorage.setItem(chaveLocal(user.uid), JSON.stringify({ itens: caderno.itens, ativa: caderno.ativa })); } catch (e) {}
+                    mostrarIndicador('<i class="fas fa-exclamation-triangle text-yellow-500"></i> Sem conexão: salvo só neste dispositivo', true);
                 }
-            }, 800);
+            }, imediato ? 100 : 800);
+        }
+
+        personalNotesArea.addEventListener('input', () => {
+            const n = notaAtiva(); if (!n) return;
+            n.texto = personalNotesArea.value; n.em = Date.now();
+            agendarSalvar(false);
         });
+        notaTitulo.addEventListener('input', () => {
+            const n = notaAtiva(); if (!n) return;
+            n.titulo = notaTitulo.value;
+            const o = notaSel.querySelector('option[value="' + n.id + '"]');
+            if (o) o.textContent = n.titulo || 'Sem nome';
+            agendarSalvar(false);
+        });
+        notaSel.addEventListener('change', () => {
+            caderno.ativa = notaSel.value; desenharCaderno(); agendarSalvar(true); personalNotesArea.focus();
+        });
+        document.getElementById('nota-nova').addEventListener('click', () => {
+            const n = { id: novaId(), titulo: 'Aula ' + (caderno.itens.length + 1), texto: '', em: Date.now() };
+            caderno.itens.push(n); caderno.ativa = n.id; desenharCaderno(); agendarSalvar(true);
+            notaTitulo.focus(); notaTitulo.select();
+        });
+        document.getElementById('nota-excluir').addEventListener('click', () => {
+            const n = notaAtiva(); if (!n) return;
+            if (!confirm('Excluir a anotação "' + (n.titulo || 'Sem nome') + '"? Esta ação não pode ser desfeita.')) return;
+            caderno.itens = caderno.itens.filter(x => x.id !== n.id);
+            if (!caderno.itens.length) caderno.itens.push({ id: novaId(), titulo: 'Aula 1', texto: '', em: Date.now() });
+            caderno.ativa = caderno.itens[0].id; desenharCaderno(); agendarSalvar(true);
+        });
+
+        function limparCaderno() {
+            caderno.itens = []; caderno.ativa = null; notaSel.innerHTML = ''; notaTitulo.value = ''; personalNotesArea.value = '';
+        }
 
         async function loadNotes() {
             const user = state.currentUser;
             if (!user) return;
-            personalNotesArea.disabled = true;
-            personalNotesArea.value = '';
+            personalNotesArea.disabled = true; notaTitulo.disabled = true; notaSel.disabled = true;
+            limparCaderno();
+            let dados = null, falhou = false;
             try {
                 const snap = await getDoc(doc(db, 'notas', user.uid));
-                personalNotesArea.value = snap.exists() ? (snap.data().texto || '') : '';
+                dados = snap.exists() ? snap.data() : {};
             } catch (err) {
-                try { personalNotesArea.value = localStorage.getItem(chaveLocal(user.uid)) || ''; } catch (e) {}
+                falhou = true;
+                try { const l = JSON.parse(localStorage.getItem(chaveLocal(user.uid)) || 'null'); if (l && Array.isArray(l.itens)) dados = { caderno: l.itens, ativa: l.ativa }; } catch (e) {}
                 showToast('Não foi possível carregar suas anotações da nuvem.', 'error');
-            } finally {
-                personalNotesArea.disabled = false;
             }
+            dados = dados || {};
+            if (Array.isArray(dados.caderno) && dados.caderno.length) {
+                caderno.itens = dados.caderno.map(n => ({ id: String(n.id || novaId()), titulo: String(n.titulo || ''), texto: String(n.texto || ''), em: n.em || 0 }));
+                caderno.ativa = caderno.itens.some(n => n.id === dados.ativa) ? dados.ativa : caderno.itens[0].id;
+            } else {
+                // Migra a anotação única antiga para a primeira anotação do caderno
+                caderno.itens = [{ id: novaId(), titulo: dados.texto ? 'Anotações anteriores' : 'Aula 1', texto: String(dados.texto || ''), em: Date.now() }];
+                caderno.ativa = caderno.itens[0].id;
+                if (!falhou && dados.texto) agendarSalvar(true);
+            }
+            desenharCaderno();
+            personalNotesArea.disabled = false; notaTitulo.disabled = false; notaSel.disabled = false;
         }
 
         // === CONTEÚDO PROTEGIDO (coleção "conteudo", liberada só após login) ===
@@ -938,6 +1019,7 @@
             ABAS_PROTEGIDAS.forEach(id => { alvoConteudo(id).innerHTML = PLACEHOLDER; });
             resetEtapa2();
             resetEtapa3();
+            limparCaderno();
             state.perfil = null; fecharPerfil(); atualizarPerfilNaTela();
             document.getElementById('meus-certificados').innerHTML = ''; document.getElementById('au-lista').innerHTML = ''; document.getElementById('au-presentes').classList.add('hidden');
             dashboardPromptCount.textContent = '0';
