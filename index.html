@@ -341,14 +341,23 @@
                         <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-brand-purple/20 to-brand-pink/20 rounded-bl-full blur-3xl transition-transform group-hover:scale-110 duration-700"></div>
                         
                         <div class="relative z-10">
-                            <span class="inline-block py-1 px-3 rounded-full bg-brand-purple/20 text-brand-purple border border-brand-purple/30 text-xs font-bold tracking-wider mb-4">PLATAFORMA OFICIAL</span>
+                            <span class="inline-block py-1 px-3 rounded-full bg-brand-purple/20 text-brand-purple border border-brand-purple/30 text-xs font-bold tracking-wider mb-4">ESPAÇO DE APRENDIZAGEM</span>
+                            <p id="saudacao-nome" class="text-lg md:text-xl text-brand-pink font-semibold mb-2">Olá!</p>
                             <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
-                                Bem-vindo ao <br />
-                                <span class="text-gradient">HubMat.UFGD</span>
+                                Que bom ter você <br />
+                                <span class="text-gradient">no HubMat.UFGD</span>
                             </h2>
-                            <p class="text-gray-300 max-w-2xl text-lg leading-relaxed mb-6">
-                                Ferramentas para Professores de Matemática no Planejamento, Execução e Avaliação utilizando Inteligência Artificial.
+                            <p class="text-gray-200 max-w-2xl text-lg leading-relaxed mb-4">
+                                O HubMat.UFGD não é sobre ferramentas, é sobre metodologia. Este é o seu espaço para refletir sobre o seu modo de ensinar e descobrir como a inteligência artificial pode apoiá-lo, sem substituir o que só o professor faz: planejar com intenção, mediar a aprendizagem e avaliar com critério.
                             </p>
+                            <p class="text-gray-300 max-w-2xl text-base leading-relaxed mb-6">
+                                As ferramentas mudam o tempo todo, mas o seu olhar pedagógico permanece. Aqui você vai testar, errar, refazer e comparar resultados, sempre decidindo o que faz sentido para os seus alunos. A inteligência artificial apoia; a decisão, a autoria e a responsabilidade pedagógica são suas.
+                            </p>
+                            <div class="flex flex-wrap gap-3 mb-6">
+                                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-500/15 border border-sky-400/40 text-sky-200 text-sm font-semibold"><i class="fas fa-compass"></i>Explore</span>
+                                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/15 border border-pink-400/40 text-pink-200 text-sm font-semibold"><i class="fas fa-flask"></i>Experimente</span>
+                                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/15 border border-purple-400/40 text-purple-200 text-sm font-semibold"><i class="fas fa-lightbulb"></i>Descubra</span>
+                            </div>
                             
                             <div class="flex items-center gap-4 bg-black/30 w-fit px-4 py-2 rounded-lg border border-brand-border backdrop-blur-md">
                                 <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center border-2 border-brand-purple overflow-hidden">
@@ -1497,7 +1506,14 @@
             setTimeout(() => perfilNome.focus(), 50);
         }
         function fecharPerfil() { perfilModal.classList.add('hidden'); }
+        function atualizarSaudacao() {
+            const base = (state.perfil && state.perfil.nomeCompleto) || (state.currentUser && state.currentUser.displayName) || '';
+            const primeiro = limparNome(base).split(' ')[0];
+            const el_ = document.getElementById('saudacao-nome');
+            if (el_) el_.textContent = primeiro ? 'Olá, ' + primeiro + '!' : 'Olá!';
+        }
         function atualizarPerfilNaTela() {
+            atualizarSaudacao();
             document.getElementById('perfil-nome-atual').textContent = state.perfil ? state.perfil.nomeCompleto : '-';
         }
         perfilNome.addEventListener('input', () => { document.getElementById('perfil-previa').textContent = limparNome(perfilNome.value) || '-'; });
