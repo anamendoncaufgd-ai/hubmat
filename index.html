@@ -273,6 +273,13 @@
                     Presença e Certificado
                 </a>
 
+                <a href="#" data-target="tab-depoimento" class="nav-btn flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-300 hover:bg-brand-surface hover:text-white group">
+                    <div class="w-8 h-8 rounded-lg bg-brand-surface flex items-center justify-center group-hover:bg-brand-purple/20 group-hover:text-brand-purple transition-colors">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    Meu Depoimento
+                </a>
+
                 <a href="#" id="nav-admin" data-target="tab-admin" class="nav-btn hidden flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-300 hover:bg-brand-surface hover:text-white group mt-4 border border-brand-pink/30">
                     <div class="w-8 h-8 rounded-lg bg-brand-pink/20 text-brand-pink flex items-center justify-center">
                         <i class="fas fa-user-shield"></i>
@@ -517,6 +524,42 @@
                     </div>
                 </div>
 
+                <!-- ABA: MEU DEPOIMENTO -->
+                <div id="tab-depoimento" class="tab-content max-w-3xl mx-auto">
+                    <h2 class="text-3xl font-bold mb-2"><span class="text-gradient">Meu Depoimento</span></h2>
+                    <p class="text-gray-300 mb-6">Conte como foi a sua experiência em uma aula. Seu texto ajuda os próximos participantes e aparece no rodapé da plataforma <strong>sem o seu nome</strong>, somente depois de revisado pela coordenação.</p>
+
+                    <div class="rounded-xl border border-pink-500/40 border-t-4 border-t-pink-400 bg-pink-500/10 p-6 mb-6">
+                        <h3 id="dp-form-titulo" class="font-bold text-pink-300 mb-3"><i class="fas fa-pen mr-2"></i>Escrever depoimento</h3>
+                        <form id="dp-form" class="space-y-4">
+                            <div>
+                                <label for="dp-aula" class="block text-sm text-gray-200 mb-1">Nome da aula</label>
+                                <input id="dp-aula" list="dp-aulas-lista" maxlength="120" autocomplete="off" class="glass-input w-full px-4 py-3 rounded-xl text-sm" placeholder="Ex.: Segurança, Ética e Engenharia de Prompt no Ensino de Matemática">
+                                <datalist id="dp-aulas-lista"></datalist>
+                            </div>
+                            <div>
+                                <label for="dp-texto" class="block text-sm text-gray-200 mb-1">Seu depoimento</label>
+                                <textarea id="dp-texto" rows="6" maxlength="800" class="glass-input w-full px-4 py-3 rounded-xl text-sm leading-relaxed" placeholder="O que você aprendeu, o que mudou na sua forma de pensar o ensino, o que recomendaria a quem vai participar..."></textarea>
+                                <p class="text-xs text-gray-400 mt-1"><span id="dp-contador">0</span>/800 caracteres. Não cite nomes de pessoas, escolas ou estudantes.</p>
+                            </div>
+                            <label class="flex items-start gap-3 text-xs text-gray-200 leading-relaxed">
+                                <input id="dp-aceite" type="checkbox" class="mt-1">
+                                <span>Autorizo a publicação anônima deste texto no rodapé da plataforma, após revisão da coordenação. Posso editar ou excluir o depoimento quando quiser.</span>
+                            </label>
+                            <p id="dp-msg" role="status" class="text-sm min-h-[1.25rem]"></p>
+                            <div class="flex flex-wrap gap-3">
+                                <button type="submit" class="bg-brand-pink hover:bg-brand-purple text-white text-sm font-semibold px-5 py-3 rounded-xl transition-colors"><i class="fas fa-paper-plane mr-2"></i><span id="dp-enviar-rot">Enviar para revisão</span></button>
+                                <button type="button" id="dp-cancelar" class="hidden border border-brand-border text-gray-300 hover:text-white text-sm px-5 py-3 rounded-xl">Cancelar edição</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="rounded-xl border border-purple-500/40 border-t-4 border-t-purple-400 bg-purple-500/10 p-6">
+                        <h3 class="font-bold text-purple-300 mb-3"><i class="fas fa-list mr-2"></i>Meus depoimentos</h3>
+                        <div id="dp-meus" class="space-y-3"><p class="text-sm text-gray-400">Você ainda não enviou depoimentos.</p></div>
+                    </div>
+                </div>
+
                 <!-- ABA: PAINEL DA COORDENAÇÃO (visível só para administradoras) -->
                 <div id="tab-admin" class="tab-content max-w-5xl mx-auto">
                     <h2 class="text-3xl font-bold text-white mb-2">Painel da Coordenação</h2>
@@ -594,6 +637,13 @@
                         <div id="au-presentes" class="hidden border border-dashed border-brand-border rounded-xl p-4"></div>
                     </div>
 
+                    <!-- Depoimentos: moderação -->
+                    <div class="glass-card p-6 mt-8">
+                        <h3 class="text-xl font-bold text-white mb-2"><i class="fas fa-comment-dots text-brand-pink mr-2"></i>Depoimentos dos participantes</h3>
+                        <p class="text-xs text-gray-400 mb-4">Só a coordenação vê o autor. No rodapé aparece apenas "Participante" e o nome da aula, depois que você aprovar.</p>
+                        <div id="dpa-lista" class="divide-y divide-white/10 border border-brand-border rounded-xl"></div>
+                    </div>
+
                     <!-- Etapa 2 da Engenharia de Prompt (protegida por senha) -->
                     <div class="glass-card p-6 mt-8">
                         <h3 class="text-xl font-bold text-white mb-2"><i class="fas fa-key text-yellow-400 mr-2"></i>Etapa 2 com senha (Engenharia de Prompt)</h3>
@@ -630,6 +680,14 @@
                         <div id="e3-lista" class="divide-y divide-white/10 border border-brand-border rounded-xl"></div>
                     </div>
                 </div>
+
+                <!-- Depoimentos anônimos (rodapé) -->
+                <footer id="rodape-depoimentos" class="hidden max-w-5xl mx-auto mt-12 pt-8 border-t border-brand-border">
+                    <h3 class="text-2xl font-bold text-white mb-1"><i class="fas fa-quote-left text-brand-pink mr-2"></i>O que dizem os participantes</h3>
+                    <p class="text-sm text-gray-400 mb-5">Relatos anônimos de quem já participou das aulas.</p>
+                    <div id="rodape-lista" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                    <button type="button" id="rodape-mais" class="hidden mt-4 border border-brand-border text-gray-200 hover:text-white text-sm px-4 py-2 rounded-lg">Ver mais depoimentos</button>
+                </footer>
 
                 <!-- Spacer for scroll -->
                 <div class="h-24"></div>
@@ -855,6 +913,7 @@
             carregarEtapa2Admin();
             carregarEtapa3Admin();
             carregarAulasAdmin();
+            carregarRodape(); carregarMeusDepoimentos(); carregarDepoimentosAdmin();
             carregarPerfil().then(carregarMeusCertificados);
 
             authView.classList.add('hidden');
@@ -1028,7 +1087,7 @@
             ABAS_PROTEGIDAS.forEach(id => { alvoConteudo(id).innerHTML = PLACEHOLDER; });
             resetEtapa2();
             resetEtapa3();
-            limparCaderno();
+            limparCaderno(); limparDepoimentos();
             state.perfil = null; fecharPerfil(); atualizarPerfilNaTela();
             document.getElementById('meus-certificados').innerHTML = ''; document.getElementById('au-lista').innerHTML = ''; document.getElementById('au-presentes').classList.add('hidden');
             dashboardPromptCount.textContent = '0';
@@ -1575,6 +1634,7 @@
                     let aula = null;
                     try { const a = await getDoc(doc(db, 'aulas', aulaId)); if (a.exists()) aula = a.data(); } catch (e) {}
                     if (!aula) continue;
+                    { const dl = document.getElementById('dp-aulas-lista'); if (dl && ![...dl.options].some(o => o.value === aula.titulo)) { const op = document.createElement('option'); op.value = aula.titulo; dl.appendChild(op); } }
                     const linha = el('div', 'flex flex-wrap items-center gap-3 p-3 rounded-lg bg-black/20 border border-brand-border');
                     const info = el('div', 'flex-1 min-w-0');
                     info.append(el('p', 'text-sm text-white font-medium', aula.titulo), el('p', 'text-xs text-gray-400', aula.data + ' às ' + aula.hora + ' · ' + aula.cargaHoraria));
@@ -1728,6 +1788,154 @@
                 showToast('Aula salva com o código "' + codigo + '".', 'success'); await carregarAulasAdmin();
             } catch (err) { showToast('Sem permissão ou sem conexão para salvar.', 'error'); }
         });
+
+        // === DEPOIMENTOS ANÔNIMOS ===
+        // depoimentos/{id}: privado (autor + coordenação). depoimentos_publicos/{id}: cópia anônima criada na aprovação.
+        const dpForm = document.getElementById('dp-form');
+        const dpAula = document.getElementById('dp-aula'), dpTexto = document.getElementById('dp-texto'), dpAceite = document.getElementById('dp-aceite');
+        const dpState = { editId: null, publicos: [], mostrados: 6 };
+        const novoIdDp = () => [...crypto.getRandomValues(new Uint8Array(10))].map(x => x.toString(16).padStart(2, '0')).join('');
+        function msgDp(t, cor) { const m = document.getElementById('dp-msg'); m.textContent = t; m.className = 'text-sm min-h-[1.25rem] ' + (cor || 'text-gray-300'); }
+        dpTexto.addEventListener('input', () => { document.getElementById('dp-contador').textContent = dpTexto.value.length; });
+
+        function sairEdicaoDp() {
+            dpState.editId = null; dpAula.value = ''; dpTexto.value = ''; dpAceite.checked = false;
+            document.getElementById('dp-contador').textContent = '0';
+            document.getElementById('dp-form-titulo').innerHTML = '<i class="fas fa-pen mr-2"></i>Escrever depoimento';
+            document.getElementById('dp-enviar-rot').textContent = 'Enviar para revisão';
+            document.getElementById('dp-cancelar').classList.add('hidden');
+        }
+        document.getElementById('dp-cancelar').addEventListener('click', () => { sairEdicaoDp(); msgDp(''); });
+
+        dpForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = state.currentUser; if (!user) return;
+            const aula = limparNome(dpAula.value), texto = dpTexto.value.replace(/\s+\n/g, '\n').trim();
+            if (aula.length < 3) { msgDp('Informe o nome da aula.', 'text-yellow-300'); return; }
+            if (texto.length < 20) { msgDp('Escreva um pouco mais (mínimo de 20 caracteres).', 'text-yellow-300'); return; }
+            if (!dpAceite.checked) { msgDp('Marque a autorização para enviar.', 'text-yellow-300'); return; }
+            msgDp('Enviando...', 'text-gray-300');
+            try {
+                const id = dpState.editId || novoIdDp();
+                if (dpState.editId) { try { await deleteDoc(doc(db, 'depoimentos_publicos', id)); } catch (err) {} }
+                await setDoc(doc(db, 'depoimentos', id), {
+                    uid: user.uid, nome: state.perfil ? state.perfil.nomeCompleto : (user.displayName || ''), email: user.email,
+                    aula, texto, aprovado: false, ts: Date.now()
+                });
+                sairEdicaoDp();
+                msgDp('Recebido. Seu depoimento aparece no rodapé depois da revisão da coordenação.', 'text-green-300');
+                carregarMeusDepoimentos(); carregarRodape();
+            } catch (err) { msgDp('Não foi possível enviar agora. Tente novamente.', 'text-red-300'); }
+        });
+
+        async function carregarMeusDepoimentos() {
+            const box = document.getElementById('dp-meus'); box.innerHTML = '';
+            const user = state.currentUser; if (!user) return;
+            try {
+                const snap = await getDocs(query(collection(db, 'depoimentos'), where('uid', '==', user.uid)));
+                const itens = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (b.ts || 0) - (a.ts || 0));
+                if (!itens.length) { box.appendChild(el('p', 'text-sm text-gray-400', 'Você ainda não enviou depoimentos.')); return; }
+                itens.forEach(it => {
+                    const card = el('div', 'p-3 rounded-lg bg-black/20 border border-brand-border');
+                    const topo = el('div', 'flex flex-wrap items-center gap-2 mb-1');
+                    topo.append(el('span', 'text-sm text-white font-semibold flex-1 min-w-0', it.aula),
+                        el('span', it.aprovado ? 'text-xs text-green-300' : 'text-xs text-yellow-300', it.aprovado ? 'Publicado' : 'Aguardando revisão'));
+                    card.append(topo, el('p', 'text-sm text-gray-200 whitespace-pre-line mb-3', it.texto));
+                    const ed = el('button', 'text-xs border border-brand-border text-gray-200 hover:text-white px-3 py-1 rounded-lg mr-2', 'Editar');
+                    ed.addEventListener('click', () => {
+                        dpState.editId = it.id; dpAula.value = it.aula; dpTexto.value = it.texto; dpAceite.checked = false;
+                        document.getElementById('dp-contador').textContent = it.texto.length;
+                        document.getElementById('dp-form-titulo').innerHTML = '<i class="fas fa-pen mr-2"></i>Editar depoimento';
+                        document.getElementById('dp-enviar-rot').textContent = 'Salvar e enviar para revisão';
+                        document.getElementById('dp-cancelar').classList.remove('hidden');
+                        msgDp(it.aprovado ? 'Ao salvar, a versão publicada sai do rodapé até a coordenação revisar de novo.' : '', 'text-yellow-300');
+                        dpAula.focus();
+                    });
+                    const ex = el('button', 'text-xs border border-red-500/40 text-red-300 hover:bg-red-500/20 px-3 py-1 rounded-lg', 'Excluir');
+                    ex.addEventListener('click', async () => {
+                        if (!confirm('Excluir este depoimento? Ele também sai do rodapé.')) return;
+                        try {
+                            try { await deleteDoc(doc(db, 'depoimentos_publicos', it.id)); } catch (err) {}
+                            await deleteDoc(doc(db, 'depoimentos', it.id));
+                            if (dpState.editId === it.id) sairEdicaoDp();
+                            carregarMeusDepoimentos(); carregarRodape();
+                        } catch (err) { showToast('Não foi possível excluir agora.', 'error'); }
+                    });
+                    card.append(ed, ex); box.appendChild(card);
+                });
+            } catch (err) { box.appendChild(el('p', 'text-sm text-red-300', 'Não foi possível carregar seus depoimentos.')); }
+        }
+
+        function desenharRodape() {
+            const rod = document.getElementById('rodape-depoimentos'), lista = document.getElementById('rodape-lista');
+            lista.innerHTML = '';
+            if (!dpState.publicos.length) { rod.classList.add('hidden'); return; }
+            rod.classList.remove('hidden');
+            dpState.publicos.slice(0, dpState.mostrados).forEach(d => {
+                const c = el('blockquote', 'rounded-xl border border-brand-border bg-black/25 p-5');
+                c.append(el('p', 'text-gray-100 text-sm leading-relaxed whitespace-pre-line mb-3', '“' + d.texto + '”'),
+                    el('p', 'text-xs text-brand-pink font-semibold', 'Participante · Aula: ' + d.aula));
+                lista.appendChild(c);
+            });
+            document.getElementById('rodape-mais').classList.toggle('hidden', dpState.publicos.length <= dpState.mostrados);
+        }
+        document.getElementById('rodape-mais').addEventListener('click', () => { dpState.mostrados += 6; desenharRodape(); });
+        async function carregarRodape() {
+            try {
+                const snap = await getDocs(collection(db, 'depoimentos_publicos'));
+                dpState.publicos = snap.docs.map(d => d.data()).filter(d => d && d.texto).sort((a, b) => (b.ts || 0) - (a.ts || 0));
+            } catch (err) { dpState.publicos = []; }
+            desenharRodape();
+        }
+
+        async function carregarDepoimentosAdmin() {
+            const lista = document.getElementById('dpa-lista'); lista.innerHTML = '';
+            if (!state.isAdmin) return;
+            try {
+                const snap = await getDocs(collection(db, 'depoimentos'));
+                const itens = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (a.aprovado === b.aprovado ? (b.ts || 0) - (a.ts || 0) : (a.aprovado ? 1 : -1)));
+                if (!itens.length) { lista.appendChild(el('p', 'text-sm text-gray-400 p-4', 'Nenhum depoimento recebido ainda.')); return; }
+                itens.forEach(it => {
+                    const linha = el('div', 'p-4 space-y-2');
+                    const topo = el('div', 'flex flex-wrap items-center gap-2');
+                    topo.append(el('span', 'text-sm text-white font-semibold flex-1 min-w-0', it.aula),
+                        el('span', it.aprovado ? 'text-xs text-green-300' : 'text-xs text-yellow-300', it.aprovado ? 'Publicado' : 'Aguardando aprovação'));
+                    linha.append(topo, el('p', 'text-xs text-gray-400', 'Autor (só você vê): ' + (it.nome || '-') + ' · ' + (it.email || '')), el('p', 'text-sm text-gray-200 whitespace-pre-line', it.texto));
+                    const acoes = el('div', 'flex flex-wrap gap-2');
+                    const mk = (rot, fn, cls) => { const b = el('button', cls || 'text-xs border border-brand-border text-gray-200 hover:text-white px-3 py-1 rounded-lg', rot); b.addEventListener('click', fn); return b; };
+                    const falha = () => showToast('Sem permissão ou sem conexão.', 'error');
+                    if (!it.aprovado) acoes.appendChild(mk('Aprovar e publicar', async () => {
+                        try {
+                            await setDoc(doc(db, 'depoimentos_publicos', it.id), { aula: it.aula, texto: it.texto, ts: Date.now() });
+                            await setDoc(doc(db, 'depoimentos', it.id), { aprovado: true }, { merge: true });
+                            await carregarDepoimentosAdmin(); carregarRodape();
+                        } catch (err) { falha(); }
+                    }, 'text-xs border border-green-500/40 text-green-300 hover:bg-green-500/20 px-3 py-1 rounded-lg'));
+                    else acoes.appendChild(mk('Despublicar', async () => {
+                        try {
+                            await deleteDoc(doc(db, 'depoimentos_publicos', it.id));
+                            await setDoc(doc(db, 'depoimentos', it.id), { aprovado: false }, { merge: true });
+                            await carregarDepoimentosAdmin(); carregarRodape();
+                        } catch (err) { falha(); }
+                    }));
+                    acoes.appendChild(mk('Excluir', async () => {
+                        if (!confirm('Excluir este depoimento definitivamente?')) return;
+                        try {
+                            try { await deleteDoc(doc(db, 'depoimentos_publicos', it.id)); } catch (err) {}
+                            await deleteDoc(doc(db, 'depoimentos', it.id));
+                            await carregarDepoimentosAdmin(); carregarRodape();
+                        } catch (err) { falha(); }
+                    }, 'text-xs border border-red-500/40 text-red-300 hover:bg-red-500/20 px-3 py-1 rounded-lg'));
+                    linha.appendChild(acoes); lista.appendChild(linha);
+                });
+            } catch (err) { lista.appendChild(el('p', 'text-sm text-red-300 p-4', 'Não foi possível listar. Confira se as regras v7 foram publicadas.')); }
+        }
+
+        function limparDepoimentos() {
+            sairEdicaoDp(); dpState.publicos = []; dpState.mostrados = 6; msgDp('');
+            document.getElementById('dp-meus').innerHTML = ''; document.getElementById('dpa-lista').innerHTML = '';
+            document.getElementById('rodape-lista').innerHTML = ''; document.getElementById('rodape-depoimentos').classList.add('hidden');
+        }
 
         // === BUSCA NA BIBLIOTECA DE PROMPTS (título, categoria e texto; ignora acentos) ===
         const normalizar = t => t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
