@@ -102,6 +102,15 @@
         #notepad-overlay { background: rgba(0,0,0,0.82) !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
         #perfil-modal > div { background: #0d1322 !important; }
 
+        /* Menu lateral: fundo roxo sólido (sem transparência) para não misturar com o conteúdo no celular */
+        #main-sidebar { background: linear-gradient(180deg, #24124a 0%, #1a0f3a 50%, #120b2b 100%) !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-right: 1px solid rgba(168,85,247,0.5) !important; }
+        @media (max-width: 767px) { #main-sidebar { box-shadow: 12px 0 40px rgba(0,0,0,0.75); } }
+        #main-sidebar .nav-btn { color: #e5e7eb; }
+        #main-sidebar .nav-btn.active { background: rgba(168,85,247,0.28); color: #ffffff; }
+        #sidebar-overlay { position: fixed; inset: 0; background: rgba(5,3,15,0.78); z-index: 30; display: none; }
+        #sidebar-overlay.aberto { display: block; }
+        @media (min-width: 768px) { #sidebar-overlay { display: none !important; } }
+
         /* Texto Gradiente */
         .text-gradient {
             background: linear-gradient(to right, #a855f7, #ec4899, #3b82f6);
@@ -949,8 +958,12 @@
             });
         });
 
-        function openMobileSidebar() { mainSidebar.classList.remove('-translate-x-full'); }
-        function closeMobileSidebar() { mainSidebar.classList.add('-translate-x-full'); }
+        const sidebarOverlay = document.createElement('div');
+        sidebarOverlay.id = 'sidebar-overlay';
+        document.body.appendChild(sidebarOverlay);
+        function openMobileSidebar() { mainSidebar.classList.remove('-translate-x-full'); sidebarOverlay.classList.add('aberto'); }
+        function closeMobileSidebar() { mainSidebar.classList.add('-translate-x-full'); sidebarOverlay.classList.remove('aberto'); }
+        sidebarOverlay.addEventListener('click', closeMobileSidebar);
         openSidebarBtn.addEventListener('click', openMobileSidebar);
         closeSidebarBtn.addEventListener('click', closeMobileSidebar);
 
