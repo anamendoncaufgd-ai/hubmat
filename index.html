@@ -107,7 +107,8 @@
         @media (max-width: 767px) { #main-sidebar { box-shadow: 12px 0 40px rgba(0,0,0,0.75); } }
         #main-sidebar .nav-btn { color: #e5e7eb; }
         #main-sidebar .nav-btn.active { background: rgba(168,85,247,0.28); color: #ffffff; }
-        #sidebar-overlay { position: fixed; inset: 0; background: rgba(5,3,15,0.78); z-index: 30; display: none; }
+        #main-sidebar { z-index: 60 !important; }
+        #sidebar-overlay { position: fixed; inset: 0; background: rgba(5,3,15,0.6); z-index: 40; display: none; }
         #sidebar-overlay.aberto { display: block; }
         @media (min-width: 768px) { #sidebar-overlay { display: none !important; } }
 
@@ -960,7 +961,7 @@
 
         const sidebarOverlay = document.createElement('div');
         sidebarOverlay.id = 'sidebar-overlay';
-        document.body.appendChild(sidebarOverlay);
+        mainSidebar.parentNode.insertBefore(sidebarOverlay, mainSidebar);
         function openMobileSidebar() { mainSidebar.classList.remove('-translate-x-full'); sidebarOverlay.classList.add('aberto'); }
         function closeMobileSidebar() { mainSidebar.classList.add('-translate-x-full'); sidebarOverlay.classList.remove('aberto'); }
         sidebarOverlay.addEventListener('click', closeMobileSidebar);
