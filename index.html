@@ -243,11 +243,18 @@
                     Engenharia de Prompt
                 </a>
 
+                <a href="#" data-target="tab-personalizacao" class="nav-btn flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-300 hover:bg-brand-surface hover:text-white group">
+                    <div class="w-8 h-8 shrink-0 rounded-lg bg-brand-surface flex items-center justify-center group-hover:bg-brand-pink/20 group-hover:text-brand-pink transition-colors">
+                        <i class="fas fa-sliders"></i>
+                    </div>
+                    <span class="leading-snug">Personalização e Otimização de Tarefas com IA</span>
+                </a>
+
                 <a href="#" data-target="tab-biblioteca" class="nav-btn flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-300 hover:bg-brand-surface hover:text-white group">
                     <div class="w-8 h-8 rounded-lg bg-brand-surface flex items-center justify-center group-hover:bg-brand-pink/20 group-hover:text-brand-pink transition-colors">
                         <i class="fas fa-book-open"></i>
                     </div>
-                    Biblioteca de Prompts
+                    Biblioteca de Prompts e Skills
                 </a>
 
                 <a href="#" data-target="tab-oficina" class="nav-btn flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-300 hover:bg-brand-surface hover:text-white group">
@@ -451,11 +458,171 @@
                     </div>
                 </div>
 
+                <!-- ABA: PERSONALIZAÇÃO E OTIMIZAÇÃO DE TAREFAS COM IA -->
+                <div id="tab-personalizacao" class="tab-content max-w-4xl mx-auto">
+                    <h2 class="text-3xl font-bold mb-2"><span class="text-gradient">Personalização e Otimização de Tarefas com IA</span></h2>
+                    <p class="text-gray-300 mb-2">Ensine a IA a trabalhar do seu jeito e faça o seu tempo render mais.</p>
+                    <p class="text-gray-400 text-sm mb-8">Na aula anterior você desativou o compartilhamento de dados, a localização e a memória. Agora vai usar outro recurso, que funciona mesmo com a memória desativada: as <strong class="text-white">instruções</strong>. Elas são um campo à parte, que você escreve e controla.</p>
+
+                    <!-- BLOCO 1 -->
+                    <section class="rounded-xl border border-purple-500/40 border-t-4 border-t-purple-400 bg-purple-500/10 p-6 mb-6" aria-labelledby="pers-b1">
+                        <h3 id="pers-b1" class="text-xl font-bold text-purple-300 mb-3"><i class="fas fa-user-gear mr-2"></i>1. Instruções gerais: quem é você e como a IA deve te ajudar</h3>
+                        <p class="text-gray-200 text-sm leading-relaxed mb-4">São as instruções que valem para <strong class="text-white">toda conversa nova</strong>. Em vez de explicar quem você é toda vez, você escreve uma vez e a IA já começa sabendo. Elas guardam, por exemplo, quem você é, para que usa a IA, o tom que você prefere e o que ela deve evitar.</p>
+                        <p class="text-gray-200 text-sm leading-relaxed mb-4">A parte da <strong class="text-white">Persona</strong> do método PROFES também pode vir aqui: é o lugar de dizer qual papel a IA assume com você.</p>
+
+                        <h4 class="font-semibold text-white text-sm mb-2">Onde escrever</h4>
+                        <div class="grid sm:grid-cols-2 gap-3 mb-3">
+                            <div class="rounded-lg bg-black/20 border border-brand-border p-4">
+                                <p class="font-semibold text-orange-300 text-sm mb-2"><i class="fas fa-asterisk mr-1"></i>Claude</p>
+                                <ul class="text-sm text-gray-300 space-y-1 list-disc pl-5">
+                                    <li><strong class="text-white">Computador:</strong> clique no seu nome, depois em Conta e procure Instruções.</li>
+                                    <li><strong class="text-white">Celular:</strong> toque no seu nome, depois em Perfil e em Instruções.</li>
+                                </ul>
+                            </div>
+                            <div class="rounded-lg bg-black/20 border border-brand-border p-4">
+                                <p class="font-semibold text-green-300 text-sm mb-2"><i class="fas fa-hexagon-nodes mr-1"></i>ChatGPT</p>
+                                <ul class="text-sm text-gray-300 space-y-1 list-disc pl-5">
+                                    <li><strong class="text-white">Celular:</strong> toque no seu nome, depois em Personalizar o ChatGPT e em Personalidade. Ali ficam o tom, a cordialidade, o entusiasmo e as instruções personalizadas.</li>
+                                    <li><strong class="text-white">Computador:</strong> clique no seu perfil, depois em Configurações e em Personalização.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 mb-5">No Gemini não encontramos esse campo. Nele, cole as instruções no começo da conversa. Os menus mudam com frequência: se o nome estiver diferente na sua tela, procure por Personalização ou Instruções.</p>
+
+                        <h4 class="font-semibold text-white text-sm mb-2">Exemplos para você adaptar</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-1"><p class="text-xs text-purple-200 font-semibold">Estudante de Licenciatura em Matemática</p><button type="button" data-copiar="pers-ex1" class="text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg"><i class="fas fa-copy mr-1"></i>Copiar</button></div>
+                                <pre id="pers-ex1" class="whitespace-pre-wrap bg-black/30 border border-brand-border rounded-lg p-4 text-sm text-gray-200 font-sans leading-relaxed">Sou estudante de Licenciatura em Matemática. Uso a IA para estudar as disciplinas do curso e entender os conteúdos. Explique de forma simples, com exemplos do dia a dia, e só depois use a linguagem formal da Matemática. Mostre o passo a passo e justifique cada etapa. Quando eu errar, aponte o erro com gentileza e me dê uma dica em vez da resposta pronta. Se você não souber algo, diga que não sabe e nunca invente fontes. Se meu pedido estiver confuso, faça uma pergunta antes de responder.</pre>
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-1"><p class="text-xs text-purple-200 font-semibold">Professor(a) de Matemática</p><button type="button" data-copiar="pers-ex2" class="text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg"><i class="fas fa-copy mr-1"></i>Copiar</button></div>
+                                <pre id="pers-ex2" class="whitespace-pre-wrap bg-black/30 border border-brand-border rounded-lg p-4 text-sm text-gray-200 font-sans leading-relaxed">Sou professor(a) de Matemática do Ensino Médio de escola pública. Uso a IA para preparar aulas, listas de exercícios e avaliações. Escreva em linguagem clara, adequada a estudantes de 14 a 16 anos, sem textos longos. Organize as respostas em passo a passo ou em tópicos. Estimule a participação e o raciocínio dos estudantes. Se faltar informação, pergunte antes de responder. Nunca invente referências ou dados.</pre>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-4"><i class="fas fa-shield-halved mr-1"></i>Não escreva nas instruções dados pessoais, senhas ou informações de estudantes.</p>
+                    </section>
+
+                    <!-- BLOCO 2 -->
+                    <section class="rounded-xl border border-sky-500/40 border-t-4 border-t-sky-400 bg-sky-500/10 p-6 mb-6" aria-labelledby="pers-b2">
+                        <h3 id="pers-b2" class="text-xl font-bold text-sky-300 mb-3"><i class="fas fa-folder-open mr-2"></i>2. Projetos: um lugar com as regras de um trabalho</h3>
+                        <p class="text-gray-200 text-sm leading-relaxed mb-4">Um <strong class="text-white">projeto</strong> é como uma pasta de trabalho dentro da IA. Tudo o que você conversa ali dentro segue as regras que você definiu para aquele trabalho. Assim você não precisa repetir, a cada pedido, o tempo da aula, a turma, o formato da entrega e tudo o mais.</p>
+
+                        <h4 class="font-semibold text-white text-sm mb-2">Três coisas que não se misturam</h4>
+                        <div class="grid sm:grid-cols-3 gap-3 mb-4">
+                            <div class="rounded-lg bg-black/20 border border-brand-border p-4">
+                                <p class="font-semibold text-purple-300 text-sm mb-1">Instruções gerais</p>
+                                <p class="text-xs text-gray-300 mb-2">Quem é você e como gosta de ser tratado. Valem para qualquer conversa, em qualquer projeto.</p>
+                                <p class="text-xs text-gray-400">Exemplo: "Sou professor(a) de Matemática e prefiro linguagem clara."</p>
+                            </div>
+                            <div class="rounded-lg bg-black/20 border border-brand-border p-4">
+                                <p class="font-semibold text-sky-300 text-sm mb-1">Descrição do projeto</p>
+                                <p class="text-xs text-gray-300 mb-2">O assunto e o objetivo. É a etiqueta da pasta, a resposta de "o que você quer realizar".</p>
+                                <p class="text-xs text-gray-400">Exemplo: "Planejar as aulas de Funções do 1º ano."</p>
+                            </div>
+                            <div class="rounded-lg bg-black/20 border border-brand-border p-4">
+                                <p class="font-semibold text-pink-300 text-sm mb-1">Instruções do projeto</p>
+                                <p class="text-xs text-gray-300 mb-2">As regras de trabalho só daquele projeto. Funcionam junto com as instruções gerais.</p>
+                                <p class="text-xs text-gray-400">Exemplo: "Toda aula tem 100 minutos e termina com um desafio."</p>
+                            </div>
+                        </div>
+                        <div class="rounded-lg bg-sky-500/10 border border-sky-500/30 p-4 mb-5">
+                            <p class="text-sm text-sky-100"><i class="fas fa-circle-question mr-2"></i><strong>Pergunta para decidir onde escrever:</strong> isso vale para tudo o que eu faço com a IA, ou só para este trabalho? Se vale para tudo, vai nas instruções gerais. Se vale só para este trabalho, vai nas instruções do projeto.</p>
+                        </div>
+
+                        <h4 class="font-semibold text-white text-sm mb-2">Como criar um projeto no Claude</h4>
+                        <ol class="text-sm text-gray-300 space-y-1 list-decimal pl-5 mb-2">
+                            <li>No menu da esquerda, clique em <strong class="text-white">Projetos</strong>.</li>
+                            <li>No canto superior direito, clique em <strong class="text-white">Novo projeto</strong>.</li>
+                            <li>Responda <strong class="text-white">No que você está trabalhando?</strong> (é o nome do projeto) e <strong class="text-white">O que você quer realizar?</strong> (é a descrição).</li>
+                            <li>Com o projeto criado, abra a parte <strong class="text-white">Instruções</strong> e escreva as regras daquele trabalho.</li>
+                        </ol>
+                        <p class="text-xs text-gray-400 mb-5">Nas contas pagas é possível anexar um arquivo de contexto, por exemplo um projeto já aprovado. Nas contas gratuitas, o projeto funciona e muda apenas o limite, como a quantidade de projetos e de arquivos. O ChatGPT também tem a área de Projetos, na barra lateral.</p>
+
+                        <h4 class="font-semibold text-white text-sm mb-2">Exemplo completo: as aulas de uma turma do 1º ano</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-1"><p class="text-xs text-sky-200 font-semibold">Nome do projeto</p><button type="button" data-copiar="proj-nome" class="text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg"><i class="fas fa-copy mr-1"></i>Copiar</button></div>
+                                <pre id="proj-nome" class="whitespace-pre-wrap bg-black/30 border border-brand-border rounded-lg p-4 text-sm text-gray-200 font-sans">Aulas de Matemática, 1º ano do Ensino Médio</pre>
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-1"><p class="text-xs text-sky-200 font-semibold">Descrição</p><button type="button" data-copiar="proj-desc" class="text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg"><i class="fas fa-copy mr-1"></i>Copiar</button></div>
+                                <pre id="proj-desc" class="whitespace-pre-wrap bg-black/30 border border-brand-border rounded-lg p-4 text-sm text-gray-200 font-sans leading-relaxed">Planejar as aulas de Matemática de uma turma do 1º ano do Ensino Médio de escola pública, começando por Funções Quadráticas.</pre>
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-1"><p class="text-xs text-sky-200 font-semibold">Instruções do projeto</p><button type="button" data-copiar="proj-instr" class="text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg"><i class="fas fa-copy mr-1"></i>Copiar</button></div>
+                                <pre id="proj-instr" class="whitespace-pre-wrap bg-black/30 border border-brand-border rounded-lg p-4 text-sm text-gray-200 font-sans leading-relaxed">Sou professor(a) de Matemática do Ensino Médio e valorizo estabelecer relações visuais e algébricas para contribuir com a aprendizagem dos estudantes. Minha turma é do 1º ano do Ensino Médio de uma escola pública, com 40 alunos de 14 a 16 anos, em sua maioria de aprendizado visual e sinestésico. Toda aula que eu pedir neste projeto deve seguir estas regras:
+
+1. A aula tem 100 minutos.
+2. Comece sempre por um problema real simples, antes da definição formal.
+3. Depois, estabeleça a relação formal e matematicamente rigorosa, com definições e exemplos.
+4. Termine com um problema desafio.
+5. Estimule a participação e o raciocínio dos alunos ao longo de toda a aula.
+6. Evite linguagem técnica, textos longos e exemplos incompatíveis com a faixa etária.
+7. Entregue em PDF, em azul e rosa, visualmente atrativo.
+8. Se faltar alguma informação, como o conteúdo ou o que a turma já estudou, pergunte antes de montar a aula.</pre>
+                            </div>
+                        </div>
+
+                        <div class="rounded-lg bg-black/20 border border-brand-border p-4 mt-5">
+                            <p class="text-sm font-semibold text-white mb-2"><i class="fas fa-bolt text-yellow-300 mr-2"></i>O ganho de tempo</p>
+                            <p class="text-sm text-gray-300 mb-3">Na aula anterior, o prompt para gerar a aula de função quadrática tinha cerca de dez linhas. Com o projeto pronto, o pedido de cada nova aula fica curto, só com o que muda:</p>
+                            <p class="text-sm text-white bg-black/30 border border-brand-border rounded-lg p-3">Aula de função quadrática. Eles já estudaram função afim. O objetivo é interpretar gráficos, raízes, máximo, mínimo e concavidade.</p>
+                        </div>
+                    </section>
+
+                    <!-- BLOCO 3 -->
+                    <section class="rounded-xl border border-pink-500/40 border-t-4 border-t-pink-400 bg-pink-500/10 p-6 mb-6" aria-labelledby="pers-b3">
+                        <h3 id="pers-b3" class="text-xl font-bold text-pink-300 mb-1"><i class="fas fa-industry mr-2"></i>3. Fábrica de Instruções</h3>
+                        <p class="text-sm text-pink-100 mb-3">Seu tempo rende mais.</p>
+                        <p class="text-gray-200 text-sm leading-relaxed mb-4">A Fábrica de Instruções é uma <strong class="text-white">skill</strong>: um arquivo que ensina a IA a fazer uma tarefa. Esta faz uma entrevista com você, uma pergunta por vez, com vários exemplos de resposta para você escolher, e no final entrega as suas instruções prontas para copiar e colar. Você pode escolher se são instruções para a IA em geral ou para um projeto.</p>
+
+                        <div id="skill-bloqueio" class="rounded-xl bg-black/20 border border-brand-border p-6 text-center">
+                            <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-pink/20 text-brand-pink mb-3"><i class="fas fa-lock text-2xl"></i></div>
+                            <h4 class="text-lg font-bold text-white mb-2">Skill liberada durante a aula</h4>
+                            <p class="text-gray-300 text-sm mb-5">Quando a professora informar o código da aula, digite-o abaixo. É o mesmo código usado para registrar a presença.</p>
+                            <form id="skill-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                                <label for="skill-codigo" class="sr-only">Código da aula</label>
+                                <input id="skill-codigo" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="40" placeholder="Código da aula" class="glass-input flex-1 px-4 py-3 rounded-xl text-sm">
+                                <button type="submit" class="bg-brand-pink hover:bg-brand-purple text-white text-sm font-semibold px-5 py-3 rounded-xl transition-colors"><i class="fas fa-unlock-alt mr-2"></i>Liberar</button>
+                            </form>
+                            <p id="skill-msg" role="status" class="text-sm mt-4 min-h-[1.25rem]"></p>
+                        </div>
+
+                        <div id="skill-conteudo" class="hidden">
+                            <div class="rounded-lg bg-green-500/10 border border-green-500/40 p-4 mb-4">
+                                <p class="text-sm text-green-200"><i class="fas fa-unlock mr-2"></i>Skill liberada. Sua presença nesta aula também está registrada.</p>
+                            </div>
+                            <div class="flex flex-wrap gap-3 mb-5">
+                                <button type="button" id="skill-baixar" class="bg-brand-pink hover:bg-brand-purple text-white text-sm font-semibold px-5 py-3 rounded-xl transition-colors"><i class="fas fa-download mr-2"></i>Baixar a skill (.zip)</button>
+                                <button type="button" id="skill-copiar" class="border border-brand-border text-gray-200 hover:text-white text-sm font-semibold px-5 py-3 rounded-xl"><i class="fas fa-copy mr-2"></i>Copiar o texto da skill</button>
+                            </div>
+                            <h4 class="font-semibold text-white text-sm mb-2">Como usar</h4>
+                            <ul class="text-sm text-gray-300 space-y-2 list-disc pl-5 mb-3">
+                                <li><strong class="text-white">Claude e Gemini:</strong> instale o arquivo .zip na área de personalização, em Habilidades. Depois, em uma conversa nova, peça para criar suas instruções.</li>
+                                <li><strong class="text-white">ChatGPT:</strong> anexe o arquivo .zip na conversa e escreva: "Leia o arquivo anexado e comece a entrevista comigo."</li>
+                                <li><strong class="text-white">Qualquer outra IA:</strong> use "Copiar o texto da skill", cole na conversa e peça para começar a entrevista.</li>
+                            </ul>
+                            <p class="text-xs text-gray-400">Os menus mudam com frequência. Se não encontrar Habilidades, procure por Personalização na sua conta.</p>
+                        </div>
+                    </section>
+
+                    <section class="rounded-xl border border-yellow-500/40 border-t-4 border-t-yellow-400 bg-yellow-500/10 p-6" aria-labelledby="pers-b4">
+                        <h3 id="pers-b4" class="text-xl font-bold text-yellow-300 mb-3"><i class="fas fa-list-check mr-2"></i>Sua missão agora</h3>
+                        <ol class="text-sm text-gray-200 space-y-2 list-decimal pl-5">
+                            <li>Escreva suas instruções gerais e salve na sua IA.</li>
+                            <li>Crie um projeto para uma tarefa que você repete sempre e escreva as instruções dele.</li>
+                            <li>Com a skill liberada, gere um segundo conjunto de instruções e compare com o que você escreveu à mão.</li>
+                            <li>Faça um pedido curto dentro do projeto e veja se a resposta já vem do seu jeito.</li>
+                        </ol>
+                    </section>
+                </div>
+
                 <!-- ABA: BIBLIOTECA -->
                 <div id="tab-biblioteca" class="tab-content max-w-5xl mx-auto">
                     <div class="flex flex-wrap justify-between items-end gap-4 mb-6">
                         <div>
-                            <h2 class="text-3xl font-bold text-white">Biblioteca de Prompts</h2>
+                            <h2 class="text-3xl font-bold text-white">Biblioteca de Prompts e Skills</h2>
                             <p class="text-gray-400">Modelos prontos para copiar, colar e adaptar.</p>
                         </div>
                         <div class="relative">
@@ -826,7 +993,7 @@
             carregarEtapa2Admin();
             carregarEtapa3Admin();
             carregarAulasAdmin();
-            carregarPerfil().then(carregarMeusCertificados);
+            carregarPerfil().then(carregarMeusCertificados); verificarSkillLiberada();
 
             authView.classList.add('hidden');
             appView.classList.remove('hidden');
@@ -939,7 +1106,7 @@
             resetEtapa2();
             resetEtapa3();
             state.perfil = null; fecharPerfil(); atualizarPerfilNaTela();
-            document.getElementById('meus-certificados').innerHTML = ''; document.getElementById('au-lista').innerHTML = ''; document.getElementById('au-presentes').classList.add('hidden');
+            document.getElementById('meus-certificados').innerHTML = ''; skillLiberar(false); document.getElementById('au-lista').innerHTML = ''; document.getElementById('au-presentes').classList.add('hidden');
             dashboardPromptCount.textContent = '0';
             state.prompts = []; state.conteudo = {}; state.isAdmin = false;
             document.getElementById('prompt-grid').innerHTML = '';
@@ -1463,6 +1630,7 @@
                 campo.value = '';
                 msgPresenca('Presença registrada na aula "' + aula.titulo + '".', 'text-green-300');
                 carregarMeusCertificados();
+                if (codigo === SKILL_AULA) skillLiberar(true);
             } catch (err) { msgPresenca('Não foi possível registrar. A presença pode estar encerrada ou sem conexão.', 'text-red-300'); }
         });
 
@@ -1493,6 +1661,86 @@
                 if (!box.children.length) box.appendChild(el('p', 'text-sm text-gray-400', 'Nenhuma presença registrada ainda.'));
             } catch (err) { box.appendChild(el('p', 'text-sm text-red-300', 'Não foi possível carregar suas declarações.')); }
         }
+
+        // === PERSONALIZAÇÃO: skill "Fábrica de Instruções" liberada pelo código da aula ===
+        const SKILL_AULA = 'fabrica';
+        const SKILL_MD = "---\nname: fabrica-de-instrucoes\ndescription: Fábrica de Instruções (seu tempo rende mais). Conduz uma entrevista simples, uma pergunta por vez, e entrega prontas as instruções personalizadas da IA ou as instruções de um projeto. Use quando pedirem para criar, escrever ou melhorar instruções para o GPT, o Claude ou o Gemini.\n---\n\n# Fábrica de Instruções: seu tempo rende mais\n\n## Para que serve\n\nAjuda estudantes e professores a escrever as instruções que a IA vai seguir sempre, para que não precisem repetir os mesmos pedidos a cada conversa. A pessoa responde a perguntas simples e recebe um texto pronto para copiar e colar.\n\n## Como conversar\n\n- Use linguagem muito simples, como se explicasse para alguém de 10 a 12 anos. Frases curtas, palavras do dia a dia, sem termos técnicos. Se precisar de uma palavra difícil, explique em seguida.\n- Faça UMA pergunta por vez. Espere a resposta antes de seguir.\n- Em toda pergunta, ofereça de 5 a 7 exemplos de resposta numerados, para a pessoa escolher ou adaptar. Sempre inclua também: \"Escrever do meu jeito\" e \"Pular esta pergunta\".\n- Aceite resposta com número, com palavras próprias ou uma mistura dos dois. Se a pessoa escolher mais de um exemplo, junte todos.\n- Se a pessoa responder \"pular\", siga adiante sem insistir e não invente nada no lugar.\n- Seja gentil e animada, sem exageros. Elogie de leve quando a pessoa avançar (\"Ótimo, já temos metade!\").\n- Avise o andamento de vez em quando (\"Pergunta 3 de 8\").\n- Nunca peça dados pessoais sensíveis (CPF, senha, endereço, dados de alunos ou de colegas). Se a pessoa escrever algo assim, avise com calma que isso não deve ir nas instruções e proponha uma versão sem esses dados.\n\n## Passo 0: abertura e bifurcação\n\nComece com uma saudação curta e explique em duas frases o que vai acontecer: \"Vou fazer algumas perguntas, uma de cada vez, e no final você leva o texto pronto para colar na sua IA.\"\n\nDepois pergunte:\n\n**Para onde vão essas instruções?**\n1. Para a minha IA em geral, valendo para todas as conversas\n2. Para um projeto específico (por exemplo, as aulas de uma turma ou um trabalho de curso)\n3. Ainda não sei, me ajude a decidir\n\nSe a pessoa escolher 3, ajude com uma pergunta de teste: \"Isso vale para tudo o que você faz com a IA, ou só para este trabalho?\" Se vale para tudo, caminho A. Se vale só para um trabalho, caminho B.\n\nExplique a diferença em uma frase quando for útil: as instruções gerais dizem quem é você e como gosta de ser tratada, e valem para qualquer conversa. As instruções do projeto dizem como a IA deve trabalhar só dentro daquele projeto.\n\n## Caminho A: instruções para a IA em geral\n\nFaça estas perguntas, nesta ordem, uma por vez, cada uma com 5 a 7 exemplos:\n\n1. **Quem é você?** Exemplos: estudante de graduação em Matemática, estudante do ensino médio, professora de Matemática, professor de outra área, pesquisadora, estudante de pós-graduação.\n2. **Para que você mais usa a IA?** Exemplos: estudar para as provas, entender a matéria, preparar aulas, criar listas de exercícios, escrever trabalhos, organizar tarefas e tempo, tirar dúvidas rápidas.\n3. **Em que nível você está?** Exemplos: estou começando, já sei o básico, sei bem a matéria e quero aprofundar, sou da área e preciso de rigor, quero que explique como se eu nunca tivesse visto.\n4. **Como você quer que a IA fale com você?** Exemplos: simples e direta, educada e gentil, animada e motivadora, formal e acadêmica, calma e paciente, como um colega, como um professor.\n5. **Qual o tamanho ideal das respostas?** Exemplos: bem curtas, curtas com opção de ver mais, médias, completas e detalhadas, depende da pergunta, sempre em tópicos.\n6. **Que formato você mais pede?** Exemplos: passo a passo, lista, tabela, resumo no começo, exemplos antes da explicação, PDF, texto corrido.\n7. **Como a IA deve te ajudar a aprender?** Exemplos: explicar com exemplos do dia a dia, me fazer perguntas antes de dar a resposta, mostrar meus erros com gentileza, dar dicas em vez da resposta pronta, propor exercícios no final, conferir se eu entendi.\n8. **O que a IA deve evitar?** Exemplos: textos muito longos, palavras difíceis, respostas prontas demais, exemplos que não combinam com a minha idade, elogios exagerados, enrolação, emojis.\n9. **E se a IA não souber a resposta?** Exemplos: dizer com sinceridade que não sabe, nunca inventar fonte ou número, avisar quando estiver em dúvida, pedir mais informações antes de responder, sugerir onde conferir.\n10. **Quando o pedido estiver confuso, o que ela faz?** Exemplos: faz uma pergunta curta antes de responder, escolhe o jeito mais provável e avisa qual escolheu, lista as dúvidas e espera, só responde quando tiver o necessário.\n11. **Quer mais alguma regra?** Exemplos: responder sempre em português, usar o meu primeiro nome, terminar com um resumo de uma linha, avisar se algo exigir conferência com o professor, não fazer a tarefa por mim e sim me guiar. Ou escrever do meu jeito, ou pular.\n\nDepois, na entrega, escreva as instruções em primeira pessoa, como a pessoa falaria (\"Sou estudante de...\").\n\n## Caminho B: instruções para um projeto\n\nFaça estas perguntas, nesta ordem, uma por vez, cada uma com 5 a 7 exemplos:\n\n1. **Qual o nome do projeto?** Dê 5 a 7 exemplos de nomes, de acordo com o que a pessoa já disse, e deixe escrever o próprio.\n2. **O que você quer realizar nele?** Exemplos: planejar as aulas do ano, estudar uma disciplina da graduação, escrever o TCC, preparar um projeto de iniciação científica, organizar listas de exercícios, preparar uma apresentação.\n3. **Quem vai usar ou receber o resultado?** Exemplos: minha turma do 1º ano do ensino médio, meus colegas da faculdade, só eu, os professores da banca, os pais dos estudantes, crianças do ensino fundamental.\n4. **Conte sobre o público.** Exemplos: quantidade de pessoas, idade, o que já estudaram, como aprendem melhor (visual, fazendo, conversando), dificuldades conhecidas, se há pouca internet ou computador.\n5. **Que regras valem para todo pedido deste projeto?** Exemplos: duração fixa da aula ou do trabalho, começar sempre por um problema real, terminar com um desafio ou exercícios, citar a habilidade da BNCC, usar material simples, estimular a participação.\n6. **Que formato de entrega você quer?** Exemplos: PDF, passo a passo, tabela, texto corrido, slides, lista de tarefas, com cores específicas.\n7. **O que a IA deve evitar neste projeto?** Exemplos: linguagem técnica, textos longos, exemplos de outra faixa de idade, respostas sem justificativa, inventar fontes.\n8. **O que a IA deve perguntar antes de responder?** Exemplos: qual é o conteúdo, o que a turma já estudou, quanto tempo há, qual o objetivo desta vez, qual o nível de dificuldade.\n9. **E se faltar informação ou ela não souber?** Exemplos: me perguntar antes, avisar que não sabe, nunca inventar, sugerir como conferir.\n10. **Quer mais alguma regra?** Exemplos de regras extras, ou escrever do próprio jeito, ou pular.\n\n## Antes de entregar\n\n1. Faça um resumo curto do que a pessoa respondeu e pergunte: \"Está tudo certo ou quer mudar alguma coisa?\"\n2. Ajuste o que ela pedir.\n3. Só então entregue o resultado final.\n\n## Entrega final\n\n### Caminho A (IA em geral)\n\nEntregue um bloco de texto pronto, em primeira pessoa, organizado em frases curtas ou tópicos, que a pessoa possa copiar de uma vez. Conte os caracteres de forma aproximada e mantenha o texto em até cerca de 1.500 caracteres, para caber em qualquer conta, inclusive as gratuitas. Se a pessoa quiser mais detalhes, ofereça uma versão estendida separada.\n\n### Caminho B (projeto)\n\nEntregue três blocos separados, cada um para copiar:\n\n1. **Nome do projeto**\n2. **Descrição** (resposta de \"o que você quer realizar\", em uma ou duas frases)\n3. **Instruções do projeto** (regras fixas numeradas, em primeira pessoa quando falar de quem a pessoa é, e uma regra final dizendo para perguntar se faltar informação)\n\nDepois mostre um exemplo de pedido curto que a pessoa poderá digitar dentro do projeto, para ela ver o ganho de tempo (por exemplo: \"Aula de função quadrática. Eles já estudaram função afim.\").\n\n### Onde colar\n\nMostre os caminhos abaixo e avise que os menus mudam com frequência. Se o nome estiver diferente na tela, procurar por \"Personalização\" ou \"Instruções\".\n\n- **Claude, no celular:** tocar no seu nome, depois em Perfil, e no campo Instruções.\n- **Claude, no computador:** clicar no seu nome, depois em Conta (ou Configurações), e no campo Instruções.\n- **Claude, projeto:** no menu da esquerda, clicar em Projetos, depois em Novo projeto. Preencher o nome e o que quer realizar. Depois de criado, abrir a parte Instruções e colar o texto. As instruções do projeto trabalham junto com as instruções gerais.\n- **ChatGPT, no celular:** tocar no seu nome, depois em Personalizar o ChatGPT, e em Personalidade. Ali ficam o tom, a cordialidade, o entusiasmo e as instruções personalizadas.\n- **ChatGPT, no computador:** clicar no seu perfil, depois em Configurações, Personalização e Instruções personalizadas.\n- **ChatGPT, projeto:** procurar Projetos na barra lateral e criar um projeto novo, depois colar o texto nas instruções do projeto.\n- **Gemini:** a opção de instruções pode não aparecer na conta. Nesse caso, cole o texto no começo de uma conversa nova e peça: \"Siga estas instruções em toda esta conversa.\"\n\n### Avisos finais (sempre incluir, em poucas linhas)\n\n- Mesmo com a memória desativada, as instruções continuam valendo, porque são um campo separado da memória.\n- Instruções gerais valem para qualquer conversa. Instruções de projeto valem só dentro do projeto.\n- Não coloque dados pessoais, senhas ou informações de estudantes nas instruções.\n- É possível voltar a qualquer momento, mudar o texto e salvar de novo. Para ajustar com a ajuda desta fábrica, basta colar o texto atual e dizer o que quer mudar.\n\n## Encerramento\n\nTermine perguntando se a pessoa quer criar outro conjunto de instruções, por exemplo para um segundo projeto, ou ajustar o que acabou de receber.\n\n## Se a pessoa já tiver um texto pronto\n\nSe ela colar instruções que já usa, faça o caminho de melhoria: leia o texto, diga em linguagem simples o que está bom, o que está faltando e o que está confuso, e proponha uma nova versão. Pergunte antes de trocar qualquer regra que ela escreveu.\n";
+
+        function skillLiberar(liberada) {
+            document.getElementById('skill-bloqueio').classList.toggle('hidden', liberada);
+            document.getElementById('skill-conteudo').classList.toggle('hidden', !liberada);
+        }
+        async function verificarSkillLiberada() {
+            try {
+                const s = await getDoc(doc(db, 'presencas', SKILL_AULA + '__' + state.currentUser.uid));
+                skillLiberar(s.exists());
+            } catch (e) { skillLiberar(false); }
+        }
+        function msgSkill(texto, cor) {
+            const m = document.getElementById('skill-msg');
+            m.textContent = texto; m.className = 'text-sm mt-4 min-h-[1.25rem] ' + (cor || 'text-gray-300');
+        }
+        document.getElementById('skill-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!state.perfil) { abrirPerfil(true); return; }
+            const campo = document.getElementById('skill-codigo');
+            const codigo = normSenha(campo.value);
+            if (codigo.length < 4) { msgSkill('Digite o código completo informado na aula.', 'text-yellow-300'); return; }
+            if (codigo !== SKILL_AULA) { msgSkill('Código inválido. Confira com a professora.', 'text-red-300'); return; }
+            msgSkill('Verificando...', 'text-gray-300');
+            try {
+                const snap = await getDoc(doc(db, 'aulas', codigo));
+                if (!snap.exists()) { msgSkill('Código inválido. Confira com a professora.', 'text-red-300'); return; }
+                if (!snap.data().aberta) { msgSkill('O registro desta aula está encerrado.', 'text-yellow-300'); return; }
+                await setDoc(doc(db, 'presencas', codigo + '__' + state.currentUser.uid), {
+                    aulaId: codigo, uid: state.currentUser.uid, nome: state.perfil.nomeCompleto, email: state.currentUser.email, em: serverTimestamp()
+                });
+                campo.value = ''; msgSkill('', 'text-gray-300');
+                skillLiberar(true);
+                carregarMeusCertificados();
+                showToast('Skill liberada e presença registrada.', 'success');
+            } catch (err) { msgSkill('Não foi possível liberar agora. Tente de novo ou use a aba Presença e Declaração.', 'text-red-300'); }
+        });
+
+        // Gera um .zip simples (sem compressão) no navegador, com uma pasta e o arquivo SKILL.md.
+        const CRC_TABELA = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1); t[n] = c >>> 0; } return t; })();
+        function crc32(bytes) { let c = 0xFFFFFFFF; for (let i = 0; i < bytes.length; i++) c = CRC_TABELA[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+        function criarZip(caminho, conteudo) {
+            const enc = new TextEncoder(), nome = enc.encode(caminho), dados = enc.encode(conteudo), crc = crc32(dados);
+            const local = new DataView(new ArrayBuffer(30)), central = new DataView(new ArrayBuffer(46)), fim = new DataView(new ArrayBuffer(22));
+            local.setUint32(0, 0x04034b50, true); local.setUint16(4, 20, true); local.setUint16(6, 0x0800, true); local.setUint16(8, 0, true);
+            local.setUint16(10, 0, true); local.setUint16(12, 0x21, true); local.setUint32(14, crc, true); local.setUint32(18, dados.length, true);
+            local.setUint32(22, dados.length, true); local.setUint16(26, nome.length, true); local.setUint16(28, 0, true);
+            central.setUint32(0, 0x02014b50, true); central.setUint16(4, 20, true); central.setUint16(6, 20, true); central.setUint16(8, 0x0800, true);
+            central.setUint16(10, 0, true); central.setUint16(12, 0, true); central.setUint16(14, 0x21, true); central.setUint32(16, crc, true);
+            central.setUint32(20, dados.length, true); central.setUint32(24, dados.length, true); central.setUint16(28, nome.length, true);
+            central.setUint32(42, 0, true);
+            const tamLocal = 30 + nome.length + dados.length;
+            fim.setUint32(0, 0x06054b50, true); fim.setUint16(8, 1, true); fim.setUint16(10, 1, true);
+            fim.setUint32(12, 46 + nome.length, true); fim.setUint32(16, tamLocal, true);
+            return new Blob([local, nome, dados, central, nome, fim], { type: 'application/zip' });
+        }
+        document.getElementById('skill-baixar').addEventListener('click', () => {
+            try {
+                const url = URL.createObjectURL(criarZip('fabrica-de-instrucoes/SKILL.md', SKILL_MD));
+                const a = document.createElement('a'); a.href = url; a.download = 'fabrica-de-instrucoes.zip';
+                document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000);
+                showToast('Skill baixada.', 'success');
+            } catch (err) { showToast('Não foi possível baixar. Use "Copiar o texto da skill".', 'error'); }
+        });
+        async function copiarGenerico(texto, botao) {
+            try {
+                if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(texto); }
+                else { const ta = el('textarea'); ta.value = texto; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); }
+                showToast('Texto copiado!', 'success');
+                if (botao && botao.dataset.copiar) { const o = botao.innerHTML; botao.innerHTML = '<i class="fas fa-check text-green-400 mr-1"></i>Copiado'; setTimeout(() => { botao.innerHTML = o; }, 2000); }
+            } catch (err) { showToast('Não foi possível copiar o texto.', 'error'); }
+        }
+        document.getElementById('skill-copiar').addEventListener('click', (e) => copiarGenerico(SKILL_MD, e.currentTarget));
+        document.getElementById('tab-personalizacao').addEventListener('click', (e) => {
+            const b = e.target.closest('[data-copiar]'); if (!b) return;
+            const alvo = document.getElementById(b.dataset.copiar); if (alvo) copiarGenerico(alvo.textContent, b);
+        });
 
         function carregarJsPdf() {
             return new Promise((resolve, reject) => {
