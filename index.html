@@ -460,97 +460,155 @@
 
                 <!-- ABA: PERSONALIZAÇÃO E OTIMIZAÇÃO DE TAREFAS COM IA -->
                 <div id="tab-personalizacao" class="tab-content max-w-4xl mx-auto">
-                    <h2 class="text-3xl font-bold mb-2"><span class="text-gradient">Personalização e Otimização de Tarefas com IA</span></h2>
-                    <p class="text-gray-300 mb-2">Ensine a IA a trabalhar do seu jeito e faça o seu tempo render mais.</p>
-                    <p class="text-gray-400 text-sm mb-8">Na aula anterior você desativou o compartilhamento de dados, a localização e a memória. Agora vai usar outro recurso, que funciona mesmo com a memória desativada: as <strong class="text-white">instruções</strong>. Elas são um campo à parte, que você escreve e controla.</p>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-2"><span class="text-gradient">Personalização e Otimização de Tarefas com IA</span></h2>
+                    <p class="text-gray-200 text-lg mb-6">Ensine a IA a trabalhar do seu jeito e faça o seu tempo render mais.</p>
 
-                    <!-- BLOCO 1 -->
-                    <section class="rounded-xl border border-purple-500/40 border-t-4 border-t-purple-400 bg-purple-500/10 p-6 mb-6" aria-labelledby="pers-b1">
-                        <h3 id="pers-b1" class="text-xl font-bold text-purple-300 mb-3"><i class="fas fa-user-gear mr-2"></i>1. Instruções gerais: quem é você e como a IA deve te ajudar</h3>
-                        <p class="text-gray-200 text-sm leading-relaxed mb-4">São as instruções que valem para <strong class="text-white">toda conversa nova</strong>. Em vez de explicar quem você é toda vez, você escreve uma vez e a IA já começa sabendo. Elas guardam, por exemplo, quem você é, para que usa a IA, o tom que você prefere e o que ela deve evitar.</p>
-                        <p class="text-gray-200 text-sm leading-relaxed mb-4">A parte da <strong class="text-white">Persona</strong> do método PROFES também pode vir aqui: é o lugar de dizer qual papel a IA assume com você.</p>
-
-                        <h4 class="font-semibold text-white text-sm mb-2">Onde escrever</h4>
-                        <div class="grid sm:grid-cols-2 gap-3 mb-3">
-                            <div class="rounded-lg bg-black/20 border border-brand-border p-4">
-                                <p class="font-semibold text-orange-300 text-sm mb-2"><i class="fas fa-asterisk mr-1"></i>Claude</p>
-                                <ul class="text-sm text-gray-300 space-y-1 list-disc pl-5">
-                                    <li><strong class="text-white">Computador:</strong> clique no seu nome, depois em Conta e procure Instruções.</li>
-                                    <li><strong class="text-white">Celular:</strong> toque no seu nome, depois em Perfil e em Instruções.</li>
-                                </ul>
+                    <div class="rounded-2xl border-2 border-yellow-400/60 bg-yellow-500/10 p-6 mb-8">
+                        <p class="text-yellow-200 font-extrabold text-lg mb-3"><i class="fas fa-brain mr-2"></i>Memória desativada? As instruções continuam valendo.</p>
+                        <div class="grid sm:grid-cols-2 gap-3">
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="text-xs uppercase tracking-wider text-gray-400 font-bold mb-1">Na aula anterior</p>
+                                <p class="text-sm text-gray-200">Você desativou o <strong class="text-white">compartilhamento de dados</strong>, a <strong class="text-white">localização</strong> e a <strong class="text-white">memória</strong>.</p>
                             </div>
-                            <div class="rounded-lg bg-black/20 border border-brand-border p-4">
-                                <p class="font-semibold text-green-300 text-sm mb-2"><i class="fas fa-hexagon-nodes mr-1"></i>ChatGPT</p>
-                                <ul class="text-sm text-gray-300 space-y-1 list-disc pl-5">
-                                    <li><strong class="text-white">Celular:</strong> toque no seu nome, depois em Personalizar o ChatGPT e em Personalidade. Ali ficam o tom, a cordialidade, o entusiasmo e as instruções personalizadas.</li>
-                                    <li><strong class="text-white">Computador:</strong> clique no seu perfil, depois em Configurações e em Personalização.</li>
-                                </ul>
+                            <div class="rounded-xl bg-black/25 border border-yellow-400/40 p-4">
+                                <p class="text-xs uppercase tracking-wider text-yellow-300 font-bold mb-1">Nesta aula</p>
+                                <p class="text-sm text-gray-200">Você usa as <strong class="text-white">instruções</strong>: um campo à parte, que <strong class="text-white">você escreve e você controla</strong>.</p>
                             </div>
                         </div>
-                        <p class="text-xs text-gray-400 mb-5">No Gemini não encontramos esse campo. Nele, cole as instruções no começo da conversa. Os menus mudam com frequência: se o nome estiver diferente na sua tela, procure por Personalização ou Instruções.</p>
+                    </div>
 
-                        <h4 class="font-semibold text-white text-sm mb-2">Exemplos para você adaptar</h4>
+                    <!-- BLOCO 1 -->
+                    <section class="mb-10" aria-labelledby="pers-b1">
+                        <div class="flex items-center gap-5 rounded-2xl border bg-gradient-to-r from-purple-600/50 to-purple-500/5 border-purple-400/50 p-6 mb-5">
+                            <div class="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-purple-500 text-white flex items-center justify-center text-3xl sm:text-4xl shadow-lg"><i class="fas fa-user-gear" aria-hidden="true"></i></div>
+                            <div>
+                                <h3 id="pers-b1" class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">Instruções gerais</h3>
+                                <p class="text-purple-100 text-sm sm:text-base mt-1">Quem é você e como a IA deve te ajudar, em toda conversa.</p>
+                            </div>
+                        </div>
+                        <div class="grid sm:grid-cols-3 gap-3 mb-2">
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="font-bold text-purple-300 text-sm mb-1"><i class="fas fa-infinity mr-2"></i>Valem sempre</p>
+                                <p class="text-sm text-gray-300 leading-relaxed">Funcionam em <strong class="text-white">toda conversa nova</strong>, em qualquer assunto.</p>
+                            </div>
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="font-bold text-purple-300 text-sm mb-1"><i class="fas fa-pen mr-2"></i>Você escreve uma vez</p>
+                                <p class="text-sm text-gray-300 leading-relaxed">A IA já começa sabendo quem você é. Sem repetir a cada pedido.</p>
+                            </div>
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="font-bold text-purple-300 text-sm mb-1"><i class="fas fa-list mr-2"></i>O que guardam</p>
+                                <p class="text-sm text-gray-300 leading-relaxed">Quem é você, para que usa a IA, o <strong class="text-white">tom</strong> que prefere e o que ela deve <strong class="text-white">evitar</strong>.</p>
+                            </div>
+                        </div>
+                        <div class="rounded-xl bg-purple-500/10 border border-purple-400/40 p-4 mt-3">
+                            <p class="text-sm text-purple-100"><i class="fas fa-masks-theater mr-2"></i><strong>Persona (método PROFES):</strong> este é o lugar de dizer qual papel a IA assume com você.</p>
+                        </div>
+
+                        <h4 class="text-lg font-extrabold text-white mt-7 mb-3"><i class="fas fa-route mr-2 text-purple-300"></i>Encontre o campo na sua conta</h4>
+                        <div class="grid md:grid-cols-2 gap-3">
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="text-sm font-bold text-white mb-3"><i class="fas fa-desktop mr-2 text-gray-300"></i>Claude no computador</p>
+                                <div class="flex flex-wrap items-center gap-2"><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-purple-500/20 border-purple-400/50 text-white">Seu nome</span><i class="fas fa-arrow-right text-purple-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-purple-500/20 border-purple-400/50 text-white">Conta</span><i class="fas fa-arrow-right text-purple-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-purple-500 border-purple-300 text-white">Instruções</span></div>
+                            </div>
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="text-sm font-bold text-white mb-3"><i class="fas fa-mobile-screen mr-2 text-gray-300"></i>Claude no celular</p>
+                                <div class="flex flex-wrap items-center gap-2"><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-purple-500/20 border-purple-400/50 text-white">Seu nome</span><i class="fas fa-arrow-right text-purple-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-purple-500/20 border-purple-400/50 text-white">Perfil</span><i class="fas fa-arrow-right text-purple-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-purple-500 border-purple-300 text-white">Instruções</span></div>
+                            </div>
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="text-sm font-bold text-white mb-3"><i class="fas fa-mobile-screen mr-2 text-gray-300"></i>ChatGPT no celular</p>
+                                <div class="flex flex-wrap items-center gap-2"><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-purple-500/20 border-purple-400/50 text-white">Seu nome</span><i class="fas fa-arrow-right text-purple-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-purple-500/20 border-purple-400/50 text-white">Personalizar o ChatGPT</span><i class="fas fa-arrow-right text-purple-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-purple-500/20 border-purple-400/50 text-white">Personalidade</span><i class="fas fa-arrow-right text-purple-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-purple-500 border-purple-300 text-white">Instruções personalizadas</span></div>
+                            </div>
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="text-sm font-bold text-white mb-3"><i class="fas fa-desktop mr-2 text-gray-300"></i>ChatGPT no computador</p>
+                                <div class="flex flex-wrap items-center gap-2"><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-purple-500/20 border-purple-400/50 text-white">Seu perfil</span><i class="fas fa-arrow-right text-purple-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-purple-500/20 border-purple-400/50 text-white">Configurações</span><i class="fas fa-arrow-right text-purple-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-purple-500/20 border-purple-400/50 text-white">Personalização</span><i class="fas fa-arrow-right text-purple-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-purple-500 border-purple-300 text-white">Instruções personalizadas</span></div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-3">No Gemini não encontramos esse campo: nele, cole as instruções no começo da conversa. Os menus mudam com frequência. Se o nome estiver diferente na sua tela, procure por <strong class="text-gray-200">Personalização</strong> ou <strong class="text-gray-200">Instruções</strong>.</p>
+
+                        <div class="rounded-2xl border-2 border-red-400/60 bg-red-500/10 p-5 mt-6">
+                            <p class="text-red-200 font-extrabold mb-1"><i class="fas fa-hand mr-2"></i>Por enquanto, só encontre o campo</p>
+                            <p class="text-sm text-gray-200">Abra o campo na sua conta, mas <strong class="text-white">não salve nada ainda</strong>. Você vai escrever as suas instruções com a <strong class="text-white">Fábrica de Instruções</strong>, mais abaixo.</p>
+                        </div>
+
+                        <h4 class="text-lg font-extrabold text-white mt-7 mb-3"><i class="fas fa-eye mr-2 text-purple-300"></i>Exemplos para ler e se inspirar</h4>
                         <div class="space-y-4">
                             <div>
-                                <div class="flex items-center justify-between gap-2 mb-1"><p class="text-xs text-purple-200 font-semibold">Estudante de Licenciatura em Matemática</p><button type="button" data-copiar="pers-ex1" class="text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg"><i class="fas fa-copy mr-1"></i>Copiar</button></div>
+                                <div class="flex items-center justify-between gap-2 mb-1"><p class="text-sm text-purple-200 font-bold">Estudante de Licenciatura em Matemática</p><button type="button" data-copiar="pers-ex1" class="text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg"><i class="fas fa-copy mr-1"></i>Copiar</button></div>
                                 <pre id="pers-ex1" class="whitespace-pre-wrap bg-black/30 border border-brand-border rounded-lg p-4 text-sm text-gray-200 font-sans leading-relaxed">Sou estudante de Licenciatura em Matemática. Uso a IA para estudar as disciplinas do curso e entender os conteúdos. Explique de forma simples, com exemplos do dia a dia, e só depois use a linguagem formal da Matemática. Mostre o passo a passo e justifique cada etapa. Quando eu errar, aponte o erro com gentileza e me dê uma dica em vez da resposta pronta. Se você não souber algo, diga que não sabe e nunca invente fontes. Se meu pedido estiver confuso, faça uma pergunta antes de responder.</pre>
                             </div>
                             <div>
-                                <div class="flex items-center justify-between gap-2 mb-1"><p class="text-xs text-purple-200 font-semibold">Professor(a) de Matemática</p><button type="button" data-copiar="pers-ex2" class="text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg"><i class="fas fa-copy mr-1"></i>Copiar</button></div>
+                                <div class="flex items-center justify-between gap-2 mb-1"><p class="text-sm text-purple-200 font-bold">Professor(a) de Matemática</p><button type="button" data-copiar="pers-ex2" class="text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg"><i class="fas fa-copy mr-1"></i>Copiar</button></div>
                                 <pre id="pers-ex2" class="whitespace-pre-wrap bg-black/30 border border-brand-border rounded-lg p-4 text-sm text-gray-200 font-sans leading-relaxed">Sou professor(a) de Matemática do Ensino Médio de escola pública. Uso a IA para preparar aulas, listas de exercícios e avaliações. Escreva em linguagem clara, adequada a estudantes de 14 a 16 anos, sem textos longos. Organize as respostas em passo a passo ou em tópicos. Estimule a participação e o raciocínio dos estudantes. Se faltar informação, pergunte antes de responder. Nunca invente referências ou dados.</pre>
                             </div>
                         </div>
-                        <p class="text-xs text-gray-400 mt-4"><i class="fas fa-shield-halved mr-1"></i>Não escreva nas instruções dados pessoais, senhas ou informações de estudantes.</p>
+                        <p class="text-xs text-gray-400 mt-4"><i class="fas fa-shield-halved mr-1"></i>Nunca escreva nas instruções dados pessoais, senhas ou informações de estudantes.</p>
                     </section>
 
                     <!-- BLOCO 2 -->
-                    <section class="rounded-xl border border-sky-500/40 border-t-4 border-t-sky-400 bg-sky-500/10 p-6 mb-6" aria-labelledby="pers-b2">
-                        <h3 id="pers-b2" class="text-xl font-bold text-sky-300 mb-3"><i class="fas fa-folder-open mr-2"></i>2. Projetos: um lugar com as regras de um trabalho</h3>
-                        <p class="text-gray-200 text-sm leading-relaxed mb-4">Um <strong class="text-white">projeto</strong> é como uma pasta de trabalho dentro da IA. Tudo o que você conversa ali dentro segue as regras que você definiu para aquele trabalho. Assim você não precisa repetir, a cada pedido, o tempo da aula, a turma, o formato da entrega e tudo o mais.</p>
-
-                        <h4 class="font-semibold text-white text-sm mb-2">Três coisas que não se misturam</h4>
-                        <div class="grid sm:grid-cols-3 gap-3 mb-4">
-                            <div class="rounded-lg bg-black/20 border border-brand-border p-4">
-                                <p class="font-semibold text-purple-300 text-sm mb-1">Instruções gerais</p>
-                                <p class="text-xs text-gray-300 mb-2">Quem é você e como gosta de ser tratado. Valem para qualquer conversa, em qualquer projeto.</p>
-                                <p class="text-xs text-gray-400">Exemplo: "Sou professor(a) de Matemática e prefiro linguagem clara."</p>
-                            </div>
-                            <div class="rounded-lg bg-black/20 border border-brand-border p-4">
-                                <p class="font-semibold text-sky-300 text-sm mb-1">Descrição do projeto</p>
-                                <p class="text-xs text-gray-300 mb-2">O assunto e o objetivo. É a etiqueta da pasta, a resposta de "o que você quer realizar".</p>
-                                <p class="text-xs text-gray-400">Exemplo: "Planejar as aulas de Funções do 1º ano."</p>
-                            </div>
-                            <div class="rounded-lg bg-black/20 border border-brand-border p-4">
-                                <p class="font-semibold text-pink-300 text-sm mb-1">Instruções do projeto</p>
-                                <p class="text-xs text-gray-300 mb-2">As regras de trabalho só daquele projeto. Funcionam junto com as instruções gerais.</p>
-                                <p class="text-xs text-gray-400">Exemplo: "Toda aula tem 100 minutos e termina com um desafio."</p>
+                    <section class="mb-10" aria-labelledby="pers-b2">
+                        <div class="flex items-center gap-5 rounded-2xl border bg-gradient-to-r from-sky-600/50 to-sky-500/5 border-sky-400/50 p-6 mb-5">
+                            <div class="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-sky-500 text-white flex items-center justify-center text-3xl sm:text-4xl shadow-lg"><i class="fas fa-folder-open" aria-hidden="true"></i></div>
+                            <div>
+                                <h3 id="pers-b2" class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">Projetos</h3>
+                                <p class="text-sky-100 text-sm sm:text-base mt-1">Uma pasta de trabalho com as regras de um trabalho só.</p>
                             </div>
                         </div>
-                        <div class="rounded-lg bg-sky-500/10 border border-sky-500/30 p-4 mb-5">
-                            <p class="text-sm text-sky-100"><i class="fas fa-circle-question mr-2"></i><strong>Pergunta para decidir onde escrever:</strong> isso vale para tudo o que eu faço com a IA, ou só para este trabalho? Se vale para tudo, vai nas instruções gerais. Se vale só para este trabalho, vai nas instruções do projeto.</p>
+                        <div class="grid sm:grid-cols-3 gap-3 mb-2">
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="font-bold text-sky-300 text-sm mb-1"><i class="fas fa-folder mr-2"></i>Uma pasta dentro da IA</p>
+                                <p class="text-sm text-gray-300 leading-relaxed">Tudo que você conversa ali dentro segue as <strong class="text-white">regras do projeto</strong>.</p>
+                            </div>
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="font-bold text-sky-300 text-sm mb-1"><i class="fas fa-repeat mr-2"></i>Sem repetir</p>
+                                <p class="text-sm text-gray-300 leading-relaxed">Tempo da aula, turma, formato da entrega: você escreve <strong class="text-white">uma vez</strong>.</p>
+                            </div>
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="font-bold text-sky-300 text-sm mb-1"><i class="fas fa-bolt mr-2"></i>Pedidos curtos</p>
+                                <p class="text-sm text-gray-300 leading-relaxed">Depois, cada pedido novo leva só o que <strong class="text-white">muda</strong>.</p>
+                            </div>
                         </div>
 
-                        <h4 class="font-semibold text-white text-sm mb-2">Como criar um projeto no Claude</h4>
-                        <ol class="text-sm text-gray-300 space-y-1 list-decimal pl-5 mb-2">
-                            <li>No menu da esquerda, clique em <strong class="text-white">Projetos</strong>.</li>
-                            <li>No canto superior direito, clique em <strong class="text-white">Novo projeto</strong>.</li>
-                            <li>Responda <strong class="text-white">No que você está trabalhando?</strong> (é o nome do projeto) e <strong class="text-white">O que você quer realizar?</strong> (é a descrição).</li>
-                            <li>Com o projeto criado, abra a parte <strong class="text-white">Instruções</strong> e escreva as regras daquele trabalho.</li>
-                        </ol>
-                        <p class="text-xs text-gray-400 mb-5">Nas contas pagas é possível anexar um arquivo de contexto, por exemplo um projeto já aprovado. Nas contas gratuitas, o projeto funciona e muda apenas o limite, como a quantidade de projetos e de arquivos. O ChatGPT também tem a área de Projetos, na barra lateral.</p>
+                        <h4 class="text-lg font-extrabold text-white mt-7 mb-3"><i class="fas fa-layer-group mr-2 text-sky-300"></i>Três coisas que não se misturam</h4>
+                        <div class="grid sm:grid-cols-3 gap-3">
+                            <div class="rounded-xl bg-purple-500/10 border-t-4 border-purple-400 border-x border-b border-x-brand-border border-b-brand-border p-4">
+                                <p class="font-extrabold text-purple-300 mb-1">1. Instruções gerais</p>
+                                <p class="text-sm text-gray-200 mb-2">Quem é você. Valem para <strong class="text-white">qualquer conversa</strong>.</p>
+                                <p class="text-xs text-gray-400">"Sou professor(a) de Matemática e prefiro linguagem clara."</p>
+                            </div>
+                            <div class="rounded-xl bg-sky-500/10 border-t-4 border-sky-400 border-x border-b border-x-brand-border border-b-brand-border p-4">
+                                <p class="font-extrabold text-sky-300 mb-1">2. Descrição do projeto</p>
+                                <p class="text-sm text-gray-200 mb-2">O assunto e o objetivo. É a <strong class="text-white">etiqueta da pasta</strong>.</p>
+                                <p class="text-xs text-gray-400">"Planejar as aulas de Funções do 1º ano."</p>
+                            </div>
+                            <div class="rounded-xl bg-pink-500/10 border-t-4 border-pink-400 border-x border-b border-x-brand-border border-b-brand-border p-4">
+                                <p class="font-extrabold text-pink-300 mb-1">3. Instruções do projeto</p>
+                                <p class="text-sm text-gray-200 mb-2">As <strong class="text-white">regras de trabalho</strong> só daquele projeto. Somam-se às gerais.</p>
+                                <p class="text-xs text-gray-400">"Toda aula tem 100 minutos e termina com um desafio."</p>
+                            </div>
+                        </div>
+                        <div class="rounded-2xl border-2 border-sky-400/60 bg-sky-500/10 p-5 mt-4">
+                            <p class="text-sky-100"><i class="fas fa-circle-question mr-2"></i><strong>Como decidir onde escrever?</strong> Pergunte: isso vale para <strong class="text-white">tudo</strong> o que eu faço com a IA, ou só para <strong class="text-white">este trabalho</strong>?</p>
+                            <p class="text-sm text-gray-300 mt-2">Vale para tudo: instruções gerais. Vale só para este trabalho: instruções do projeto.</p>
+                        </div>
 
-                        <h4 class="font-semibold text-white text-sm mb-2">Exemplo completo: as aulas de uma turma do 1º ano</h4>
+                        <h4 class="text-lg font-extrabold text-white mt-7 mb-3"><i class="fas fa-route mr-2 text-sky-300"></i>Como criar um projeto no Claude</h4>
+                        <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                            <div class="flex flex-wrap items-center gap-2"><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-sky-500/20 border-sky-400/50 text-white">Projetos (menu da esquerda)</span><i class="fas fa-arrow-right text-sky-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-sky-500/20 border-sky-400/50 text-white">Novo projeto (canto superior direito)</span><i class="fas fa-arrow-right text-sky-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-sky-500/20 border-sky-400/50 text-white">Nome e "O que você quer realizar?"</span><i class="fas fa-arrow-right text-sky-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-sky-500 border-sky-300 text-white">Instruções (dentro do projeto)</span></div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-3">Nas contas pagas é possível anexar um arquivo de contexto, como um projeto já aprovado. Nas gratuitas o projeto funciona e muda só o limite (quantidade de projetos e de arquivos). O ChatGPT também tem a área de Projetos, na barra lateral.</p>
+
+                        <h4 class="text-lg font-extrabold text-white mt-7 mb-3"><i class="fas fa-star mr-2 text-sky-300"></i>Exemplo completo: as aulas de uma turma do 1º ano</h4>
                         <div class="space-y-4">
                             <div>
-                                <div class="flex items-center justify-between gap-2 mb-1"><p class="text-xs text-sky-200 font-semibold">Nome do projeto</p><button type="button" data-copiar="proj-nome" class="text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg"><i class="fas fa-copy mr-1"></i>Copiar</button></div>
-                                <pre id="proj-nome" class="whitespace-pre-wrap bg-black/30 border border-brand-border rounded-lg p-4 text-sm text-gray-200 font-sans">Aulas de Matemática, 1º ano do Ensino Médio</pre>
+                                <div class="flex items-center justify-between gap-2 mb-1"><p class="text-sm text-sky-200 font-bold">Nome do projeto</p><button type="button" data-copiar="proj-nome" class="text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg"><i class="fas fa-copy mr-1"></i>Copiar</button></div>
+                                <pre id="proj-nome" class="whitespace-pre-wrap bg-black/30 border border-brand-border rounded-lg p-4 text-sm text-gray-200 font-sans leading-relaxed">Aulas de Matemática, 1º ano do Ensino Médio</pre>
                             </div>
                             <div>
-                                <div class="flex items-center justify-between gap-2 mb-1"><p class="text-xs text-sky-200 font-semibold">Descrição</p><button type="button" data-copiar="proj-desc" class="text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg"><i class="fas fa-copy mr-1"></i>Copiar</button></div>
+                                <div class="flex items-center justify-between gap-2 mb-1"><p class="text-sm text-sky-200 font-bold">Descrição</p><button type="button" data-copiar="proj-desc" class="text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg"><i class="fas fa-copy mr-1"></i>Copiar</button></div>
                                 <pre id="proj-desc" class="whitespace-pre-wrap bg-black/30 border border-brand-border rounded-lg p-4 text-sm text-gray-200 font-sans leading-relaxed">Planejar as aulas de Matemática de uma turma do 1º ano do Ensino Médio de escola pública, começando por Funções Quadráticas.</pre>
                             </div>
                             <div>
-                                <div class="flex items-center justify-between gap-2 mb-1"><p class="text-xs text-sky-200 font-semibold">Instruções do projeto</p><button type="button" data-copiar="proj-instr" class="text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg"><i class="fas fa-copy mr-1"></i>Copiar</button></div>
+                                <div class="flex items-center justify-between gap-2 mb-1"><p class="text-sm text-sky-200 font-bold">Instruções do projeto</p><button type="button" data-copiar="proj-instr" class="text-xs border border-brand-border text-gray-300 hover:text-white px-3 py-1 rounded-lg"><i class="fas fa-copy mr-1"></i>Copiar</button></div>
                                 <pre id="proj-instr" class="whitespace-pre-wrap bg-black/30 border border-brand-border rounded-lg p-4 text-sm text-gray-200 font-sans leading-relaxed">Sou professor(a) de Matemática do Ensino Médio e valorizo estabelecer relações visuais e algébricas para contribuir com a aprendizagem dos estudantes. Minha turma é do 1º ano do Ensino Médio de uma escola pública, com 40 alunos de 14 a 16 anos, em sua maioria de aprendizado visual e sinestésico. Toda aula que eu pedir neste projeto deve seguir estas regras:
 
 1. A aula tem 100 minutos.
@@ -564,22 +622,40 @@
                             </div>
                         </div>
 
-                        <div class="rounded-lg bg-black/20 border border-brand-border p-4 mt-5">
-                            <p class="text-sm font-semibold text-white mb-2"><i class="fas fa-bolt text-yellow-300 mr-2"></i>O ganho de tempo</p>
-                            <p class="text-sm text-gray-300 mb-3">Na aula anterior, o prompt para gerar a aula de função quadrática tinha cerca de dez linhas. Com o projeto pronto, o pedido de cada nova aula fica curto, só com o que muda:</p>
+                        <div class="rounded-2xl border-2 border-yellow-400/60 bg-yellow-500/10 p-5 mt-6">
+                            <p class="text-yellow-200 font-extrabold mb-2"><i class="fas fa-bolt mr-2"></i>O ganho de tempo</p>
+                            <p class="text-sm text-gray-200 mb-3">Na aula anterior, o prompt da aula de função quadrática tinha cerca de dez linhas. Com o projeto pronto, cada nova aula é pedida assim:</p>
                             <p class="text-sm text-white bg-black/30 border border-brand-border rounded-lg p-3">Aula de função quadrática. Eles já estudaram função afim. O objetivo é interpretar gráficos, raízes, máximo, mínimo e concavidade.</p>
                         </div>
                     </section>
 
                     <!-- BLOCO 3 -->
-                    <section class="rounded-xl border border-pink-500/40 border-t-4 border-t-pink-400 bg-pink-500/10 p-6 mb-6" aria-labelledby="pers-b3">
-                        <h3 id="pers-b3" class="text-xl font-bold text-pink-300 mb-1"><i class="fas fa-industry mr-2"></i>3. Fábrica de Instruções</h3>
-                        <p class="text-sm text-pink-100 mb-3">Seu tempo rende mais.</p>
-                        <p class="text-gray-200 text-sm leading-relaxed mb-4">A Fábrica de Instruções é uma <strong class="text-white">skill</strong>: um arquivo que ensina a IA a fazer uma tarefa. Esta faz uma entrevista com você, uma pergunta por vez, com vários exemplos de resposta para você escolher, e no final entrega as suas instruções prontas para copiar e colar. Você pode escolher se são instruções para a IA em geral ou para um projeto.</p>
+                    <section class="mb-10" aria-labelledby="pers-b3">
+                        <div class="flex items-center gap-5 rounded-2xl border bg-gradient-to-r from-pink-600/50 to-pink-500/5 border-pink-400/50 p-6 mb-5">
+                            <div class="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-pink-500 text-white flex items-center justify-center text-3xl sm:text-4xl shadow-lg"><i class="fas fa-industry" aria-hidden="true"></i></div>
+                            <div>
+                                <h3 id="pers-b3" class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">Fábrica de Instruções</h3>
+                                <p class="text-pink-100 text-sm sm:text-base mt-1">Seu tempo rende mais. A skill que escreve as suas instruções.</p>
+                            </div>
+                        </div>
+                        <div class="grid sm:grid-cols-3 gap-3 mb-4">
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="font-bold text-pink-300 text-sm mb-1"><i class="fas fa-puzzle-piece mr-2"></i>O que é uma skill</p>
+                                <p class="text-sm text-gray-300 leading-relaxed">Um arquivo que <strong class="text-white">ensina a IA</strong> a fazer uma tarefa.</p>
+                            </div>
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="font-bold text-pink-300 text-sm mb-1"><i class="fas fa-comments mr-2"></i>O que ela faz</p>
+                                <p class="text-sm text-gray-300 leading-relaxed">Faz uma <strong class="text-white">entrevista</strong>, uma pergunta por vez, com vários exemplos de resposta.</p>
+                            </div>
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="font-bold text-pink-300 text-sm mb-1"><i class="fas fa-circle-check mr-2"></i>O que você leva</p>
+                                <p class="text-sm text-gray-300 leading-relaxed">Instruções <strong class="text-white">prontas para colar</strong>: para a IA em geral ou para um projeto.</p>
+                            </div>
+                        </div>
 
-                        <div id="skill-bloqueio" class="rounded-xl bg-black/20 border border-brand-border p-6 text-center">
-                            <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-pink/20 text-brand-pink mb-3"><i class="fas fa-lock text-2xl"></i></div>
-                            <h4 class="text-lg font-bold text-white mb-2">Skill liberada durante a aula</h4>
+                        <div id="skill-bloqueio" class="rounded-2xl bg-black/25 border-2 border-pink-400/50 p-6 text-center">
+                            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-pink/20 text-brand-pink mb-3"><i class="fas fa-lock text-3xl"></i></div>
+                            <h4 class="text-xl font-extrabold text-white mb-2">Skill liberada durante a aula</h4>
                             <p class="text-gray-300 text-sm mb-5">Quando a professora informar o código da aula, digite-o abaixo. É o mesmo código usado para registrar a presença.</p>
                             <form id="skill-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
                                 <label for="skill-codigo" class="sr-only">Código da aula</label>
@@ -590,29 +666,49 @@
                         </div>
 
                         <div id="skill-conteudo" class="hidden">
-                            <div class="rounded-lg bg-green-500/10 border border-green-500/40 p-4 mb-4">
-                                <p class="text-sm text-green-200"><i class="fas fa-unlock mr-2"></i>Skill liberada. Sua presença nesta aula também está registrada.</p>
+                            <div class="rounded-xl bg-green-500/10 border border-green-500/40 p-4 mb-5">
+                                <p class="text-sm text-green-200"><i class="fas fa-unlock mr-2"></i><strong>Skill liberada.</strong> Sua presença nesta aula também está registrada.</p>
                             </div>
-                            <div class="flex flex-wrap gap-3 mb-5">
-                                <button type="button" id="skill-baixar" class="bg-brand-pink hover:bg-brand-purple text-white text-sm font-semibold px-5 py-3 rounded-xl transition-colors"><i class="fas fa-download mr-2"></i>Baixar a skill (.zip)</button>
+
+                            <h4 class="text-lg font-extrabold text-white mt-7 mb-3"><i class="fas fa-download mr-2 text-pink-300"></i>1. Baixe a skill</h4>
+                            <div class="flex flex-wrap gap-3">
+                                <button type="button" id="skill-baixar" class="bg-brand-pink hover:bg-brand-purple text-white font-bold px-6 py-3 rounded-xl transition-colors"><i class="fas fa-download mr-2"></i>Baixar a skill (.zip)</button>
+                                <button type="button" id="skill-baixar-md" class="border border-brand-border text-gray-200 hover:text-white text-sm font-semibold px-5 py-3 rounded-xl"><i class="fas fa-file-lines mr-2"></i>Baixar só o SKILL.md</button>
                                 <button type="button" id="skill-copiar" class="border border-brand-border text-gray-200 hover:text-white text-sm font-semibold px-5 py-3 rounded-xl"><i class="fas fa-copy mr-2"></i>Copiar o texto da skill</button>
                             </div>
-                            <h4 class="font-semibold text-white text-sm mb-2">Como usar</h4>
-                            <ul class="text-sm text-gray-300 space-y-2 list-disc pl-5 mb-3">
-                                <li><strong class="text-white">Claude e Gemini:</strong> instale o arquivo .zip na área de personalização, em Habilidades. Depois, em uma conversa nova, peça para criar suas instruções.</li>
-                                <li><strong class="text-white">ChatGPT:</strong> anexe o arquivo .zip na conversa e escreva: "Leia o arquivo anexado e comece a entrevista comigo."</li>
-                                <li><strong class="text-white">Qualquer outra IA:</strong> use "Copiar o texto da skill", cole na conversa e peça para começar a entrevista.</li>
-                            </ul>
-                            <p class="text-xs text-gray-400">Os menus mudam com frequência. Se não encontrar Habilidades, procure por Personalização na sua conta.</p>
+
+                            <h4 class="text-lg font-extrabold text-white mt-7 mb-3"><i class="fas fa-screwdriver-wrench mr-2 text-pink-300"></i>2. Instale na sua IA</h4>
+                            <div class="space-y-3">
+                                <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="text-sm font-bold text-white mb-3"><i class="fas fa-asterisk mr-2 text-gray-300"></i>Claude (computador)</p>
+                                <div class="flex flex-wrap items-center gap-2"><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Personalizar (Customize)</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Habilidades (Skills)</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">+</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Criar habilidade</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Enviar uma habilidade (Upload a skill)</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500 border-pink-300 text-white">Escolha o arquivo .zip</span></div><p class="text-xs text-gray-400 mt-3">Funciona nas contas gratuita e paga. Se a skill não funcionar, veja em Configurações, Recursos (Capabilities), se a opção de criar e editar arquivos está ligada.</p>
+                            </div>
+                                <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="text-sm font-bold text-white mb-3"><i class="fas fa-gem mr-2 text-gray-300"></i>Gemini (web ou celular)</p>
+                                <div class="flex flex-wrap items-center gap-2"><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Página Skills (Habilidades)</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Criar</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Enviar (Upload)</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500 border-pink-300 text-white">Escolha o .zip ou o SKILL.md</span></div><p class="text-xs text-gray-400 mt-3">Disponível no site gemini.google.com e no aplicativo do celular.</p>
+                            </div>
+                                <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="text-sm font-bold text-white mb-3"><i class="fas fa-comment-dots mr-2 text-gray-300"></i>ChatGPT (conta gratuita: sem instalar)</p>
+                                <div class="flex flex-wrap items-center gap-2"><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Anexe o .zip na conversa</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500 border-pink-300 text-white">Escreva: "Leia o arquivo anexado e comece a entrevista comigo."</span></div>
+                            </div>
+                            </div>
+
+                            <h4 class="text-lg font-extrabold text-white mt-7 mb-3"><i class="fas fa-play mr-2 text-pink-300"></i>3. Use</h4>
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="text-sm text-gray-200 mb-2">No Claude e no Gemini, abra uma <strong class="text-white">conversa nova</strong> e escreva:</p>
+                                <p class="text-sm text-white bg-black/30 border border-brand-border rounded-lg p-3 mb-3">Quero criar minhas instruções.</p>
+                                <p class="text-sm text-gray-300">Responda uma pergunta por vez. Pode escolher um exemplo pelo número, escrever do seu jeito ou pular. No final, copie o texto pronto e cole onde você encontrou o campo de instruções.</p>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-3">Os menus mudam com frequência. Se não encontrar, procure por Personalização ou Habilidades (Skills) na sua conta.</p>
                         </div>
                     </section>
 
-                    <section class="rounded-xl border border-yellow-500/40 border-t-4 border-t-yellow-400 bg-yellow-500/10 p-6" aria-labelledby="pers-b4">
-                        <h3 id="pers-b4" class="text-xl font-bold text-yellow-300 mb-3"><i class="fas fa-list-check mr-2"></i>Sua missão agora</h3>
+                    <section class="rounded-2xl border-2 border-green-400/50 bg-green-500/10 p-6" aria-labelledby="pers-b4">
+                        <h3 id="pers-b4" class="text-2xl font-extrabold text-green-200 mb-3"><i class="fas fa-list-check mr-2"></i>Sua missão agora</h3>
                         <ol class="text-sm text-gray-200 space-y-2 list-decimal pl-5">
-                            <li>Escreva suas instruções gerais e salve na sua IA.</li>
-                            <li>Crie um projeto para uma tarefa que você repete sempre e escreva as instruções dele.</li>
-                            <li>Com a skill liberada, gere um segundo conjunto de instruções e compare com o que você escreveu à mão.</li>
+                            <li>Encontre o campo de instruções gerais na sua conta.</li>
+                            <li>Com a skill liberada, crie as suas <strong class="text-white">instruções gerais</strong>, cole no campo e salve.</li>
+                            <li>Crie um projeto para uma tarefa que você repete sempre e escreva as <strong class="text-white">instruções dele</strong>.</li>
                             <li>Faça um pedido curto dentro do projeto e veja se a resposta já vem do seu jeito.</li>
                         </ol>
                     </section>
@@ -1726,6 +1822,14 @@
                 const a = document.createElement('a'); a.href = url; a.download = 'fabrica-de-instrucoes.zip';
                 document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000);
                 showToast('Skill baixada.', 'success');
+            } catch (err) { showToast('Não foi possível baixar. Use "Copiar o texto da skill".', 'error'); }
+        });
+        document.getElementById('skill-baixar-md').addEventListener('click', () => {
+            try {
+                const url = URL.createObjectURL(new Blob([SKILL_MD], { type: 'text/markdown' }));
+                const a = document.createElement('a'); a.href = url; a.download = 'SKILL.md';
+                document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000);
+                showToast('SKILL.md baixado.', 'success');
             } catch (err) { showToast('Não foi possível baixar. Use "Copiar o texto da skill".', 'error'); }
         });
         async function copiarGenerico(texto, botao) {
