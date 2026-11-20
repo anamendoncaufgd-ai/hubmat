@@ -84,14 +84,33 @@
             background: rgba(0, 0, 0, 0.4);
         }
 
-        /* Bloco de Notas: fundo sólido e texto de alto contraste */
-        #notepad-sidebar { background: #0d1322 !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-left: 1px solid rgba(255,255,255,0.25) !important; }
+        /* Bloco de Notas: papel claro, totalmente opaco, texto escuro */
+        #notepad-sidebar { background: #f8fafc !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-left: 3px solid #a855f7 !important; box-shadow: -12px 0 40px rgba(0,0,0,0.7) !important; }
         #notepad-sidebar > div:first-child { background: #111a2e !important; }
-        #personal-notes { background: #0d1322 !important; color: #f8fafc !important; font-size: 1rem !important; line-height: 1.7 !important; caret-color: #ec4899; }
-        #personal-notes::placeholder { color: #94a3b8; opacity: 1; }
-        #personal-notes:focus { background: #101830 !important; box-shadow: inset 0 0 0 2px rgba(168,85,247,0.55); }
-        #notepad-overlay { background: rgba(0,0,0,0.75) !important; }
+        #notepad-sidebar .nota-barra { background: #e2e8f0; border-bottom: 1px solid #cbd5e1; }
+        #notepad-sidebar .nota-barra select, #notepad-sidebar .nota-barra input { background: #ffffff; color: #0f172a; border: 1px solid #94a3b8; border-radius: 0.5rem; padding: 0.45rem 0.6rem; font-size: 0.9rem; width: 100%; }
+        #notepad-sidebar .nota-barra select { flex: 1 1 0%; min-width: 0; width: auto; }
+        #notepad-sidebar .nota-barra select:focus, #notepad-sidebar .nota-barra input:focus { outline: 2px solid #a855f7; }
+        #notepad-sidebar .nota-btn { background: #ffffff; color: #1e293b; border: 1px solid #94a3b8; border-radius: 0.5rem; padding: 0.4rem 0.7rem; font-size: 0.8rem; font-weight: 600; white-space: nowrap; }
+        #notepad-sidebar .nota-btn:hover { background: #ede9fe; border-color: #7c3aed; }
+        #notepad-sidebar .nota-btn.perigo { color: #b91c1c; }
+        #notepad-sidebar .nota-btn.perigo:hover { background: #fee2e2; border-color: #b91c1c; }
+        #personal-notes { background: #ffffff !important; color: #0f172a !important; font-size: 1rem !important; line-height: 1.7 !important; caret-color: #7c3aed; }
+        #personal-notes::placeholder { color: #64748b; opacity: 1; }
+        #personal-notes:focus { box-shadow: inset 0 0 0 2px rgba(124,58,237,0.6); }
+        #save-indicator { background: #ffffff !important; color: #334155 !important; border-color: #94a3b8 !important; }
+        #notepad-overlay { background: rgba(0,0,0,0.82) !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
         #perfil-modal > div { background: #0d1322 !important; }
+
+        /* Menu lateral: fundo roxo sólido (sem transparência) para não misturar com o conteúdo no celular */
+        #main-sidebar { background: linear-gradient(180deg, #24124a 0%, #1a0f3a 50%, #120b2b 100%) !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-right: 1px solid rgba(168,85,247,0.5) !important; }
+        @media (max-width: 767px) { #main-sidebar { box-shadow: 12px 0 40px rgba(0,0,0,0.75); } }
+        #main-sidebar .nav-btn { color: #e5e7eb; }
+        #main-sidebar .nav-btn.active { background: rgba(168,85,247,0.28); color: #ffffff; }
+        #main-sidebar { z-index: 60 !important; }
+        #sidebar-overlay { position: fixed; inset: 0; background: rgba(5,3,15,0.6); z-index: 40; display: none; }
+        #sidebar-overlay.aberto { display: block; }
+        @media (min-width: 768px) { #sidebar-overlay { display: none !important; } }
 
         /* Texto Gradiente */
         .text-gradient {
@@ -250,6 +269,13 @@
                     <span class="leading-snug">Personalização e Otimização de Tarefas com IA</span>
                 </a>
 
+                <a href="#" data-target="tab-musicas" class="nav-btn flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-300 hover:bg-brand-surface hover:text-white group">
+                    <div class="w-8 h-8 rounded-lg bg-brand-surface flex items-center justify-center group-hover:bg-brand-pink/20 group-hover:text-brand-pink transition-colors">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    Músicas das aulas
+                </a>
+
                 <a href="#" data-target="tab-biblioteca" class="nav-btn flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-300 hover:bg-brand-surface hover:text-white group">
                     <div class="w-8 h-8 rounded-lg bg-brand-surface flex items-center justify-center group-hover:bg-brand-pink/20 group-hover:text-brand-pink transition-colors">
                         <i class="fas fa-book-open"></i>
@@ -269,6 +295,13 @@
                         <i class="fas fa-certificate"></i>
                     </div>
                     Presença e Declaração
+                </a>
+
+                <a href="#" data-target="tab-depoimento" class="nav-btn flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-300 hover:bg-brand-surface hover:text-white group">
+                    <div class="w-8 h-8 rounded-lg bg-brand-surface flex items-center justify-center group-hover:bg-brand-purple/20 group-hover:text-brand-purple transition-colors">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    Meu Depoimento
                 </a>
 
                 <a href="#" id="nav-admin" data-target="tab-admin" class="nav-btn hidden flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-300 hover:bg-brand-surface hover:text-white group mt-4 border border-brand-pink/30">
@@ -339,14 +372,23 @@
                         <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-brand-purple/20 to-brand-pink/20 rounded-bl-full blur-3xl transition-transform group-hover:scale-110 duration-700"></div>
                         
                         <div class="relative z-10">
-                            <span class="inline-block py-1 px-3 rounded-full bg-brand-purple/20 text-brand-purple border border-brand-purple/30 text-xs font-bold tracking-wider mb-4">PLATAFORMA OFICIAL</span>
+                            <span class="inline-block py-1 px-3 rounded-full bg-brand-purple/20 text-brand-purple border border-brand-purple/30 text-xs font-bold tracking-wider mb-4">ESPAÇO DE APRENDIZAGEM</span>
+                            <p id="saudacao-nome" class="text-lg md:text-xl text-brand-pink font-semibold mb-2">Olá!</p>
                             <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
-                                Bem-vindo ao <br />
-                                <span class="text-gradient">HubMat.UFGD</span>
+                                Que bom ter você <br />
+                                <span class="text-gradient">no HubMat.UFGD</span>
                             </h2>
-                            <p class="text-gray-300 max-w-2xl text-lg leading-relaxed mb-6">
-                                Ferramentas para Professores de Matemática no Planejamento, Execução e Avaliação utilizando Inteligência Artificial.
+                            <p class="text-gray-200 max-w-2xl text-lg leading-relaxed mb-4">
+                                O HubMat.UFGD não é sobre ferramentas, é sobre metodologia. Este é o seu espaço para refletir sobre o seu modo de ensinar e descobrir como a inteligência artificial pode apoiá-lo, sem substituir o que só o professor faz: planejar com intenção, mediar a aprendizagem e avaliar com critério.
                             </p>
+                            <p class="text-gray-300 max-w-2xl text-base leading-relaxed mb-6">
+                                As ferramentas mudam o tempo todo, mas o seu olhar pedagógico permanece. Aqui você vai testar, errar, refazer e comparar resultados, sempre decidindo o que faz sentido para os seus alunos. A inteligência artificial apoia; a decisão, a autoria e a responsabilidade pedagógica são suas.
+                            </p>
+                            <div class="flex flex-wrap gap-3 mb-6">
+                                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-500/15 border border-sky-400/40 text-sky-200 text-sm font-semibold"><i class="fas fa-compass"></i>Explore</span>
+                                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/15 border border-pink-400/40 text-pink-200 text-sm font-semibold"><i class="fas fa-flask"></i>Experimente</span>
+                                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/15 border border-purple-400/40 text-purple-200 text-sm font-semibold"><i class="fas fa-lightbulb"></i>Descubra</span>
+                            </div>
                             
                             <div class="flex items-center gap-4 bg-black/30 w-fit px-4 py-2 rounded-lg border border-brand-border backdrop-blur-md">
                                 <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center border-2 border-brand-purple overflow-hidden">
@@ -463,6 +505,12 @@
                     <h2 class="text-3xl sm:text-4xl font-extrabold mb-2"><span class="text-gradient">Personalização e Otimização de Tarefas com IA</span></h2>
                     <p class="text-gray-200 text-lg mb-6">Ensine a IA a trabalhar do seu jeito e faça o seu tempo render mais.</p>
 
+                    <div id="pers-subnav" class="flex flex-wrap gap-3 mb-6" role="tablist" aria-label="Partes da aula de Personalização">
+                        <button type="button" id="pers-btn-1" role="tab" aria-selected="true" aria-controls="pers-p1" data-cor="purple" class="px-4 py-2 rounded-xl text-sm font-semibold transition-colors bg-purple-500 text-white"><i class="fas fa-user-gear mr-2"></i>1 · Personalização da sua IA</button>
+                        <button type="button" id="pers-btn-2" role="tab" aria-selected="false" aria-controls="pers-p2" data-cor="sky" class="px-4 py-2 rounded-xl text-sm font-semibold transition-colors bg-brand-surface border border-brand-border text-gray-300 hover:text-white"><i class="fas fa-folder-open mr-2"></i>2 · Projetos</button>
+                        <button type="button" id="pers-btn-3" role="tab" aria-selected="false" aria-controls="pers-p3" data-cor="emerald" class="px-4 py-2 rounded-xl text-sm font-semibold transition-colors bg-brand-surface border border-brand-border text-gray-300 hover:text-white"><i class="fas fa-book-open-reader mr-2"></i>3 · Notebooks (Gemini)</button>
+                    </div>
+                    <div id="pers-p1" role="tabpanel">
                     <div class="rounded-2xl border-2 border-yellow-400/60 bg-yellow-500/10 p-6 mb-8">
                         <p class="text-yellow-200 font-extrabold text-lg mb-3"><i class="fas fa-brain mr-2"></i>Memória desativada? As instruções continuam valendo.</p>
                         <div class="grid sm:grid-cols-2 gap-3">
@@ -477,7 +525,8 @@
                         </div>
                     </div>
 
-                    <!-- BLOCO 1 -->
+                    
+<!-- BLOCO 1 -->
                     <section class="mb-10" aria-labelledby="pers-b1">
                         <div class="flex items-center gap-5 rounded-2xl border bg-gradient-to-r from-purple-600/50 to-purple-500/5 border-purple-400/50 p-6 mb-5">
                             <div class="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-purple-500 text-white flex items-center justify-center text-3xl sm:text-4xl shadow-lg"><i class="fas fa-user-gear" aria-hidden="true"></i></div>
@@ -502,6 +551,11 @@
                         </div>
                         <div class="rounded-xl bg-purple-500/10 border border-purple-400/40 p-4 mt-3">
                             <p class="text-sm text-purple-100"><i class="fas fa-masks-theater mr-2"></i><strong>Persona (método PROFES):</strong> este é o lugar de dizer qual papel a IA assume com você.</p>
+                        </div>
+
+                        <div class="rounded-xl bg-purple-500/10 border border-purple-400/40 p-4 mt-3">
+                            <p class="text-sm font-bold text-purple-100 mb-1"><i class="fas fa-face-smile mr-2"></i>Tom da conversa</p>
+                            <p class="text-sm text-gray-200 leading-relaxed">Você também pode dizer <strong class="text-white">como a IA deve soar</strong>: mais acolhedora, mais direta, mais delicada ao corrigir. Escreva isso nas instruções, por exemplo: <em>"Corrija com gentileza e me dê uma dica antes da resposta pronta."</em> No ChatGPT, se a sua tela tiver uma opção de personalidade ou estilo nas configurações de personalização, ela também ajusta o tom.</p>
                         </div>
 
                         <h4 class="text-lg font-extrabold text-white mt-7 mb-3"><i class="fas fa-route mr-2 text-purple-300"></i>Encontre o campo na sua conta</h4>
@@ -544,6 +598,86 @@
                         <p class="text-xs text-gray-400 mt-4"><i class="fas fa-shield-halved mr-1"></i>Nunca escreva nas instruções dados pessoais, senhas ou informações de estudantes.</p>
                     </section>
 
+                    <!-- BLOCO 3 -->
+                    <section class="mb-10" aria-labelledby="pers-b3">
+                        <div class="flex items-center gap-5 rounded-2xl border bg-gradient-to-r from-pink-600/50 to-pink-500/5 border-pink-400/50 p-6 mb-5">
+                            <div class="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-pink-500 text-white flex items-center justify-center text-3xl sm:text-4xl shadow-lg"><i class="fas fa-industry" aria-hidden="true"></i></div>
+                            <div>
+                                <h3 id="pers-b3" class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">Fábrica de Instruções</h3>
+                                <p class="text-pink-100 text-sm sm:text-base mt-1">Seu tempo rende mais. A skill que escreve as suas instruções.</p>
+                            </div>
+                        </div>
+                        <div class="grid sm:grid-cols-3 gap-3 mb-4">
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="font-bold text-pink-300 text-sm mb-1"><i class="fas fa-puzzle-piece mr-2"></i>O que é uma skill</p>
+                                <p class="text-sm text-gray-300 leading-relaxed">Um arquivo que <strong class="text-white">ensina a IA</strong> a fazer uma tarefa.</p>
+                            </div>
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="font-bold text-pink-300 text-sm mb-1"><i class="fas fa-comments mr-2"></i>O que ela faz</p>
+                                <p class="text-sm text-gray-300 leading-relaxed">Faz uma <strong class="text-white">entrevista</strong>, uma pergunta por vez, com vários exemplos de resposta.</p>
+                            </div>
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="font-bold text-pink-300 text-sm mb-1"><i class="fas fa-circle-check mr-2"></i>O que você leva</p>
+                                <p class="text-sm text-gray-300 leading-relaxed">Instruções <strong class="text-white">prontas para colar</strong>: para a IA em geral ou para um projeto.</p>
+                            </div>
+                        </div>
+
+                        <div id="skill-bloqueio" class="rounded-2xl bg-black/25 border-2 border-pink-400/50 p-6 text-center">
+                            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-pink/20 text-brand-pink mb-3"><i class="fas fa-lock text-3xl"></i></div>
+                            <h4 class="text-xl font-extrabold text-white mb-2">Skill liberada durante a aula</h4>
+                            <p class="text-gray-300 text-sm mb-5">Quando a professora informar o código da aula, digite-o abaixo. É o mesmo código usado para registrar a presença.</p>
+                            <form id="skill-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                                <label for="skill-codigo" class="sr-only">Código da aula</label>
+                                <input id="skill-codigo" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="40" placeholder="Código da aula" class="glass-input flex-1 px-4 py-3 rounded-xl text-sm">
+                                <button type="submit" class="bg-brand-pink hover:bg-brand-purple text-white text-sm font-semibold px-5 py-3 rounded-xl transition-colors"><i class="fas fa-unlock-alt mr-2"></i>Liberar</button>
+                            </form>
+                            <p id="skill-msg" role="status" class="text-sm mt-4 min-h-[1.25rem]"></p>
+                        </div>
+
+                        <div id="skill-conteudo" class="hidden">
+                            <div class="rounded-xl bg-green-500/10 border border-green-500/40 p-4 mb-5">
+                                <p class="text-sm text-green-200"><i class="fas fa-unlock mr-2"></i><strong>Skill liberada.</strong> Sua presença nesta aula também está registrada.</p>
+                            </div>
+
+                            <h4 class="text-lg font-extrabold text-white mt-7 mb-3"><i class="fas fa-download mr-2 text-pink-300"></i>1. Baixe a skill</h4>
+                            <div class="flex flex-wrap gap-3">
+                                <button type="button" id="skill-baixar" class="bg-brand-pink hover:bg-brand-purple text-white font-bold px-6 py-3 rounded-xl transition-colors"><i class="fas fa-download mr-2"></i>Baixar a skill (.zip)</button>
+                                <button type="button" id="skill-baixar-md" class="border border-brand-border text-gray-200 hover:text-white text-sm font-semibold px-5 py-3 rounded-xl"><i class="fas fa-file-lines mr-2"></i>Baixar só o SKILL.md</button>
+                                <button type="button" id="skill-copiar" class="border border-brand-border text-gray-200 hover:text-white text-sm font-semibold px-5 py-3 rounded-xl"><i class="fas fa-copy mr-2"></i>Copiar o texto da skill</button>
+                            </div>
+
+                            <h4 class="text-lg font-extrabold text-white mt-7 mb-3"><i class="fas fa-screwdriver-wrench mr-2 text-pink-300"></i>2. Instale na sua IA</h4>
+                            <div class="space-y-3">
+                                <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="text-sm font-bold text-white mb-3"><i class="fas fa-asterisk mr-2 text-gray-300"></i>Claude (computador)</p>
+                                <div class="flex flex-wrap items-center gap-2"><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Personalizar (Customize)</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Habilidades (Skills)</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">+</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Criar habilidade</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Enviar uma habilidade (Upload a skill)</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500 border-pink-300 text-white">Escolha o arquivo .zip</span></div><p class="text-xs text-gray-400 mt-3">Funciona nas contas gratuita e paga. Se a skill não funcionar, veja em Configurações, Recursos (Capabilities), se a opção de criar e editar arquivos está ligada.</p>
+                            </div>
+                                <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="text-sm font-bold text-white mb-3"><i class="fas fa-gem mr-2 text-gray-300"></i>Gemini (web ou celular)</p>
+                                <div class="flex flex-wrap items-center gap-2"><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Página Skills (Habilidades)</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Criar</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Enviar (Upload)</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500 border-pink-300 text-white">Escolha o .zip ou o SKILL.md</span></div><p class="text-xs text-gray-400 mt-3">Disponível no site gemini.google.com e no aplicativo do celular.</p>
+                            </div>
+                                <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="text-sm font-bold text-white mb-3"><i class="fas fa-comment-dots mr-2 text-gray-300"></i>ChatGPT (conta gratuita: sem instalar)</p>
+                                <div class="flex flex-wrap items-center gap-2"><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Anexe o .zip na conversa</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500 border-pink-300 text-white">Escreva: "Leia o arquivo anexado e comece a entrevista comigo."</span></div>
+                            </div>
+                            </div>
+
+                            <h4 class="text-lg font-extrabold text-white mt-7 mb-3"><i class="fas fa-play mr-2 text-pink-300"></i>3. Use</h4>
+                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                                <p class="text-sm text-gray-200 mb-2">No Claude e no Gemini, abra uma <strong class="text-white">conversa nova</strong> e escreva:</p>
+                                <p class="text-sm text-white bg-black/30 border border-brand-border rounded-lg p-3 mb-3">Quero criar minhas instruções.</p>
+                                <p class="text-sm text-gray-300">Responda uma pergunta por vez. Pode escolher um exemplo pelo número, escrever do seu jeito ou pular. No final, copie o texto pronto e cole onde você encontrou o campo de instruções.</p>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-3">Os menus mudam com frequência. Se não encontrar, procure por Personalização ou Habilidades (Skills) na sua conta.</p>
+                        </div>
+                    </section>
+
+                    <section class="rounded-2xl border-2 border-green-400/50 bg-green-500/10 p-6" aria-labelledby="pers-m1">
+                        <h3 id="pers-m1" class="text-2xl font-extrabold text-green-200 mb-3"><i class="fas fa-list-check mr-2"></i>Sua missão agora</h3>
+                        <ol class="text-sm text-gray-200 space-y-2 list-decimal pl-5"><li>Encontre o campo de instruções gerais na sua conta.</li><li>Com a skill liberada, crie as suas <strong class="text-white">instruções gerais</strong>, cole no campo e salve.</li><li>Abra uma conversa nova e faça um pedido curto para ver se a resposta já vem do seu jeito.</li></ol>
+                    </section>
+                    </div>
+                    <div id="pers-p2" role="tabpanel" class="hidden">
                     <!-- BLOCO 2 -->
                     <section class="mb-10" aria-labelledby="pers-b2">
                         <div class="flex items-center gap-5 rounded-2xl border bg-gradient-to-r from-sky-600/50 to-sky-500/5 border-sky-400/50 p-6 mb-5">
@@ -629,89 +763,74 @@
                         </div>
                     </section>
 
-                    <!-- BLOCO 3 -->
-                    <section class="mb-10" aria-labelledby="pers-b3">
-                        <div class="flex items-center gap-5 rounded-2xl border bg-gradient-to-r from-pink-600/50 to-pink-500/5 border-pink-400/50 p-6 mb-5">
-                            <div class="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-pink-500 text-white flex items-center justify-center text-3xl sm:text-4xl shadow-lg"><i class="fas fa-industry" aria-hidden="true"></i></div>
+                    <section class="rounded-2xl border-2 border-green-400/50 bg-green-500/10 p-6" aria-labelledby="pers-m2">
+                        <h3 id="pers-m2" class="text-2xl font-extrabold text-green-200 mb-3"><i class="fas fa-list-check mr-2"></i>Sua missão agora</h3>
+                        <ol class="text-sm text-gray-200 space-y-2 list-decimal pl-5"><li>Crie um projeto para uma tarefa que você repete sempre.</li><li>Escreva as <strong class="text-white">instruções dele</strong> (use a Fábrica de Instruções, na parte 1).</li><li>Faça um pedido curto dentro do projeto e veja se a resposta já vem do seu jeito.</li></ol>
+                    </section>
+                    </div>
+                    <div id="pers-p3" role="tabpanel" class="hidden">
+                    <section class="mb-10" aria-labelledby="pers-b5">
+                        <div class="flex items-center gap-5 rounded-2xl border bg-gradient-to-r from-emerald-600/50 to-emerald-500/5 border-emerald-400/50 p-6 mb-5">
+                            <div class="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-3xl sm:text-4xl shadow-lg"><i class="fas fa-book-open-reader" aria-hidden="true"></i></div>
                             <div>
-                                <h3 id="pers-b3" class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">Fábrica de Instruções</h3>
-                                <p class="text-pink-100 text-sm sm:text-base mt-1">Seu tempo rende mais. A skill que escreve as suas instruções.</p>
+                                <h3 id="pers-b5" class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">Notebooks (Gemini)</h3>
+                                <p class="text-emerald-100 text-sm sm:text-base mt-1">O projeto do Gemini, com um espaço para as suas fontes.</p>
                             </div>
                         </div>
                         <div class="grid sm:grid-cols-3 gap-3 mb-4">
                             <div class="rounded-xl bg-black/25 border border-brand-border p-4">
-                                <p class="font-bold text-pink-300 text-sm mb-1"><i class="fas fa-puzzle-piece mr-2"></i>O que é uma skill</p>
-                                <p class="text-sm text-gray-300 leading-relaxed">Um arquivo que <strong class="text-white">ensina a IA</strong> a fazer uma tarefa.</p>
+                                <p class="font-bold text-emerald-300 text-sm mb-1"><i class="fas fa-folder-open mr-2"></i>O que é</p>
+                                <p class="text-sm text-gray-300 leading-relaxed">No Gemini, o projeto se chama <strong class="text-white">notebook</strong>. Reúne conversas, instruções e fontes de um mesmo assunto.</p>
                             </div>
                             <div class="rounded-xl bg-black/25 border border-brand-border p-4">
-                                <p class="font-bold text-pink-300 text-sm mb-1"><i class="fas fa-comments mr-2"></i>O que ela faz</p>
-                                <p class="text-sm text-gray-300 leading-relaxed">Faz uma <strong class="text-white">entrevista</strong>, uma pergunta por vez, com vários exemplos de resposta.</p>
+                                <p class="font-bold text-emerald-300 text-sm mb-1"><i class="fas fa-link mr-2"></i>O que aceita</p>
+                                <p class="text-sm text-gray-300 leading-relaxed">Além de arquivos, aceita <strong class="text-white">sites</strong> e <strong class="text-white">vídeos do YouTube</strong> como fontes.</p>
                             </div>
                             <div class="rounded-xl bg-black/25 border border-brand-border p-4">
-                                <p class="font-bold text-pink-300 text-sm mb-1"><i class="fas fa-circle-check mr-2"></i>O que você leva</p>
-                                <p class="text-sm text-gray-300 leading-relaxed">Instruções <strong class="text-white">prontas para colar</strong>: para a IA em geral ou para um projeto.</p>
+                                <p class="font-bold text-emerald-300 text-sm mb-1"><i class="fas fa-forward mr-2"></i>Hoje e na próxima aula</p>
+                                <p class="text-sm text-gray-300 leading-relaxed">Hoje: <strong class="text-white">criar o notebook e escrever as instruções</strong>. O resto fica para a próxima aula.</p>
                             </div>
                         </div>
 
-                        <div id="skill-bloqueio" class="rounded-2xl bg-black/25 border-2 border-pink-400/50 p-6 text-center">
-                            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-pink/20 text-brand-pink mb-3"><i class="fas fa-lock text-3xl"></i></div>
-                            <h4 class="text-xl font-extrabold text-white mb-2">Skill liberada durante a aula</h4>
-                            <p class="text-gray-300 text-sm mb-5">Quando a professora informar o código da aula, digite-o abaixo. É o mesmo código usado para registrar a presença.</p>
-                            <form id="skill-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                                <label for="skill-codigo" class="sr-only">Código da aula</label>
-                                <input id="skill-codigo" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="40" placeholder="Código da aula" class="glass-input flex-1 px-4 py-3 rounded-xl text-sm">
-                                <button type="submit" class="bg-brand-pink hover:bg-brand-purple text-white text-sm font-semibold px-5 py-3 rounded-xl transition-colors"><i class="fas fa-unlock-alt mr-2"></i>Liberar</button>
-                            </form>
-                            <p id="skill-msg" role="status" class="text-sm mt-4 min-h-[1.25rem]"></p>
+                        <h4 class="text-lg font-extrabold text-white mt-7 mb-3"><i class="fas fa-route mr-2 text-emerald-300"></i>Crie o seu primeiro notebook</h4>
+                        <div class="rounded-xl bg-black/25 border border-brand-border p-4">
+                            <p class="text-sm font-bold text-white mb-3"><i class="fas fa-gem mr-2 text-gray-300"></i>No Gemini</p>
+                            <div class="flex flex-wrap items-center gap-2"><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-emerald-500/20 border-emerald-400/50 text-white">Barra lateral esquerda: <strong>Notebooks</strong></span><i class="fas fa-arrow-right text-emerald-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-emerald-500/20 border-emerald-400/50 text-white">Novo notebook</span><i class="fas fa-arrow-right text-emerald-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-emerald-500/20 border-emerald-400/50 text-white">Nome e objetivo do notebook</span><i class="fas fa-arrow-right text-emerald-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-emerald-500/20 border-emerald-400/50 text-white">Três pontinhos, no canto superior direito</span><i class="fas fa-arrow-right text-emerald-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-emerald-500 border-emerald-300 text-white">Configurações do notebook</span></div>
                         </div>
+                        <p class="text-xs text-gray-400 mt-3">Os menus mudam com frequência. Se o item <strong class="text-gray-200">Notebooks</strong> não aparecer na sua conta, o recurso pode depender do plano do Gemini.</p>
 
-                        <div id="skill-conteudo" class="hidden">
-                            <div class="rounded-xl bg-green-500/10 border border-green-500/40 p-4 mb-5">
-                                <p class="text-sm text-green-200"><i class="fas fa-unlock mr-2"></i><strong>Skill liberada.</strong> Sua presença nesta aula também está registrada.</p>
-                            </div>
-
-                            <h4 class="text-lg font-extrabold text-white mt-7 mb-3"><i class="fas fa-download mr-2 text-pink-300"></i>1. Baixe a skill</h4>
-                            <div class="flex flex-wrap gap-3">
-                                <button type="button" id="skill-baixar" class="bg-brand-pink hover:bg-brand-purple text-white font-bold px-6 py-3 rounded-xl transition-colors"><i class="fas fa-download mr-2"></i>Baixar a skill (.zip)</button>
-                                <button type="button" id="skill-baixar-md" class="border border-brand-border text-gray-200 hover:text-white text-sm font-semibold px-5 py-3 rounded-xl"><i class="fas fa-file-lines mr-2"></i>Baixar só o SKILL.md</button>
-                                <button type="button" id="skill-copiar" class="border border-brand-border text-gray-200 hover:text-white text-sm font-semibold px-5 py-3 rounded-xl"><i class="fas fa-copy mr-2"></i>Copiar o texto da skill</button>
-                            </div>
-
-                            <h4 class="text-lg font-extrabold text-white mt-7 mb-3"><i class="fas fa-screwdriver-wrench mr-2 text-pink-300"></i>2. Instale na sua IA</h4>
-                            <div class="space-y-3">
-                                <div class="rounded-xl bg-black/25 border border-brand-border p-4">
-                                <p class="text-sm font-bold text-white mb-3"><i class="fas fa-asterisk mr-2 text-gray-300"></i>Claude (computador)</p>
-                                <div class="flex flex-wrap items-center gap-2"><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Personalizar (Customize)</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Habilidades (Skills)</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">+</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Criar habilidade</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Enviar uma habilidade (Upload a skill)</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500 border-pink-300 text-white">Escolha o arquivo .zip</span></div><p class="text-xs text-gray-400 mt-3">Funciona nas contas gratuita e paga. Se a skill não funcionar, veja em Configurações, Recursos (Capabilities), se a opção de criar e editar arquivos está ligada.</p>
-                            </div>
-                                <div class="rounded-xl bg-black/25 border border-brand-border p-4">
-                                <p class="text-sm font-bold text-white mb-3"><i class="fas fa-gem mr-2 text-gray-300"></i>Gemini (web ou celular)</p>
-                                <div class="flex flex-wrap items-center gap-2"><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Página Skills (Habilidades)</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Criar</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Enviar (Upload)</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500 border-pink-300 text-white">Escolha o .zip ou o SKILL.md</span></div><p class="text-xs text-gray-400 mt-3">Disponível no site gemini.google.com e no aplicativo do celular.</p>
-                            </div>
-                                <div class="rounded-xl bg-black/25 border border-brand-border p-4">
-                                <p class="text-sm font-bold text-white mb-3"><i class="fas fa-comment-dots mr-2 text-gray-300"></i>ChatGPT (conta gratuita: sem instalar)</p>
-                                <div class="flex flex-wrap items-center gap-2"><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500/20 border-pink-400/50 text-white">Anexe o .zip na conversa</span><i class="fas fa-arrow-right text-pink-300" aria-hidden="true"></i><span class="sr-only">depois</span><span class="px-3 py-2 rounded-lg border text-sm font-semibold bg-pink-500 border-pink-300 text-white">Escreva: "Leia o arquivo anexado e comece a entrevista comigo."</span></div>
-                            </div>
-                            </div>
-
-                            <h4 class="text-lg font-extrabold text-white mt-7 mb-3"><i class="fas fa-play mr-2 text-pink-300"></i>3. Use</h4>
-                            <div class="rounded-xl bg-black/25 border border-brand-border p-4">
-                                <p class="text-sm text-gray-200 mb-2">No Claude e no Gemini, abra uma <strong class="text-white">conversa nova</strong> e escreva:</p>
-                                <p class="text-sm text-white bg-black/30 border border-brand-border rounded-lg p-3 mb-3">Quero criar minhas instruções.</p>
-                                <p class="text-sm text-gray-300">Responda uma pergunta por vez. Pode escolher um exemplo pelo número, escrever do seu jeito ou pular. No final, copie o texto pronto e cole onde você encontrou o campo de instruções.</p>
-                            </div>
-                            <p class="text-xs text-gray-400 mt-3">Os menus mudam com frequência. Se não encontrar, procure por Personalização ou Habilidades (Skills) na sua conta.</p>
+                        <div class="rounded-2xl border-2 border-yellow-400/60 bg-yellow-500/10 p-5 mt-6">
+                            <p class="text-yellow-200 font-extrabold mb-1"><i class="fas fa-circle-info mr-2"></i>Onde ficam as fontes?</p>
+                            <p class="text-sm text-gray-200">No Gemini, o notebook aparece <strong class="text-white">sem a parte de fontes e sem o estúdio</strong>. Ao lado dos três pontinhos há o link <strong class="text-white">Gemini Notebook</strong>, que abre o ambiente com as fontes, o chat e os materiais de estudo. Isso, e também o compartilhamento do notebook, ficam para a <strong class="text-white">próxima aula</strong>.</p>
                         </div>
                     </section>
 
-                    <section class="rounded-2xl border-2 border-green-400/50 bg-green-500/10 p-6" aria-labelledby="pers-b4">
-                        <h3 id="pers-b4" class="text-2xl font-extrabold text-green-200 mb-3"><i class="fas fa-list-check mr-2"></i>Sua missão agora</h3>
-                        <ol class="text-sm text-gray-200 space-y-2 list-decimal pl-5">
-                            <li>Encontre o campo de instruções gerais na sua conta.</li>
-                            <li>Com a skill liberada, crie as suas <strong class="text-white">instruções gerais</strong>, cole no campo e salve.</li>
-                            <li>Crie um projeto para uma tarefa que você repete sempre e escreva as <strong class="text-white">instruções dele</strong>.</li>
-                            <li>Faça um pedido curto dentro do projeto e veja se a resposta já vem do seu jeito.</li>
-                        </ol>
+                    <section class="rounded-2xl border-2 border-green-400/50 bg-green-500/10 p-6" aria-labelledby="pers-m3">
+                        <h3 id="pers-m3" class="text-2xl font-extrabold text-green-200 mb-3"><i class="fas fa-list-check mr-2"></i>Sua missão agora</h3>
+                        <ol class="text-sm text-gray-200 space-y-2 list-decimal pl-5"><li>No Gemini, abra <strong class="text-white">Novo notebook</strong>.</li><li>Escreva o <strong class="text-white">nome</strong> e o <strong class="text-white">objetivo</strong> do notebook.</li><li>Em <strong class="text-white">Configurações do notebook</strong>, escreva as instruções dele.</li></ol>
                     </section>
+                    </div>
+                </div>
+
+                <!-- ABA: MÚSICAS DAS AULAS -->
+                <div id="tab-musicas" class="tab-content max-w-3xl mx-auto">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-2"><span class="text-gradient">Músicas das aulas</span></h2>
+                    <p class="text-gray-200 text-lg mb-6">Cada aula tem a sua música. Aperte o play e ouça aqui mesmo.</p>
+
+                    <div class="glass-card p-6 mb-6">
+                        <p class="text-xs uppercase tracking-wider text-gray-400 font-bold mb-1">Tocando agora</p>
+                        <h3 id="mus-titulo" class="text-2xl font-extrabold text-white leading-snug">Pergunte bem, confira bem</h3>
+                        <p id="mus-aula" class="text-sm text-purple-200 mb-4"></p>
+                        <audio id="mus-audio" controls preload="none" class="w-full" aria-label="Player da música da aula"></audio>
+                        <div class="flex items-center gap-3 mt-4">
+                            <button type="button" id="mus-ant" class="border border-brand-border text-gray-200 hover:text-white text-sm font-semibold px-4 py-2 rounded-lg" aria-label="Música anterior"><i class="fas fa-backward-step mr-2"></i>Anterior</button>
+                            <button type="button" id="mus-prox" class="border border-brand-border text-gray-200 hover:text-white text-sm font-semibold px-4 py-2 rounded-lg" aria-label="Próxima música">Próxima<i class="fas fa-forward-step ml-2"></i></button>
+                        </div>
+                        <p id="mus-erro" role="status" class="text-sm text-red-300 mt-3 hidden">Não foi possível carregar esta música. Atualize a página e tente de novo.</p>
+                    </div>
+
+                    <h4 class="text-lg font-extrabold text-white mb-3"><i class="fas fa-list-ul mr-2 text-purple-300"></i>Playlist</h4>
+                    <ul id="mus-lista" class="space-y-2"></ul>
                 </div>
 
                 <!-- ABA: BIBLIOTECA -->
@@ -759,6 +878,42 @@
                     <div class="rounded-xl border border-purple-500/40 border-t-4 border-t-purple-400 bg-purple-500/10 p-6">
                         <h3 class="font-bold text-purple-300 mb-3"><i class="fas fa-award mr-2"></i>Minhas declarações de participação</h3>
                         <div id="meus-certificados" class="space-y-3"><p class="text-sm text-gray-400">Nenhuma presença registrada ainda.</p></div>
+                    </div>
+                </div>
+
+                <!-- ABA: MEU DEPOIMENTO -->
+                <div id="tab-depoimento" class="tab-content max-w-3xl mx-auto">
+                    <h2 class="text-3xl font-bold mb-2"><span class="text-gradient">Meu Depoimento</span></h2>
+                    <p class="text-gray-300 mb-6">Conte como foi a sua experiência em uma aula. Seu texto ajuda os próximos participantes e aparece no rodapé da plataforma <strong>sem o seu nome</strong>, somente depois de revisado pela coordenação.</p>
+
+                    <div class="rounded-xl border border-pink-500/40 border-t-4 border-t-pink-400 bg-pink-500/10 p-6 mb-6">
+                        <h3 id="dp-form-titulo" class="font-bold text-pink-300 mb-3"><i class="fas fa-pen mr-2"></i>Escrever depoimento</h3>
+                        <form id="dp-form" class="space-y-4">
+                            <div>
+                                <label for="dp-aula" class="block text-sm text-gray-200 mb-1">Nome da aula</label>
+                                <input id="dp-aula" list="dp-aulas-lista" maxlength="120" autocomplete="off" class="glass-input w-full px-4 py-3 rounded-xl text-sm" placeholder="Ex.: Segurança, Ética e Engenharia de Prompt no Ensino de Matemática">
+                                <datalist id="dp-aulas-lista"></datalist>
+                            </div>
+                            <div>
+                                <label for="dp-texto" class="block text-sm text-gray-200 mb-1">Seu depoimento</label>
+                                <textarea id="dp-texto" rows="6" maxlength="800" class="glass-input w-full px-4 py-3 rounded-xl text-sm leading-relaxed" placeholder="O que você aprendeu, o que mudou na sua forma de pensar o ensino, o que recomendaria a quem vai participar..."></textarea>
+                                <p class="text-xs text-gray-400 mt-1"><span id="dp-contador">0</span>/800 caracteres. Não cite nomes de pessoas, escolas ou estudantes.</p>
+                            </div>
+                            <label class="flex items-start gap-3 text-xs text-gray-200 leading-relaxed">
+                                <input id="dp-aceite" type="checkbox" class="mt-1">
+                                <span>Autorizo a publicação anônima deste texto no rodapé da plataforma, após revisão da coordenação. Posso editar ou excluir o depoimento quando quiser.</span>
+                            </label>
+                            <p id="dp-msg" role="status" class="text-sm min-h-[1.25rem]"></p>
+                            <div class="flex flex-wrap gap-3">
+                                <button type="submit" class="bg-brand-pink hover:bg-brand-purple text-white text-sm font-semibold px-5 py-3 rounded-xl transition-colors"><i class="fas fa-paper-plane mr-2"></i><span id="dp-enviar-rot">Enviar para revisão</span></button>
+                                <button type="button" id="dp-cancelar" class="hidden border border-brand-border text-gray-300 hover:text-white text-sm px-5 py-3 rounded-xl">Cancelar edição</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="rounded-xl border border-purple-500/40 border-t-4 border-t-purple-400 bg-purple-500/10 p-6">
+                        <h3 class="font-bold text-purple-300 mb-3"><i class="fas fa-list mr-2"></i>Meus depoimentos</h3>
+                        <div id="dp-meus" class="space-y-3"><p class="text-sm text-gray-400">Você ainda não enviou depoimentos.</p></div>
                     </div>
                 </div>
 
@@ -839,6 +994,13 @@
                         <div id="au-presentes" class="hidden border border-dashed border-brand-border rounded-xl p-4"></div>
                     </div>
 
+                    <!-- Depoimentos: moderação -->
+                    <div class="glass-card p-6 mt-8">
+                        <h3 class="text-xl font-bold text-white mb-2"><i class="fas fa-comment-dots text-brand-pink mr-2"></i>Depoimentos dos participantes</h3>
+                        <p class="text-xs text-gray-400 mb-4">Só a coordenação vê o autor. No rodapé aparece apenas "Participante" e o nome da aula, depois que você aprovar.</p>
+                        <div id="dpa-lista" class="divide-y divide-white/10 border border-brand-border rounded-xl"></div>
+                    </div>
+
                     <!-- Etapa 2 da Engenharia de Prompt (protegida por senha) -->
                     <div class="glass-card p-6 mt-8">
                         <h3 class="text-xl font-bold text-white mb-2"><i class="fas fa-key text-yellow-400 mr-2"></i>Etapa 2 com senha (Engenharia de Prompt)</h3>
@@ -876,13 +1038,21 @@
                     </div>
                 </div>
 
+                <!-- Depoimentos anônimos (rodapé) -->
+                <footer id="rodape-depoimentos" class="hidden max-w-5xl mx-auto mt-12 pt-8 border-t border-brand-border">
+                    <h3 class="text-2xl font-bold text-white mb-1"><i class="fas fa-quote-left text-brand-pink mr-2"></i>O que dizem os participantes</h3>
+                    <p class="text-sm text-gray-400 mb-5">Relatos anônimos de quem já participou das aulas.</p>
+                    <div id="rodape-lista" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                    <button type="button" id="rodape-mais" class="hidden mt-4 border border-brand-border text-gray-200 hover:text-white text-sm px-4 py-2 rounded-lg">Ver mais depoimentos</button>
+                </footer>
+
                 <!-- Spacer for scroll -->
                 <div class="h-24"></div>
             </div>
         </main>
 
         <!-- Overlay para mobile quando bloco abrir -->
-        <div id="notepad-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden md:hidden"></div>
+        <div id="notepad-overlay" class="fixed inset-0 bg-black/80 z-40 hidden"></div>
 
         <aside id="notepad-sidebar" class="w-full sm:w-96 glass fixed right-0 top-0 h-full z-50 border-l border-brand-border flex flex-col shadow-[-10px_0_30px_rgba(0,0,0,0.5)] transform translate-x-full notepad-closed">
             
@@ -901,6 +1071,17 @@
                 <button id="close-notepad-btn" class="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-brand-surface transition-colors">
                     <i class="fas fa-times text-lg"></i>
                 </button>
+            </div>
+
+            <div class="nota-barra p-3 space-y-2">
+                <div class="flex gap-2 items-center">
+                    <label for="nota-select" class="sr-only">Escolher anotação</label>
+                    <select id="nota-select" aria-label="Escolher anotação"></select>
+                    <button type="button" id="nota-nova" class="nota-btn"><i class="fas fa-plus mr-1"></i>Nova</button>
+                    <button type="button" id="nota-excluir" class="nota-btn perigo" aria-label="Excluir esta anotação"><i class="fas fa-trash"></i></button>
+                </div>
+                <label for="nota-titulo" class="sr-only">Nome da anotação</label>
+                <input id="nota-titulo" type="text" maxlength="80" placeholder="Nome da anotação (ex.: Aula 1)" autocomplete="off">
             </div>
 
             <div class="flex-1 p-0 relative">
@@ -1089,6 +1270,7 @@
             carregarEtapa2Admin();
             carregarEtapa3Admin();
             carregarAulasAdmin();
+            carregarRodape(); carregarMeusDepoimentos(); carregarDepoimentosAdmin();
             carregarPerfil().then(carregarMeusCertificados); verificarSkillLiberada();
 
             authView.classList.add('hidden');
@@ -1124,8 +1306,12 @@
             });
         });
 
-        function openMobileSidebar() { mainSidebar.classList.remove('-translate-x-full'); }
-        function closeMobileSidebar() { mainSidebar.classList.add('-translate-x-full'); }
+        const sidebarOverlay = document.createElement('div');
+        sidebarOverlay.id = 'sidebar-overlay';
+        mainSidebar.parentNode.insertBefore(sidebarOverlay, mainSidebar);
+        function openMobileSidebar() { mainSidebar.classList.remove('-translate-x-full'); sidebarOverlay.classList.add('aberto'); }
+        function closeMobileSidebar() { mainSidebar.classList.add('-translate-x-full'); sidebarOverlay.classList.remove('aberto'); }
+        sidebarOverlay.addEventListener('click', closeMobileSidebar);
         openSidebarBtn.addEventListener('click', openMobileSidebar);
         closeSidebarBtn.addEventListener('click', closeMobileSidebar);
 
@@ -1148,6 +1334,11 @@
         notepadOverlay.addEventListener('click', toggleNotepad);
 
         const chaveLocal = uid => `hubmat_notes_${uid}`;
+        const notaSel = document.getElementById('nota-select');
+        const notaTitulo = document.getElementById('nota-titulo');
+        const caderno = { itens: [], ativa: null };
+        const novaId = () => 'n' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+        const notaAtiva = () => caderno.itens.find(n => n.id === caderno.ativa) || null;
 
         function mostrarIndicador(html, esconderDepois) {
             saveIndicator.innerHTML = html;
@@ -1155,38 +1346,94 @@
             if (esconderDepois) setTimeout(() => saveIndicator.classList.remove('opacity-100'), 2000);
         }
 
-        personalNotesArea.addEventListener('input', () => {
+        function desenharCaderno() {
+            notaSel.innerHTML = '';
+            caderno.itens.forEach(n => {
+                const o = document.createElement('option');
+                o.value = n.id; o.textContent = n.titulo || 'Sem nome';
+                notaSel.appendChild(o);
+            });
+            const n = notaAtiva();
+            notaSel.value = n ? n.id : '';
+            notaTitulo.value = n ? n.titulo : '';
+            personalNotesArea.value = n ? n.texto : '';
+        }
+
+        function agendarSalvar(imediato) {
             clearTimeout(noteSaveTimeout);
             mostrarIndicador('<i class="fas fa-spinner fa-spin"></i> Salvando...', false);
-
             noteSaveTimeout = setTimeout(async () => {
                 const user = state.currentUser;
                 if (!user) return;
-                const texto = personalNotesArea.value;
+                const carga = { caderno: caderno.itens, ativa: caderno.ativa, atualizadoEm: serverTimestamp() };
                 try {
-                    await setDoc(doc(db, 'notas', user.uid), { texto, atualizadoEm: serverTimestamp() });
-                    mostrarIndicador('<i class="fas fa-check text-green-400"></i> Salvo na sua conta', true);
+                    await setDoc(doc(db, 'notas', user.uid), carga, { merge: true });
+                    mostrarIndicador('<i class="fas fa-check text-green-500"></i> Salvo na sua conta', true);
                 } catch (err) {
-                    try { localStorage.setItem(chaveLocal(user.uid), texto); } catch (e) {}
-                    mostrarIndicador('<i class="fas fa-exclamation-triangle text-yellow-400"></i> Sem conexão: salvo só neste dispositivo', true);
+                    try { localStorage.setItem(chaveLocal(user.uid), JSON.stringify({ itens: caderno.itens, ativa: caderno.ativa })); } catch (e) {}
+                    mostrarIndicador('<i class="fas fa-exclamation-triangle text-yellow-500"></i> Sem conexão: salvo só neste dispositivo', true);
                 }
-            }, 800);
+            }, imediato ? 100 : 800);
+        }
+
+        personalNotesArea.addEventListener('input', () => {
+            const n = notaAtiva(); if (!n) return;
+            n.texto = personalNotesArea.value; n.em = Date.now();
+            agendarSalvar(false);
         });
+        notaTitulo.addEventListener('input', () => {
+            const n = notaAtiva(); if (!n) return;
+            n.titulo = notaTitulo.value;
+            const o = notaSel.querySelector('option[value="' + n.id + '"]');
+            if (o) o.textContent = n.titulo || 'Sem nome';
+            agendarSalvar(false);
+        });
+        notaSel.addEventListener('change', () => {
+            caderno.ativa = notaSel.value; desenharCaderno(); agendarSalvar(true); personalNotesArea.focus();
+        });
+        document.getElementById('nota-nova').addEventListener('click', () => {
+            const n = { id: novaId(), titulo: 'Aula ' + (caderno.itens.length + 1), texto: '', em: Date.now() };
+            caderno.itens.push(n); caderno.ativa = n.id; desenharCaderno(); agendarSalvar(true);
+            notaTitulo.focus(); notaTitulo.select();
+        });
+        document.getElementById('nota-excluir').addEventListener('click', () => {
+            const n = notaAtiva(); if (!n) return;
+            if (!confirm('Excluir a anotação "' + (n.titulo || 'Sem nome') + '"? Esta ação não pode ser desfeita.')) return;
+            caderno.itens = caderno.itens.filter(x => x.id !== n.id);
+            if (!caderno.itens.length) caderno.itens.push({ id: novaId(), titulo: 'Aula 1', texto: '', em: Date.now() });
+            caderno.ativa = caderno.itens[0].id; desenharCaderno(); agendarSalvar(true);
+        });
+
+        function limparCaderno() {
+            caderno.itens = []; caderno.ativa = null; notaSel.innerHTML = ''; notaTitulo.value = ''; personalNotesArea.value = '';
+        }
 
         async function loadNotes() {
             const user = state.currentUser;
             if (!user) return;
-            personalNotesArea.disabled = true;
-            personalNotesArea.value = '';
+            personalNotesArea.disabled = true; notaTitulo.disabled = true; notaSel.disabled = true;
+            limparCaderno();
+            let dados = null, falhou = false;
             try {
                 const snap = await getDoc(doc(db, 'notas', user.uid));
-                personalNotesArea.value = snap.exists() ? (snap.data().texto || '') : '';
+                dados = snap.exists() ? snap.data() : {};
             } catch (err) {
-                try { personalNotesArea.value = localStorage.getItem(chaveLocal(user.uid)) || ''; } catch (e) {}
+                falhou = true;
+                try { const l = JSON.parse(localStorage.getItem(chaveLocal(user.uid)) || 'null'); if (l && Array.isArray(l.itens)) dados = { caderno: l.itens, ativa: l.ativa }; } catch (e) {}
                 showToast('Não foi possível carregar suas anotações da nuvem.', 'error');
-            } finally {
-                personalNotesArea.disabled = false;
             }
+            dados = dados || {};
+            if (Array.isArray(dados.caderno) && dados.caderno.length) {
+                caderno.itens = dados.caderno.map(n => ({ id: String(n.id || novaId()), titulo: String(n.titulo || ''), texto: String(n.texto || ''), em: n.em || 0 }));
+                caderno.ativa = caderno.itens.some(n => n.id === dados.ativa) ? dados.ativa : caderno.itens[0].id;
+            } else {
+                // Migra a anotação única antiga para a primeira anotação do caderno
+                caderno.itens = [{ id: novaId(), titulo: dados.texto ? 'Anotações anteriores' : 'Aula 1', texto: String(dados.texto || ''), em: Date.now() }];
+                caderno.ativa = caderno.itens[0].id;
+                if (!falhou && dados.texto) agendarSalvar(true);
+            }
+            desenharCaderno();
+            personalNotesArea.disabled = false; notaTitulo.disabled = false; notaSel.disabled = false;
         }
 
         // === CONTEÚDO PROTEGIDO (coleção "conteudo", liberada só após login) ===
@@ -1201,6 +1448,7 @@
             ABAS_PROTEGIDAS.forEach(id => { alvoConteudo(id).innerHTML = PLACEHOLDER; });
             resetEtapa2();
             resetEtapa3();
+            limparCaderno(); limparDepoimentos();
             state.perfil = null; fecharPerfil(); atualizarPerfilNaTela();
             document.getElementById('meus-certificados').innerHTML = ''; skillLiberar(false); document.getElementById('au-lista').innerHTML = ''; document.getElementById('au-presentes').classList.add('hidden');
             dashboardPromptCount.textContent = '0';
@@ -1678,7 +1926,14 @@
             setTimeout(() => perfilNome.focus(), 50);
         }
         function fecharPerfil() { perfilModal.classList.add('hidden'); }
+        function atualizarSaudacao() {
+            const base = (state.perfil && state.perfil.nomeCompleto) || (state.currentUser && state.currentUser.displayName) || '';
+            const primeiro = limparNome(base).split(' ')[0];
+            const el_ = document.getElementById('saudacao-nome');
+            if (el_) el_.textContent = primeiro ? 'Olá, ' + primeiro + '!' : 'Olá!';
+        }
         function atualizarPerfilNaTela() {
+            atualizarSaudacao();
             document.getElementById('perfil-nome-atual').textContent = state.perfil ? state.perfil.nomeCompleto : '-';
         }
         perfilNome.addEventListener('input', () => { document.getElementById('perfil-previa').textContent = limparNome(perfilNome.value) || '-'; });
@@ -1741,6 +1996,7 @@
                     let aula = null;
                     try { const a = await getDoc(doc(db, 'aulas', aulaId)); if (a.exists()) aula = a.data(); } catch (e) {}
                     if (!aula) continue;
+                    { const dl = document.getElementById('dp-aulas-lista'); if (dl && ![...dl.options].some(o => o.value === aula.titulo)) { const op = document.createElement('option'); op.value = aula.titulo; dl.appendChild(op); } }
                     const linha = el('div', 'flex flex-wrap items-center gap-3 p-3 rounded-lg bg-black/20 border border-brand-border');
                     const info = el('div', 'flex-1 min-w-0');
                     info.append(el('p', 'text-sm text-white font-medium', aula.titulo), el('p', 'text-xs text-gray-400', aula.data + ' às ' + aula.hora + ' · ' + aula.cargaHoraria));
@@ -1845,6 +2101,70 @@
             const b = e.target.closest('[data-copiar]'); if (!b) return;
             const alvo = document.getElementById(b.dataset.copiar); if (alvo) copiarGenerico(alvo.textContent, b);
         });
+
+
+        // ---- Aula de Personalização: três partes ----
+        (function () {
+            const cores = { 1: 'purple', 2: 'sky', 3: 'emerald' };
+            function mostrarParte(n) {
+                [1, 2, 3].forEach(i => {
+                    const b = document.getElementById('pers-btn-' + i), p = document.getElementById('pers-p' + i);
+                    if (!b || !p) return;
+                    const ativo = i === n;
+                    p.classList.toggle('hidden', !ativo);
+                    b.setAttribute('aria-selected', ativo ? 'true' : 'false');
+                    b.className = 'px-4 py-2 rounded-xl text-sm font-semibold transition-colors ' + (ativo
+                        ? 'bg-' + cores[i] + '-500 text-white'
+                        : 'bg-brand-surface border border-brand-border text-gray-300 hover:text-white');
+                });
+            }
+            [1, 2, 3].forEach(i => { const b = document.getElementById('pers-btn-' + i); if (b) b.addEventListener('click', () => mostrarParte(i)); });
+        })();
+
+        // ---- Músicas das aulas (arquivos na pasta audio/ do repositório) ----
+        const MUSICAS = [
+            { titulo: 'Pergunte bem, confira bem', aula: 'Aula 1 · Engenharia de Prompt', arquivo: 'audio/pergunte-bem-confira-bem.mp3' }
+        ];
+        (function () {
+            const audio = document.getElementById('mus-audio'), lista = document.getElementById('mus-lista');
+            const tit = document.getElementById('mus-titulo'), aul = document.getElementById('mus-aula'), erro = document.getElementById('mus-erro');
+            if (!audio || !lista) return;
+            let atual = 0;
+            function marcar() {
+                lista.querySelectorAll('li').forEach((li, i) => {
+                    li.classList.toggle('border-purple-400', i === atual);
+                    li.classList.toggle('bg-purple-500/10', i === atual);
+                });
+            }
+            function carregar(i, tocar) {
+                atual = (i + MUSICAS.length) % MUSICAS.length;
+                const m = MUSICAS[atual];
+                tit.textContent = m.titulo; aul.textContent = m.aula;
+                erro.classList.add('hidden');
+                audio.src = m.arquivo;
+                marcar();
+                if (tocar) { const p = audio.play(); if (p && p.catch) p.catch(() => {}); }
+            }
+            MUSICAS.forEach((m, i) => {
+                const li = document.createElement('li');
+                li.className = 'flex items-center gap-3 rounded-xl border border-brand-border bg-black/20 p-3';
+                const bt = document.createElement('button');
+                bt.type = 'button';
+                bt.className = 'shrink-0 w-10 h-10 rounded-full bg-brand-purple hover:bg-brand-pink text-white flex items-center justify-center transition-colors';
+                bt.setAttribute('aria-label', 'Tocar ' + m.titulo);
+                bt.innerHTML = '<i class="fas fa-play"></i>';
+                bt.addEventListener('click', () => carregar(i, true));
+                const tx = document.createElement('div');
+                const a = document.createElement('p'); a.className = 'text-sm font-bold text-white'; a.textContent = m.titulo;
+                const b = document.createElement('p'); b.className = 'text-xs text-gray-400'; b.textContent = m.aula;
+                tx.append(a, b); li.append(bt, tx); lista.appendChild(li);
+            });
+            audio.addEventListener('ended', () => { if (MUSICAS.length > 1) carregar(atual + 1, true); });
+            audio.addEventListener('error', () => erro.classList.remove('hidden'));
+            document.getElementById('mus-ant').addEventListener('click', () => carregar(atual - 1, !audio.paused));
+            document.getElementById('mus-prox').addEventListener('click', () => carregar(atual + 1, !audio.paused));
+            carregar(0, false);
+        })();
 
         function carregarJsPdf() {
             return new Promise((resolve, reject) => {
@@ -1985,6 +2305,154 @@
                 showToast('Aula salva com o código "' + codigo + '".', 'success'); await carregarAulasAdmin();
             } catch (err) { showToast('Sem permissão ou sem conexão para salvar.', 'error'); }
         });
+
+        // === DEPOIMENTOS ANÔNIMOS ===
+        // depoimentos/{id}: privado (autor + coordenação). depoimentos_publicos/{id}: cópia anônima criada na aprovação.
+        const dpForm = document.getElementById('dp-form');
+        const dpAula = document.getElementById('dp-aula'), dpTexto = document.getElementById('dp-texto'), dpAceite = document.getElementById('dp-aceite');
+        const dpState = { editId: null, publicos: [], mostrados: 6 };
+        const novoIdDp = () => [...crypto.getRandomValues(new Uint8Array(10))].map(x => x.toString(16).padStart(2, '0')).join('');
+        function msgDp(t, cor) { const m = document.getElementById('dp-msg'); m.textContent = t; m.className = 'text-sm min-h-[1.25rem] ' + (cor || 'text-gray-300'); }
+        dpTexto.addEventListener('input', () => { document.getElementById('dp-contador').textContent = dpTexto.value.length; });
+
+        function sairEdicaoDp() {
+            dpState.editId = null; dpAula.value = ''; dpTexto.value = ''; dpAceite.checked = false;
+            document.getElementById('dp-contador').textContent = '0';
+            document.getElementById('dp-form-titulo').innerHTML = '<i class="fas fa-pen mr-2"></i>Escrever depoimento';
+            document.getElementById('dp-enviar-rot').textContent = 'Enviar para revisão';
+            document.getElementById('dp-cancelar').classList.add('hidden');
+        }
+        document.getElementById('dp-cancelar').addEventListener('click', () => { sairEdicaoDp(); msgDp(''); });
+
+        dpForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = state.currentUser; if (!user) return;
+            const aula = limparNome(dpAula.value), texto = dpTexto.value.replace(/\s+\n/g, '\n').trim();
+            if (aula.length < 3) { msgDp('Informe o nome da aula.', 'text-yellow-300'); return; }
+            if (texto.length < 20) { msgDp('Escreva um pouco mais (mínimo de 20 caracteres).', 'text-yellow-300'); return; }
+            if (!dpAceite.checked) { msgDp('Marque a autorização para enviar.', 'text-yellow-300'); return; }
+            msgDp('Enviando...', 'text-gray-300');
+            try {
+                const id = dpState.editId || novoIdDp();
+                if (dpState.editId) { try { await deleteDoc(doc(db, 'depoimentos_publicos', id)); } catch (err) {} }
+                await setDoc(doc(db, 'depoimentos', id), {
+                    uid: user.uid, nome: state.perfil ? state.perfil.nomeCompleto : (user.displayName || ''), email: user.email,
+                    aula, texto, aprovado: false, ts: Date.now()
+                });
+                sairEdicaoDp();
+                msgDp('Recebido. Seu depoimento aparece no rodapé depois da revisão da coordenação.', 'text-green-300');
+                carregarMeusDepoimentos(); carregarRodape();
+            } catch (err) { msgDp('Não foi possível enviar agora. Tente novamente.', 'text-red-300'); }
+        });
+
+        async function carregarMeusDepoimentos() {
+            const box = document.getElementById('dp-meus'); box.innerHTML = '';
+            const user = state.currentUser; if (!user) return;
+            try {
+                const snap = await getDocs(query(collection(db, 'depoimentos'), where('uid', '==', user.uid)));
+                const itens = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (b.ts || 0) - (a.ts || 0));
+                if (!itens.length) { box.appendChild(el('p', 'text-sm text-gray-400', 'Você ainda não enviou depoimentos.')); return; }
+                itens.forEach(it => {
+                    const card = el('div', 'p-3 rounded-lg bg-black/20 border border-brand-border');
+                    const topo = el('div', 'flex flex-wrap items-center gap-2 mb-1');
+                    topo.append(el('span', 'text-sm text-white font-semibold flex-1 min-w-0', it.aula),
+                        el('span', it.aprovado ? 'text-xs text-green-300' : 'text-xs text-yellow-300', it.aprovado ? 'Publicado' : 'Aguardando revisão'));
+                    card.append(topo, el('p', 'text-sm text-gray-200 whitespace-pre-line mb-3', it.texto));
+                    const ed = el('button', 'text-xs border border-brand-border text-gray-200 hover:text-white px-3 py-1 rounded-lg mr-2', 'Editar');
+                    ed.addEventListener('click', () => {
+                        dpState.editId = it.id; dpAula.value = it.aula; dpTexto.value = it.texto; dpAceite.checked = false;
+                        document.getElementById('dp-contador').textContent = it.texto.length;
+                        document.getElementById('dp-form-titulo').innerHTML = '<i class="fas fa-pen mr-2"></i>Editar depoimento';
+                        document.getElementById('dp-enviar-rot').textContent = 'Salvar e enviar para revisão';
+                        document.getElementById('dp-cancelar').classList.remove('hidden');
+                        msgDp(it.aprovado ? 'Ao salvar, a versão publicada sai do rodapé até a coordenação revisar de novo.' : '', 'text-yellow-300');
+                        dpAula.focus();
+                    });
+                    const ex = el('button', 'text-xs border border-red-500/40 text-red-300 hover:bg-red-500/20 px-3 py-1 rounded-lg', 'Excluir');
+                    ex.addEventListener('click', async () => {
+                        if (!confirm('Excluir este depoimento? Ele também sai do rodapé.')) return;
+                        try {
+                            try { await deleteDoc(doc(db, 'depoimentos_publicos', it.id)); } catch (err) {}
+                            await deleteDoc(doc(db, 'depoimentos', it.id));
+                            if (dpState.editId === it.id) sairEdicaoDp();
+                            carregarMeusDepoimentos(); carregarRodape();
+                        } catch (err) { showToast('Não foi possível excluir agora.', 'error'); }
+                    });
+                    card.append(ed, ex); box.appendChild(card);
+                });
+            } catch (err) { box.appendChild(el('p', 'text-sm text-red-300', 'Não foi possível carregar seus depoimentos.')); }
+        }
+
+        function desenharRodape() {
+            const rod = document.getElementById('rodape-depoimentos'), lista = document.getElementById('rodape-lista');
+            lista.innerHTML = '';
+            if (!dpState.publicos.length) { rod.classList.add('hidden'); return; }
+            rod.classList.remove('hidden');
+            dpState.publicos.slice(0, dpState.mostrados).forEach(d => {
+                const c = el('blockquote', 'rounded-xl border border-brand-border bg-black/25 p-5');
+                c.append(el('p', 'text-gray-100 text-sm leading-relaxed whitespace-pre-line mb-3', '“' + d.texto + '”'),
+                    el('p', 'text-xs text-brand-pink font-semibold', 'Participante · Aula: ' + d.aula));
+                lista.appendChild(c);
+            });
+            document.getElementById('rodape-mais').classList.toggle('hidden', dpState.publicos.length <= dpState.mostrados);
+        }
+        document.getElementById('rodape-mais').addEventListener('click', () => { dpState.mostrados += 6; desenharRodape(); });
+        async function carregarRodape() {
+            try {
+                const snap = await getDocs(collection(db, 'depoimentos_publicos'));
+                dpState.publicos = snap.docs.map(d => d.data()).filter(d => d && d.texto).sort((a, b) => (b.ts || 0) - (a.ts || 0));
+            } catch (err) { dpState.publicos = []; }
+            desenharRodape();
+        }
+
+        async function carregarDepoimentosAdmin() {
+            const lista = document.getElementById('dpa-lista'); lista.innerHTML = '';
+            if (!state.isAdmin) return;
+            try {
+                const snap = await getDocs(collection(db, 'depoimentos'));
+                const itens = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (a.aprovado === b.aprovado ? (b.ts || 0) - (a.ts || 0) : (a.aprovado ? 1 : -1)));
+                if (!itens.length) { lista.appendChild(el('p', 'text-sm text-gray-400 p-4', 'Nenhum depoimento recebido ainda.')); return; }
+                itens.forEach(it => {
+                    const linha = el('div', 'p-4 space-y-2');
+                    const topo = el('div', 'flex flex-wrap items-center gap-2');
+                    topo.append(el('span', 'text-sm text-white font-semibold flex-1 min-w-0', it.aula),
+                        el('span', it.aprovado ? 'text-xs text-green-300' : 'text-xs text-yellow-300', it.aprovado ? 'Publicado' : 'Aguardando aprovação'));
+                    linha.append(topo, el('p', 'text-xs text-gray-400', 'Autor (só você vê): ' + (it.nome || '-') + ' · ' + (it.email || '')), el('p', 'text-sm text-gray-200 whitespace-pre-line', it.texto));
+                    const acoes = el('div', 'flex flex-wrap gap-2');
+                    const mk = (rot, fn, cls) => { const b = el('button', cls || 'text-xs border border-brand-border text-gray-200 hover:text-white px-3 py-1 rounded-lg', rot); b.addEventListener('click', fn); return b; };
+                    const falha = () => showToast('Sem permissão ou sem conexão.', 'error');
+                    if (!it.aprovado) acoes.appendChild(mk('Aprovar e publicar', async () => {
+                        try {
+                            await setDoc(doc(db, 'depoimentos_publicos', it.id), { aula: it.aula, texto: it.texto, ts: Date.now() });
+                            await setDoc(doc(db, 'depoimentos', it.id), { aprovado: true }, { merge: true });
+                            await carregarDepoimentosAdmin(); carregarRodape();
+                        } catch (err) { falha(); }
+                    }, 'text-xs border border-green-500/40 text-green-300 hover:bg-green-500/20 px-3 py-1 rounded-lg'));
+                    else acoes.appendChild(mk('Despublicar', async () => {
+                        try {
+                            await deleteDoc(doc(db, 'depoimentos_publicos', it.id));
+                            await setDoc(doc(db, 'depoimentos', it.id), { aprovado: false }, { merge: true });
+                            await carregarDepoimentosAdmin(); carregarRodape();
+                        } catch (err) { falha(); }
+                    }));
+                    acoes.appendChild(mk('Excluir', async () => {
+                        if (!confirm('Excluir este depoimento definitivamente?')) return;
+                        try {
+                            try { await deleteDoc(doc(db, 'depoimentos_publicos', it.id)); } catch (err) {}
+                            await deleteDoc(doc(db, 'depoimentos', it.id));
+                            await carregarDepoimentosAdmin(); carregarRodape();
+                        } catch (err) { falha(); }
+                    }, 'text-xs border border-red-500/40 text-red-300 hover:bg-red-500/20 px-3 py-1 rounded-lg'));
+                    linha.appendChild(acoes); lista.appendChild(linha);
+                });
+            } catch (err) { lista.appendChild(el('p', 'text-sm text-red-300 p-4', 'Não foi possível listar. Confira se as regras v7 foram publicadas.')); }
+        }
+
+        function limparDepoimentos() {
+            sairEdicaoDp(); dpState.publicos = []; dpState.mostrados = 6; msgDp('');
+            document.getElementById('dp-meus').innerHTML = ''; document.getElementById('dpa-lista').innerHTML = '';
+            document.getElementById('rodape-lista').innerHTML = ''; document.getElementById('rodape-depoimentos').classList.add('hidden');
+        }
 
         // === BUSCA NA BIBLIOTECA DE PROMPTS (título, categoria e texto; ignora acentos) ===
         const normalizar = t => t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
