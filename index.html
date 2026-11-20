@@ -831,6 +831,10 @@
                             <button type="button" id="mus-ant" class="border border-brand-border text-gray-200 hover:text-white text-sm font-semibold px-4 py-2 rounded-lg" aria-label="Música anterior"><i class="fas fa-backward-step mr-2"></i>Anterior</button>
                             <button type="button" id="mus-prox" class="border border-brand-border text-gray-200 hover:text-white text-sm font-semibold px-4 py-2 rounded-lg" aria-label="Próxima música">Próxima<i class="fas fa-forward-step ml-2"></i></button>
                         </div>
+                        <div class="flex flex-wrap items-center gap-3 mt-3">
+                            <button type="button" id="mus-repetir" aria-pressed="false" class="border border-brand-border text-gray-300 hover:text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"><i class="fas fa-repeat mr-2"></i>Repetir esta música</button>
+                            <button type="button" id="mus-aleatorio" aria-pressed="false" class="border border-brand-border text-gray-300 hover:text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"><i class="fas fa-shuffle mr-2"></i>Ordem aleatória</button>
+                        </div>
                         <p id="mus-erro" role="status" class="text-sm text-red-300 mt-3 hidden">Não foi possível carregar esta música. Atualize a página e tente de novo.</p>
                     </div>
 
@@ -2128,7 +2132,8 @@
 
         // ---- Músicas das aulas (arquivos na pasta audio/ do repositório) ----
         const MUSICAS = [
-            { titulo: 'Pergunte bem, confira bem', aula: 'Aula 1 · Engenharia de Prompt', arquivo: 'audio/Pergunte%20bem%2C%20confira%20bem.mp3' }
+            { titulo: 'Pergunte bem, confira bem', aula: 'Aula 1 · Engenharia de Prompt', arquivo: 'audio/Pergunte%20bem%2C%20confira%20bem.mp3' },
+            { titulo: 'Seu tempo rende mais', aula: 'Aula 2 · Personalização e Otimização de Tarefas com IA', arquivo: 'audio/Seu%20Tempo%20Rende%20Mais.mp3' }
         ];
         (function () {
             const audio = document.getElementById('mus-audio'), lista = document.getElementById('mus-lista');
@@ -2164,10 +2169,27 @@
                 const b = document.createElement('p'); b.className = 'text-xs text-gray-400'; b.textContent = m.aula;
                 tx.append(a, b); li.append(bt, tx); lista.appendChild(li);
             });
-            audio.addEventListener('ended', () => { if (MUSICAS.length > 1) carregar(atual + 1, true); });
+            let repetir = false, aleatorio = false;
+            function proxima() {
+                if (aleatorio && MUSICAS.length > 2) {
+                    let n; do { n = Math.floor(Math.random() * MUSICAS.length); } while (n === atual);
+                    return n;
+                }
+                return atual + 1;
+            }
+            function estiloBotao(b, ligado) {
+                b.setAttribute('aria-pressed', ligado ? 'true' : 'false');
+                b.className = 'text-sm font-semibold px-4 py-2 rounded-lg transition-colors border ' + (ligado
+                    ? 'bg-brand-purple border-purple-300 text-white'
+                    : 'border-brand-border text-gray-300 hover:text-white');
+            }
+            const btRep = document.getElementById('mus-repetir'), btAle = document.getElementById('mus-aleatorio');
+            btRep.addEventListener('click', () => { repetir = !repetir; audio.loop = repetir; estiloBotao(btRep, repetir); });
+            btAle.addEventListener('click', () => { aleatorio = !aleatorio; estiloBotao(btAle, aleatorio); });
+            audio.addEventListener('ended', () => { if (MUSICAS.length > 1) carregar(proxima(), true); });
             audio.addEventListener('error', () => erro.classList.remove('hidden'));
             document.getElementById('mus-ant').addEventListener('click', () => carregar(atual - 1, !audio.paused));
-            document.getElementById('mus-prox').addEventListener('click', () => carregar(atual + 1, !audio.paused));
+            document.getElementById('mus-prox').addEventListener('click', () => carregar(proxima(), !audio.paused));
             carregar(0, false);
         })();
 
